@@ -84,6 +84,9 @@ Card radius 0.65rem; list containers 0.55rem; status pills 0.25rem; native audio
 | `SiteMapList` | Home | Grouped nav with status pills |
 | `PageFrame` | Global | WIP strip above content |
 | `AudioClip` | Campus audio | Card + native `<audio>`; MP3 fallback for iOS |
+| `EmergencyIcon` | Global | Custom 24px SVG set (`src/components/icons/registry.ts`) |
+| `CrisisCard` | Home | Shortcut cards with code-colored icons |
+| `PageTitle` | Inner pages | Auto icon from URL path map |
 | Starlight `CardGrid` | Home crisis shortcuts | Stock Starlight cards |
 
 ## Do's and Don'ts

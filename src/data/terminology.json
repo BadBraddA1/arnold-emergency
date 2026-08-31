@@ -309,6 +309,14 @@
     "related": ["alert-bells", "first-bell"]
   },
   {
+    "slug": "spokesperson",
+    "term": "Spokesperson",
+    "short": "Official church voice during crisis",
+    "what": "The one person (plus backup) authorized to speak to press, post on official social media, and send congregation-wide messages during or after an incident. Works with the incident commander for facts but does not run the scene.",
+    "usage": "Route all media and official social posts to the spokesperson. Follow the [media & social media playbook](/communication/#media-and-social-media-playbook).",
+    "related": ["incident-commander", "post-incident"]
+  },
+  {
     "slug": "alert-gateway",
     "term": "Alert Gateway",
     "aliases": ["alarm-gw", "Pi gateway"],

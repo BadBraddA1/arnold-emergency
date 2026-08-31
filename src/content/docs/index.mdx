@@ -21,7 +21,7 @@ hero:
       variant: minimal
 ---
 
-import { Card, CardGrid } from '@astrojs/starlight/components';
+import CrisisCard from '../../components/CrisisCard.astro';
 import ToolPair from '../../components/ToolPair.astro';
 import SiteMapList from '../../components/SiteMapList.astro';
 
@@ -35,23 +35,23 @@ This site is **live for staff review** — not final policy until [Leadership ap
 
 ## Crisis shortcuts
 
-<CardGrid>
-	<Card title="Hear the horns" icon="star">
+<div class="crisis-card-grid">
+	<CrisisCard title="Hear the horns" icon="horns" tone="green">
 		Play Code Red, Blue, all clear, and bells — **[Campus audio reference](/system/campus-audio/)**
-	</Card>
-	<Card title="Code Red" icon="rocket">
+	</CrisisCard>
+	<CrisisCard title="Code Red" icon="code-red" tone="red">
 		Evacuate — [procedure](/codes/code-red/) · [hear tone](/system/campus-audio/)
-	</Card>
-	<Card title="Code Blue" icon="lock">
+	</CrisisCard>
+	<CrisisCard title="Code Blue" icon="code-blue" tone="blue">
 		Lockdown — [procedure](/codes/code-blue/) · [hear tone](/system/campus-audio/)
-	</Card>
-	<Card title="All clear" icon="approve-check">
+	</CrisisCard>
+	<CrisisCard title="All clear" icon="all-clear" tone="green">
 		IC only — [procedure](/codes/all-clear/)
-	</Card>
-	<Card title="911" icon="warning">
+	</CrisisCard>
+	<CrisisCard title="911" icon="medical" tone="amber">
 		Life threat — call **911** first. [Medical (draft)](/medical-emergency/)
-	</Card>
-</CardGrid>
+	</CrisisCard>
+</div>
 
 ## Site map
 
@@ -86,7 +86,7 @@ Everything on this site — status shows how complete each page is.
       { href: '/roles/', label: 'Roles & responsibilities', status: 'wip', note: 'IC, nursery, pulpit — names not filled in' },
       { href: '/triggers/', label: 'Who may trigger a code', status: 'usable', note: 'App, fob, 9090, PIN scopes' },
       { href: '/medical-emergency/', label: 'Medical emergency', status: 'draft', note: '911 now; AED / policy TBD' },
-      { href: '/communication/', label: 'Communication checklist', status: 'wip', note: 'IC checklist; spokesperson TBD' },
+      { href: '/communication/', label: 'Communication checklist', status: 'wip', note: 'IC checklist + media/social playbook; names TBD' },
       { href: '/training/', label: 'Training & drills', status: 'wip', note: 'Schedule; owners TBD' },
       { href: '/post-incident/', label: 'Post-incident', status: 'usable', note: 'Debrief within 72 hours' },
       { href: '/approval/', label: 'Leadership approval', status: 'wip', note: 'Sign-off record — not signed' },

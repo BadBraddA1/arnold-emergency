@@ -1,0 +1,24 @@
+---
+title: Terminology
+description: Every Arnold Alert and emergency procedure term — click any highlighted word on the site to land here.
+---
+
+import TerminologyList from '../../../components/TerminologyList.astro';
+
+When you see a **dotted green link** anywhere on this site, it is a defined term. Click it for what it means and how we use it.
+
+No one should have to guess what **Arnold Alert**, **Code Blue**, or **Fob Arm** means — if it is in the glossary, it is linked.
+
+## A–Z
+
+<TerminologyList />
+
+## For editors
+
+Terms live in `src/data/terminology.json`. After edits, run:
+
+```bash
+pnpm run generate:terminology
+```
+
+Then commit the updated pages under `terminology/terms/`.

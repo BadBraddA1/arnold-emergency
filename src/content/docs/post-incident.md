@@ -19,6 +19,7 @@ Within **72 hours** of any Code Red or Code Blue (including drills that surface 
 - Were nursery and classrooms accounted for?
 - Did anyone call all clear without IC approval?
 - Do classroom handouts need updates?
+- Did media or social media follow the [communication playbook](/communication/#media-and-social-media-playbook)? Any corrections needed?
 
 ## Update the source of truth
 

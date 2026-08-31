@@ -70,6 +70,21 @@ Fill in names and backups. **Review quarterly.**
 - Monitor phones; **call 911** if not already done.
 - **Do not** use ext 9090 (PA) for lockdown or evacuate.
 - Desk phones may ring before speaker-test horns; press **0** to delay horns during **tests only**.
+- **Direct media** to the spokesperson and staging area — see [Communication](/communication/).
+
+## Spokesperson (media & social media)
+
+| Field | Assignment |
+|-------|------------|
+| **Primary** | _[name]_ |
+| **Backup** | _[name]_ |
+
+**Responsibilities:**
+
+- **Only voice** for press, official social accounts, and congregation-wide messages during/after an incident.
+- Stay paired with IC for confirmed facts — no speculation.
+- Follow the [media & social media playbook](/communication/#media-and-social-media-playbook).
+- Pause scheduled social posts; protect privacy (especially children).
 
 ## All staff (general)
 

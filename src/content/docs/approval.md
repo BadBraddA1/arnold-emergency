@@ -34,7 +34,7 @@ Leadership owns these blanks — edit the linked pages in git (or ask staff to u
 | Area leads (nursery, pulpit, office) | [Roles](/roles/) | Primary + backup per area |
 | Assembly area(s) | [Code Red](/codes/code-red/), [Quick reference](/quick-reference/) | Where evacuees gather |
 | Medical / AED policy | [Medical emergency](/medical-emergency/) | AED locations, who calls 911, nursery notification |
-| Spokesperson | [Communication](/communication/) | Who speaks to media/parents |
+| Spokesperson | [Communication](/communication/) | Names + [media/social playbook](/communication/#media-and-social-media-playbook) |
 | Drill schedule & owners | [Training](/training/) | Who runs quarterly tableops, annual live drill |
 
 ## Review order (suggested)

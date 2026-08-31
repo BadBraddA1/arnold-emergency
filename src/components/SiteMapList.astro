@@ -1,9 +1,14 @@
 ---
+import EmergencyIcon from './EmergencyIcon.astro';
+import type { EmergencyIconId } from './icons/registry';
+import { iconForPath } from './icons/registry';
+
 export type SiteMapItem = {
 	href: string;
 	label: string;
 	status: 'usable' | 'wip' | 'draft' | 'reference' | 'template';
 	note: string;
+	icon?: EmergencyIconId;
 };
 
 export type SiteMapGroup = {
@@ -20,24 +25,45 @@ const statusLabel: Record<SiteMapItem['status'], string> = {
 	reference: 'Reference',
 	template: 'Template',
 };
+
+const groupIcon: Record<string, EmergencyIconId> = {
+	'Start here': 'playbook',
+	'Emergency codes': 'overview',
+	'People & process': 'roles',
+	'Arnold Alert (system)': 'alert-system',
+	'Classrooms & publishing': 'classroom',
+};
 ---
 
 {
 	groups.map((group) => (
 		<section class="site-map-group" aria-labelledby={`site-map-${group.title.replace(/\W+/g, '-').toLowerCase()}`}>
-			<h3 id={`site-map-${group.title.replace(/\W+/g, '-').toLowerCase()}`}>{group.title}</h3>
+			<h3 id={`site-map-${group.title.replace(/\W+/g, '-').toLowerCase()}`} class="site-map-group-title">
+				<EmergencyIcon name={groupIcon[group.title] ?? 'overview'} size="1.1em" />
+				<span>{group.title}</span>
+			</h3>
 			<ul class="site-map-list">
-				{group.items.map((item) => (
-					<li>
-						<a class="site-map-link" href={item.href}>
-							<span class="site-map-label">{item.label}</span>
-							<span class={`site-map-status site-map-status--${item.status}`}>
-								{statusLabel[item.status]}
-							</span>
-						</a>
-						<p class="site-map-note">{item.note}</p>
-					</li>
-				))}
+				{group.items.map((item) => {
+					const icon = item.icon ?? iconForPath(item.href);
+					return (
+						<li>
+							<a class="site-map-link" href={item.href}>
+								<span class="site-map-link-main">
+									{icon ? (
+										<span class={`site-map-icon site-map-icon--${icon}`} aria-hidden="true">
+											<EmergencyIcon name={icon} size="1.15em" />
+										</span>
+									) : null}
+									<span class="site-map-label">{item.label}</span>
+								</span>
+								<span class={`site-map-status site-map-status--${item.status}`}>
+									{statusLabel[item.status]}
+								</span>
+							</a>
+							<p class="site-map-note">{item.note}</p>
+						</li>
+					);
+				})}
 			</ul>
 		</section>
 	))

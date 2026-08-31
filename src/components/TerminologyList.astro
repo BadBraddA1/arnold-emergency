@@ -1,0 +1,31 @@
+---
+import EmergencyIcon from './EmergencyIcon.astro';
+import type { EmergencyIconId } from './icons/registry';
+import { iconForTerm } from './icons/registry';
+import terminology from '../data/terminology.json';
+
+const sorted = [...terminology].sort((a, b) => a.term.localeCompare(b.term));
+---
+
+<ul class="term-list">
+	{
+		sorted.map((term) => {
+			const icon = (term.icon as EmergencyIconId | undefined) ?? iconForTerm(term.slug);
+			return (
+				<li>
+					<a class="term-list-link" href={`/terminology/terms/${term.slug}/`}>
+						{icon ? (
+							<span class={`term-list-icon term-list-icon--${icon}`} aria-hidden="true">
+								<EmergencyIcon name={icon} size="1.1em" />
+							</span>
+						) : null}
+						<span class="term-list-text">
+							<span class="term-list-name">{term.term}</span>
+							{term.short ? <span class="term-list-short"> — {term.short}</span> : null}
+						</span>
+					</a>
+				</li>
+			);
+		})
+	}
+</ul>

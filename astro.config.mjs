@@ -19,6 +19,7 @@ export default defineConfig({
 			customCss: ['./src/styles/custom.css'],
 			components: {
 				PageFrame: './src/components/PageFrame.astro',
+				PageTitle: './src/components/PageTitle.astro',
 			},
 			editLink: {
 				baseUrl: 'https://github.com/BadBraddA1/arnold-emergency/edit/main/',

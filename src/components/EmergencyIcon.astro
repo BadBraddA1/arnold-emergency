@@ -1,0 +1,33 @@
+---
+import type { EmergencyIconId } from './icons/registry';
+import { emergencyIconPaths } from './icons/registry';
+
+interface Props {
+	name: EmergencyIconId;
+	label?: string;
+	size?: string;
+	class?: string;
+}
+
+const { name, label, size = '1.25em', class: className } = Astro.props;
+const a11y = label ? { 'aria-label': label } : { 'aria-hidden': 'true' };
+---
+
+<svg
+	{...a11y}
+	class:list={['ae-icon', className]}
+	width="24"
+	height="24"
+	viewBox="0 0 24 24"
+	fill="currentColor"
+	set:html={emergencyIconPaths[name]}
+/>
+
+<style define:vars={{ 'ae-icon-size': size }}>
+	.ae-icon {
+		display: block;
+		width: var(--ae-icon-size);
+		height: var(--ae-icon-size);
+		flex: none;
+	}
+</style>

@@ -1,9 +1,13 @@
 ---
+import EmergencyIcon from './EmergencyIcon.astro';
 ---
 
 <div class="tool-pair">
 	<a class="tool-card" href="/" aria-label="Arnold Emergency — procedures and training on this site">
-		<span class="tool-card-tag">Know</span>
+		<span class="tool-card-tag">
+			<EmergencyIcon name="playbook" size="0.95em" />
+			Know
+		</span>
 		<h3 class="tool-card-title">Arnold Emergency</h3>
 		<p class="tool-card-body">Procedures, roles, and training — the human playbook on this site.</p>
 		<dl class="tool-card-meta">
@@ -24,7 +28,10 @@
 		rel="noopener noreferrer"
 		aria-label="Arnold Alert — campus alarm system (opens in new tab)"
 	>
-		<span class="tool-card-tag">Do</span>
+		<span class="tool-card-tag">
+			<EmergencyIcon name="alert-system" size="0.95em" />
+			Do
+		</span>
 		<h3 class="tool-card-title">Arnold Alert</h3>
 		<p class="tool-card-body">Bells, emergency codes, campus horns, and fobs — the campus system.</p>
 		<dl class="tool-card-meta">

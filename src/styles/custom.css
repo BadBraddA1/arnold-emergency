@@ -202,6 +202,9 @@
 
 .tool-card-tag {
 	align-self: flex-start;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.35rem;
 	font-size: var(--ae-text-xs);
 	font-weight: 700;
 	letter-spacing: 0.08em;
@@ -269,6 +272,61 @@
 	margin: 0 0 0.55rem;
 	font-size: var(--ae-text-section);
 	font-weight: 700;
+}
+
+.site-map-group-title {
+	display: flex;
+	align-items: center;
+	gap: 0.45rem;
+	color: var(--sl-color-gray-2);
+}
+
+.site-map-link-main {
+	display: flex;
+	align-items: center;
+	gap: 0.55rem;
+	min-width: 0;
+}
+
+.site-map-icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 1.85rem;
+	height: 1.85rem;
+	border-radius: 0.35rem;
+	border: 1px solid var(--sl-color-hairline-shade);
+	background: var(--sl-color-bg-sidebar);
+	color: var(--sl-color-accent-high);
+	flex: none;
+}
+
+.site-map-icon--code-red {
+	color: #f87171;
+	background: color-mix(in oklab, #dc2626 12%, var(--sl-color-gray-6));
+	border-color: color-mix(in oklab, #dc2626 28%, var(--sl-color-hairline-shade));
+}
+
+.site-map-icon--code-blue {
+	color: #60a5fa;
+	background: color-mix(in oklab, #2563eb 12%, var(--sl-color-gray-6));
+	border-color: color-mix(in oklab, #2563eb 28%, var(--sl-color-hairline-shade));
+}
+
+.site-map-icon--all-clear {
+	color: var(--sl-color-accent-high);
+	background: color-mix(in oklab, var(--sl-color-accent) 14%, var(--sl-color-gray-6));
+}
+
+.site-map-icon--medical,
+.site-map-icon--medical-draft {
+	color: #fbbf24;
+	background: color-mix(in oklab, #d97706 12%, var(--sl-color-gray-6));
+	border-color: color-mix(in oklab, #d97706 25%, var(--sl-color-hairline-shade));
+}
+
+.site-map-icon--alert-system {
+	color: #fbbf24;
 }
 
 .site-map-list {
@@ -466,4 +524,191 @@
 	width: 100%;
 	max-width: 28rem;
 	margin: 0.25rem 0;
+}
+
+/* Crisis shortcut cards (home) */
+.crisis-card-grid {
+	display: grid;
+	gap: 1rem;
+	margin: 0.5rem 0 1.5rem;
+}
+
+@media (min-width: 50rem) {
+	.crisis-card-grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+@media (min-width: 72rem) {
+	.crisis-card-grid {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+}
+
+.crisis-card {
+	border: 1px solid var(--sl-color-gray-5);
+	background: var(--sl-color-black);
+	padding: clamp(1rem, calc(0.125rem + 2vw), 1.5rem);
+	border-radius: 0.65rem;
+}
+
+.crisis-card-title {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	margin: 0 0 0.65rem;
+	font-family: 'Source Serif 4', Georgia, serif;
+	font-size: var(--ae-text-card-title);
+	font-weight: 600;
+	line-height: 1.2;
+	color: var(--sl-color-white);
+}
+
+.crisis-card-icon {
+	padding: 0.2em;
+	border-radius: 0.35rem;
+	border: 1px solid var(--sl-color-hairline-shade);
+	background: var(--sl-color-bg-sidebar);
+}
+
+.crisis-card--red .crisis-card-icon {
+	color: #f87171;
+	background: color-mix(in oklab, #dc2626 14%, var(--sl-color-gray-6));
+	border-color: color-mix(in oklab, #dc2626 35%, var(--sl-color-hairline-shade));
+}
+
+.crisis-card--blue .crisis-card-icon {
+	color: #60a5fa;
+	background: color-mix(in oklab, #2563eb 14%, var(--sl-color-gray-6));
+	border-color: color-mix(in oklab, #2563eb 35%, var(--sl-color-hairline-shade));
+}
+
+.crisis-card--green .crisis-card-icon {
+	color: var(--sl-color-accent-high);
+	background: color-mix(in oklab, var(--sl-color-accent) 16%, var(--sl-color-gray-6));
+	border-color: color-mix(in oklab, var(--sl-color-accent) 35%, var(--sl-color-hairline-shade));
+}
+
+.crisis-card--amber .crisis-card-icon {
+	color: #fbbf24;
+	background: color-mix(in oklab, #d97706 14%, var(--sl-color-gray-6));
+	border-color: color-mix(in oklab, #d97706 30%, var(--sl-color-hairline-shade));
+}
+
+.crisis-card-body {
+	font-size: var(--ae-text-body-md);
+	line-height: 1.45;
+	color: var(--sl-color-gray-2);
+}
+
+.crisis-card-body :global(p) {
+	margin: 0;
+}
+
+/* Inner page title icon */
+.page-title-wrap {
+	display: flex;
+	align-items: flex-start;
+	gap: 0.75rem;
+}
+
+.page-title-icon {
+	display: inline-flex;
+	margin-top: 0.15rem;
+	padding: 0.35rem;
+	border-radius: 0.45rem;
+	border: 1px solid var(--sl-color-hairline-shade);
+	background: var(--sl-color-bg-sidebar);
+	color: var(--sl-color-accent-high);
+	flex: none;
+}
+
+.page-title-wrap--code-red .page-title-icon {
+	color: #f87171;
+	background: color-mix(in oklab, #dc2626 12%, var(--sl-color-gray-6));
+}
+
+.page-title-wrap--code-blue .page-title-icon {
+	color: #60a5fa;
+	background: color-mix(in oklab, #2563eb 12%, var(--sl-color-gray-6));
+}
+
+.page-title-wrap--medical-draft .page-title-icon,
+.page-title-wrap--medical .page-title-icon {
+	color: #fbbf24;
+	background: color-mix(in oklab, #d97706 12%, var(--sl-color-gray-6));
+}
+
+/* Terminology A–Z list */
+.term-list {
+	list-style: none;
+	margin: 0.5rem 0 0;
+	padding: 0;
+	border: 1px solid var(--sl-color-hairline-shade);
+	border-radius: 0.55rem;
+	overflow: hidden;
+}
+
+.term-list li {
+	border-top: 1px solid var(--sl-color-hairline-shade);
+}
+
+.term-list li:first-child {
+	border-top: none;
+}
+
+.term-list-link {
+	display: flex;
+	align-items: center;
+	gap: 0.65rem;
+	min-height: 2.75rem;
+	padding: 0.65rem 0.85rem;
+	text-decoration: none;
+	color: inherit;
+}
+
+.term-list-link:hover .term-list-name {
+	color: var(--sl-color-accent-high);
+}
+
+.term-list-link:focus-visible {
+	outline: 2px solid var(--sl-color-accent-high);
+	outline-offset: -2px;
+}
+
+.term-list-icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 1.75rem;
+	height: 1.75rem;
+	border-radius: 0.35rem;
+	border: 1px solid var(--sl-color-hairline-shade);
+	background: var(--sl-color-bg-sidebar);
+	color: var(--sl-color-accent-high);
+	flex: none;
+}
+
+.term-list-icon--code-red {
+	color: #f87171;
+	background: color-mix(in oklab, #dc2626 12%, var(--sl-color-gray-6));
+}
+
+.term-list-icon--code-blue {
+	color: #60a5fa;
+	background: color-mix(in oklab, #2563eb 12%, var(--sl-color-gray-6));
+}
+
+.term-list-text {
+	font-size: var(--ae-text-body-lg);
+	line-height: 1.35;
+}
+
+.term-list-name {
+	font-weight: 600;
+}
+
+.term-list-short {
+	color: var(--sl-color-gray-3);
+	font-weight: 400;
 }

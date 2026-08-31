@@ -60,17 +60,14 @@ ${notSame}${related}
 	await writeFile(join(outDir, `${t.slug}.md`), body, 'utf8');
 }
 
-// Index page body snippet for reference
-const indexLinks = terms
-	.sort((a, b) => a.term.localeCompare(b.term))
-	.map((t) => `- [${t.term}](/terminology/terms/${t.slug}/) — ${t.short || ''}`)
-	.join('\n');
-
-const indexPath = join(root, 'src/content/docs/terminology/index.md');
+// Terminology index — MDX with icon list
+const indexPath = join(root, 'src/content/docs/terminology/index.mdx');
 const indexBody = `---
 title: Terminology
 description: Every Arnold Alert and emergency procedure term — click any highlighted word on the site to land here.
 ---
+
+import TerminologyList from '../../../components/TerminologyList.astro';
 
 When you see a **dotted green link** anywhere on this site, it is a defined term. Click it for what it means and how we use it.
 
@@ -78,7 +75,7 @@ No one should have to guess what **Arnold Alert**, **Code Blue**, or **Fob Arm**
 
 ## A–Z
 
-${indexLinks}
+<TerminologyList />
 
 ## For editors
 
@@ -92,5 +89,6 @@ Then commit the updated pages under \`terminology/terms/\`.
 `;
 
 await mkdir(join(root, 'src/content/docs/terminology'), { recursive: true });
+await rm(join(root, 'src/content/docs/terminology/index.md'), { force: true });
 await writeFile(indexPath, indexBody, 'utf8');
 console.log(`Generated ${terms.length} term pages + index`);

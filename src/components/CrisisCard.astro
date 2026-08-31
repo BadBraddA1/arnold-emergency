@@ -1,0 +1,20 @@
+---
+import EmergencyIcon from './EmergencyIcon.astro';
+import type { EmergencyIconId } from './icons/registry';
+
+interface Props {
+	title: string;
+	icon: EmergencyIconId;
+	tone?: 'red' | 'blue' | 'green' | 'amber' | 'neutral';
+}
+
+const { title, icon, tone = 'neutral' } = Astro.props;
+---
+
+<article class:list={['crisis-card', `crisis-card--${tone}`]}>
+	<p class="crisis-card-title">
+		<EmergencyIcon name={icon} class="crisis-card-icon" size="1.35em" />
+		<span set:html={title} />
+	</p>
+	<div class="crisis-card-body"><slot /></div>
+</article>
