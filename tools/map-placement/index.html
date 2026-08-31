@@ -6,7 +6,7 @@
   <title>Arnold COC — map pin placement</title>
   <style>
     * { box-sizing: border-box; }
-    body { font-family: system-ui, sans-serif; font-size: 16px; margin: 0; display: grid; grid-template-columns: 320px 1fr; min-height: 100vh; }
+    body { font-family: system-ui, sans-serif; font-size: 16px; margin: 0; display: grid; grid-template-columns: 340px 1fr; min-height: 100vh; }
     aside { padding: 1rem; border-right: 1px solid #ccc; background: #f8fafc; overflow: auto; }
     main { padding: 1rem; overflow: auto; background: #e2e8f0; }
     h1 { font-size: 1.5rem; margin: 0 0 0.5rem; }
@@ -14,23 +14,32 @@
     select, input, button, textarea { width: 100%; margin-top: 0.35rem; padding: 0.5rem; font: inherit; font-size: 1rem; }
     button { cursor: pointer; margin-top: 0.5rem; }
     button.primary { background: #1e3a5f; color: #fff; border: none; border-radius: 6px; padding: 0.65rem; font-weight: 600; }
+    button.secondary { background: #fff; border: 1px solid #94a3b8; border-radius: 6px; }
     .hint { font-size: 0.875rem; color: #475569; line-height: 1.5; margin: 0; }
-    .stage { position: relative; display: inline-block; cursor: crosshair; }
+    .stage { position: relative; display: inline-block; cursor: crosshair; line-height: 0; }
     .stage img { display: block; max-width: 100%; height: auto; user-select: none; }
-    .marker { position: absolute; width: 12px; height: 12px; border-radius: 50%; transform: translate(-50%, -50%); pointer-events: none; }
-    .marker.pin { background: #dc2626; border: 2px solid #fff; box-shadow: 0 0 0 2px #dc2626; }
-    .marker.way { background: #16a34a; border: 2px solid #fff; }
-    .marker.exit { background: #2563eb; border: 2px solid #fff; width: 14px; height: 14px; }
-    pre { font-size: 0.75rem; background: #0f172a; color: #e2e8f0; padding: 0.5rem; border-radius: 6px; overflow: auto; max-height: 200px; }
+    .overlay { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+    pre { font-size: 0.75rem; background: #0f172a; color: #e2e8f0; padding: 0.5rem; border-radius: 6px; overflow: auto; max-height: 180px; }
     .mode { display: flex; gap: 0.25rem; flex-wrap: wrap; }
     .mode button { width: auto; flex: 1; font-size: 0.875rem; }
     .mode button.active { background: #1e3a5f; color: #fff; }
+    .toggles label { display: flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; font-weight: 500; text-transform: none; letter-spacing: 0; margin-top: 0.5rem; }
+    .toggles input { width: auto; margin: 0; }
+    .status { font-size: 0.8125rem; padding: 0.5rem 0.65rem; border-radius: 6px; margin-top: 0.75rem; line-height: 1.45; }
+    .status.ok { background: #dcfce7; color: #14532d; }
+    .status.warn { background: #fef3c7; color: #78350f; }
+    .status.info { background: #e0e7ff; color: #312e81; }
+    .legend { font-size: 0.75rem; color: #475569; margin-top: 0.75rem; line-height: 1.6; }
+    .legend span { display: inline-block; width: 0.75rem; height: 0.75rem; border-radius: 50%; margin-right: 0.25rem; vertical-align: -1px; }
+    .dist-list { font-size: 0.8125rem; margin: 0.35rem 0 0; padding-left: 1.1rem; color: #334155; }
+    .dist-list li.nearest { font-weight: 700; color: #14532d; }
+    .dist-list li.selected { color: #1e3a5f; }
   </style>
 </head>
 <body>
   <aside>
     <h1>Map placement</h1>
-    <p class="hint">Click the map to set <strong>YOU ARE HERE</strong>, route waypoints, then pick nearest exit. Copy JSON into <code>data/room-map-overlay.json</code>.</p>
+    <p class="hint">Exits are labeled on the map. Set the room pin, click hallway waypoints for the walk path, then confirm the <strong>nearest exit</strong>. Green line = route on the printed poster.</p>
 
     <label for="floor">Floor</label>
     <select id="floor">
@@ -40,6 +49,8 @@
 
     <label for="room">Room ID</label>
     <select id="room"></select>
+
+    <div id="routeStatus" class="status info">Load a room to compare exits.</div>
 
     <label>Click mode</label>
     <div class="mode">
@@ -51,10 +62,25 @@
     <label for="exit">Nearest exit (saved on room)</label>
     <select id="exit"></select>
 
+    <div class="toggles">
+      <label><input type="checkbox" id="showExits" checked /> Show exit labels</label>
+      <label><input type="checkbox" id="showRoute" checked /> Show route line</label>
+      <label><input type="checkbox" id="showCompare" checked /> Show distance to all exits</label>
+    </div>
+
+    <button type="button" class="secondary" id="suggestExit">Pick nearest exit (straight-line)</button>
+    <button type="button" class="secondary" id="straightRoute">Straight route (no waypoints)</button>
+
     <button type="button" class="primary" id="saveRoom">Save room to overlay</button>
     <button type="button" id="undoRoute">Undo last route point</button>
     <button type="button" id="clearRoom">Clear this room</button>
     <button type="button" id="download">Download overlay JSON</button>
+
+    <p class="legend">
+      <span style="background:#2563eb;border:2px solid #fff"></span> Exit &nbsp;
+      <span style="background:#16a34a"></span> Route &nbsp;
+      <span style="background:#dc2626;border:2px solid #fff"></span> You are here
+    </p>
 
     <label for="json">Current room JSON</label>
     <pre id="json">{}</pre>
@@ -62,6 +88,7 @@
   <main>
     <div class="stage" id="stage">
       <img id="map" src="/maps/master-level-1.png" width="794" height="1286" alt="Level 1 floor plan" />
+      <svg id="overlay" class="overlay" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"></svg>
     </div>
   </main>
 
@@ -86,14 +113,256 @@
 
     let mode = "pin";
     let overlay = { imageSize: { width: 794, height: 1286 }, floors: {}, rooms: {} };
+    let roomRoutes = { exits: {}, rooms: [] };
     let current = { pin: null, route: [], exit: null };
 
     const floorEl = document.getElementById("floor");
     const roomEl = document.getElementById("room");
     const exitEl = document.getElementById("exit");
     const mapEl = document.getElementById("map");
+    const svgEl = document.getElementById("overlay");
     const stage = document.getElementById("stage");
     const jsonEl = document.getElementById("json");
+    const routeStatusEl = document.getElementById("routeStatus");
+
+    function roomMeta(id) {
+      return roomRoutes.rooms.find((r) => r.id === id);
+    }
+
+    function floorExits(floor) {
+      const f = overlay.floors?.[String(floor)]?.exits ?? {};
+      return f;
+    }
+
+    function pathLength(points) {
+      let len = 0;
+      for (let i = 1; i < points.length; i++) {
+        len += Math.hypot(points[i].x - points[i - 1].x, points[i].y - points[i - 1].y);
+      }
+      return len;
+    }
+
+    function exitDistances(pin, floor) {
+      const exits = floorExits(floor);
+      return Object.entries(exits)
+        .filter(([, pt]) => pt?.x != null && pt?.y != null)
+        .map(([id, pt]) => ({
+          id,
+          pt,
+          dist: Math.hypot(pt.x - pin.x, pt.y - pin.y),
+          label: EXITS[floor]?.[id] ?? id,
+          desc: roomRoutes.exits?.[id] ?? ""
+        }))
+        .sort((a, b) => a.dist - b.dist);
+    }
+
+    function routePoints() {
+      const floor = floorEl.value;
+      const exitKey = exitEl.value;
+      const exitPt = floorExits(floor)[exitKey];
+      if (!current.pin || !exitPt) return [];
+      return [current.pin, ...current.route, exitPt];
+    }
+
+    function svgSize() {
+      const w = overlay.imageSize?.width || mapEl.naturalWidth || 794;
+      const h = overlay.imageSize?.height || mapEl.naturalHeight || 1286;
+      return { w, h };
+    }
+
+    function renderOverlay() {
+      const { w, h } = svgSize();
+      svgEl.setAttribute("viewBox", `0 0 ${w} ${h}`);
+      svgEl.innerHTML = "";
+
+      const floor = floorEl.value;
+      const showExits = document.getElementById("showExits").checked;
+      const showRoute = document.getElementById("showRoute").checked;
+      const showCompare = document.getElementById("showCompare").checked;
+      const selectedExit = exitEl.value;
+      const exits = floorExits(floor);
+
+      if (showCompare && current.pin) {
+        const dists = exitDistances(current.pin, floor);
+        for (const d of dists) {
+          if (d.id === selectedExit) continue;
+          const line = el("line", {
+            x1: current.pin.x, y1: current.pin.y,
+            x2: d.pt.x, y2: d.pt.y,
+            stroke: "#94a3b8", "stroke-width": 2,
+            "stroke-dasharray": "8 6", opacity: 0.7
+          });
+          svgEl.appendChild(line);
+          const mx = (current.pin.x + d.pt.x) / 2;
+          const my = (current.pin.y + d.pt.y) / 2;
+          const label = el("text", {
+            x: mx, y: my - 4,
+            "text-anchor": "middle",
+            "font-family": "system-ui,sans-serif",
+            "font-size": 11,
+            fill: "#64748b"
+          });
+          label.textContent = `${Math.round(d.dist)}px`;
+          svgEl.appendChild(label);
+        }
+      }
+
+      if (showRoute && current.pin) {
+        const pts = routePoints();
+        if (pts.length >= 2) {
+          const poly = el("polyline", {
+            points: pts.map((p) => `${p.x},${p.y}`).join(" "),
+            fill: "none",
+            stroke: "#16a34a",
+            "stroke-width": 5,
+            "stroke-linecap": "round",
+            "stroke-linejoin": "round",
+            opacity: 0.95
+          });
+          svgEl.appendChild(poly);
+
+          const last = pts[pts.length - 2];
+          const end = pts[pts.length - 1];
+          const dx = end.x - last.x;
+          const dy = end.y - last.y;
+          const len = Math.hypot(dx, dy) || 1;
+          const ux = dx / len;
+          const uy = dy / len;
+          const ax = end.x - ux * 14;
+          const ay = end.y - uy * 14;
+          const px = -uy;
+          const py = ux;
+          const arrow = el("polygon", {
+            points: `${end.x},${end.y} ${ax + px * 8},${ay + py * 8} ${ax - px * 8},${ay - py * 8}`,
+            fill: "#16a34a"
+          });
+          svgEl.appendChild(arrow);
+        }
+
+        for (const p of current.route) {
+          svgEl.appendChild(el("circle", {
+            cx: p.x, cy: p.y, r: 6,
+            fill: "#16a34a", stroke: "#fff", "stroke-width": 2
+          }));
+        }
+
+        svgEl.appendChild(el("circle", {
+          cx: current.pin.x, cy: current.pin.y, r: 14,
+          fill: "#dc2626", stroke: "#fff", "stroke-width": 3
+        }));
+        svgEl.appendChild(el("circle", {
+          cx: current.pin.x, cy: current.pin.y, r: 4, fill: "#fff"
+        }));
+        const pinLabel = el("text", {
+          x: current.pin.x, y: current.pin.y - 22,
+          "text-anchor": "middle",
+          "font-family": "system-ui,sans-serif",
+          "font-size": 12,
+          "font-weight": 700,
+          fill: "#111827"
+        });
+        pinLabel.textContent = "YOU ARE HERE";
+        svgEl.appendChild(pinLabel);
+      }
+
+      if (showExits) {
+        for (const [id, pt] of Object.entries(exits)) {
+          if (!pt?.x) continue;
+          const selected = id === selectedExit;
+          const short = id.replace(/^L\d-/, "");
+          svgEl.appendChild(el("circle", {
+            cx: pt.x, cy: pt.y,
+            r: selected ? 12 : 10,
+            fill: selected ? "#1d4ed8" : "#2563eb",
+            stroke: "#fff",
+            "stroke-width": selected ? 3 : 2
+          }));
+          const bg = el("rect", {
+            x: pt.x - 52, y: pt.y + 14,
+            width: 104, height: 34,
+            rx: 6,
+            fill: selected ? "#1e3a5f" : "#0f172a",
+            opacity: 0.92
+          });
+          svgEl.appendChild(bg);
+          const t1 = el("text", {
+            x: pt.x, y: pt.y + 30,
+            "text-anchor": "middle",
+            "font-family": "system-ui,sans-serif",
+            "font-size": 10,
+            "font-weight": 700,
+            fill: "#fff"
+          });
+          t1.textContent = short;
+          svgEl.appendChild(t1);
+          const t2 = el("text", {
+            x: pt.x, y: pt.y + 42,
+            "text-anchor": "middle",
+            "font-family": "system-ui,sans-serif",
+            "font-size": 9,
+            fill: "#cbd5e1"
+          });
+          t2.textContent = EXITS[floor]?.[id] ?? id;
+          svgEl.appendChild(t2);
+        }
+      }
+
+      updateStatus();
+    }
+
+    function el(tag, attrs) {
+      const node = document.createElementNS("http://www.w3.org/2000/svg", tag);
+      for (const [k, v] of Object.entries(attrs)) node.setAttribute(k, String(v));
+      return node;
+    }
+
+    function updateStatus() {
+      const id = roomEl.value;
+      const meta = roomMeta(id);
+      const floor = floorEl.value;
+      const docExit = meta?.nearestExit;
+      const picked = exitEl.value;
+
+      if (!current.pin) {
+        routeStatusEl.className = "status info";
+        routeStatusEl.innerHTML = docExit
+          ? `Spreadsheet says <strong>${docExit}</strong> — set a pin to compare.`
+          : "Set a pin on the map.";
+        return;
+      }
+
+      const dists = exitDistances(current.pin, floor);
+      const nearest = dists[0];
+      const routeLen = pathLength(routePoints());
+      const straightNearest = nearest?.id;
+
+      let html = "";
+      if (nearest) {
+        html += `<ul class="dist-list">`;
+        for (const d of dists) {
+          const cls = [
+            d.id === straightNearest ? "nearest" : "",
+            d.id === picked ? "selected" : ""
+          ].filter(Boolean).join(" ");
+          html += `<li class="${cls}">${d.id}: ${Math.round(d.dist)}px straight${d.id === picked ? " (selected)" : ""}${d.id === straightNearest ? " ★ nearest" : ""}</li>`;
+        }
+        html += `</ul>`;
+        if (current.route.length) {
+          html += `<div style="margin-top:0.35rem">Walk path: <strong>${Math.round(routeLen)}px</strong> (${current.route.length} waypoint${current.route.length === 1 ? "" : "s"})</div>`;
+        }
+      }
+
+      if (docExit && picked !== docExit) {
+        routeStatusEl.className = "status warn";
+        routeStatusEl.innerHTML = `⚠ Selected <strong>${picked}</strong> but spreadsheet has <strong>${docExit}</strong>.${html}`;
+      } else if (picked !== straightNearest && nearest) {
+        routeStatusEl.className = "status warn";
+        routeStatusEl.innerHTML = `⚠ Straight-line nearest is <strong>${straightNearest}</strong>; you picked <strong>${picked}</strong> (hallway path may differ).${html}`;
+      } else {
+        routeStatusEl.className = "status ok";
+        routeStatusEl.innerHTML = `✓ Nearest exit matches pin.${html}`;
+      }
+    }
 
     function fillRooms() {
       const f = floorEl.value;
@@ -108,31 +377,15 @@
 
     function loadRoom() {
       const id = roomEl.value;
+      const meta = roomMeta(id);
       const saved = overlay.rooms[id];
       current = saved
         ? { pin: saved.pin, route: [...(saved.route || [])], exit: saved.exit }
-        : { pin: null, route: [], exit: exitEl.value };
+        : { pin: null, route: [], exit: meta?.nearestExit ?? exitEl.value };
       if (current.exit) exitEl.value = current.exit;
-      renderMarkers();
+      else if (meta?.nearestExit) exitEl.value = meta.nearestExit;
+      renderOverlay();
       updateJson();
-    }
-
-    function renderMarkers() {
-      stage.querySelectorAll(".marker").forEach((el) => el.remove());
-      const nw = mapEl.naturalWidth || 794;
-      const nw2 = mapEl.clientWidth;
-      const scale = nw2 / nw;
-
-      function add(cls, pt) {
-        const d = document.createElement("div");
-        d.className = `marker ${cls}`;
-        d.style.left = `${pt.x * scale}px`;
-        d.style.top = `${pt.y * scale}px`;
-        stage.appendChild(d);
-      }
-
-      if (current.pin) add("pin", current.pin);
-      current.route.forEach((p) => add("way", p));
     }
 
     function updateJson() {
@@ -146,8 +399,8 @@
       jsonEl.textContent = JSON.stringify({ [id]: payload }, null, 2);
     }
 
-    mapEl.addEventListener("load", renderMarkers);
-    window.addEventListener("resize", renderMarkers);
+    mapEl.addEventListener("load", renderOverlay);
+    window.addEventListener("resize", renderOverlay);
 
     stage.addEventListener("click", (e) => {
       const rect = mapEl.getBoundingClientRect();
@@ -163,7 +416,7 @@
         overlay.floors[floorEl.value].exits = overlay.floors[floorEl.value].exits || {};
         overlay.floors[floorEl.value].exits[key] = { x, y, label: "EXIT" };
       }
-      renderMarkers();
+      renderOverlay();
       updateJson();
     });
 
@@ -174,6 +427,23 @@
         mode = btn.dataset.mode;
       });
     });
+
+    document.getElementById("suggestExit").onclick = () => {
+      if (!current.pin) return alert("Set a pin first.");
+      const dists = exitDistances(current.pin, floorEl.value);
+      if (!dists.length) return alert("No exit coordinates — use Exit ref mode to click each door on the map.");
+      exitEl.value = dists[0].id;
+      current.exit = dists[0].id;
+      renderOverlay();
+      updateJson();
+    };
+
+    document.getElementById("straightRoute").onclick = () => {
+      if (!current.pin) return alert("Set a pin first.");
+      current.route = [];
+      renderOverlay();
+      updateJson();
+    };
 
     document.getElementById("saveRoom").onclick = () => {
       if (!current.pin) return alert("Set a pin first.");
@@ -189,14 +459,14 @@
 
     document.getElementById("undoRoute").onclick = () => {
       current.route.pop();
-      renderMarkers();
+      renderOverlay();
       updateJson();
     };
 
     document.getElementById("clearRoom").onclick = () => {
       current = { pin: null, route: [], exit: exitEl.value };
       delete overlay.rooms[roomEl.value];
-      renderMarkers();
+      renderOverlay();
       updateJson();
     };
 
@@ -208,23 +478,38 @@
       a.click();
     };
 
+    for (const id of ["showExits", "showRoute", "showCompare"]) {
+      document.getElementById(id).addEventListener("change", renderOverlay);
+    }
+
     exitEl.addEventListener("change", () => {
       current.exit = exitEl.value;
+      renderOverlay();
       updateJson();
     });
 
     roomEl.addEventListener("change", loadRoom);
     floorEl.addEventListener("change", fillRooms);
 
-    fetch("/data/room-map-overlay.json")
-      .then((r) => r.json())
-      .then((data) => {
+    Promise.all([
+      fetch("/data/room-map-overlay.json").then((r) => r.json()).catch(() => null),
+      fetch("/data/room-routes.json").then((r) => r.json()).catch(() => ({ exits: {}, rooms: [] }))
+    ]).then(([data, routes]) => {
+      if (routes) roomRoutes = routes;
+      if (data) {
         overlay = data;
         const saved = localStorage.getItem("arnold-map-overlay");
-        if (saved) overlay = { ...data, ...JSON.parse(saved), rooms: { ...data.rooms, ...JSON.parse(saved).rooms } };
-      })
-      .catch(() => {})
-      .finally(fillRooms);
+        if (saved) {
+          const local = JSON.parse(saved);
+          overlay = {
+            ...data,
+            ...local,
+            floors: { ...data.floors, ...local.floors },
+            rooms: { ...data.rooms, ...local.rooms }
+          };
+        }
+      }
+    }).finally(fillRooms);
   </script>
 </body>
 </html>

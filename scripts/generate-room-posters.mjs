@@ -28,7 +28,7 @@ function escapeXml(s) {
 		.replace(/"/g, '&quot;');
 }
 
-function buildOverlaySvg({ width, height, pin, route, exit, roomLabel }) {
+function buildOverlaySvg({ width, height, pin, route, exit, exitKey, roomLabel }) {
 	const points = [{ x: pin.x, y: pin.y }, ...route, { x: exit.x, y: exit.y }];
 	const poly = points.map((p) => `${p.x},${p.y}`).join(' ');
 
@@ -43,10 +43,14 @@ function buildOverlaySvg({ width, height, pin, route, exit, roomLabel }) {
 	const px = -uy;
 	const py = ux;
 	const arrow = `${exit.x},${exit.y} ${ax + px * 8},${ay + py * 8} ${ax - px * 8},${ay - py * 8}`;
+	const exitShort = exitKey ? String(exitKey).replace(/^L\d-/, '') : 'EXIT';
 
 	return `<svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">
   <polyline points="${poly}" fill="none" stroke="#16a34a" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity="0.95"/>
   <polygon points="${arrow}" fill="#16a34a"/>
+  <circle cx="${exit.x}" cy="${exit.y}" r="11" fill="#2563eb" stroke="#fff" stroke-width="2"/>
+  <rect x="${exit.x - 58}" y="${exit.y + 12}" width="116" height="22" rx="5" fill="#1e3a5f" opacity="0.92"/>
+  <text x="${exit.x}" y="${exit.y + 27}" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="11" font-weight="700" fill="#ffffff">${escapeXml(exitShort)}</text>
   <circle cx="${pin.x}" cy="${pin.y}" r="16" fill="#dc2626" stroke="#fff" stroke-width="3"/>
   <circle cx="${pin.x}" cy="${pin.y}" r="5" fill="#fff"/>
   <rect x="${pin.x - 72}" y="${pin.y - 46}" width="144" height="26" rx="6" fill="#111827" opacity="0.92"/>
@@ -102,6 +106,7 @@ for (const roomId of toGenerate) {
 		pin: placement.pin,
 		route: placement.route ?? [],
 		exit,
+		exitKey,
 		roomLabel,
 	});
 

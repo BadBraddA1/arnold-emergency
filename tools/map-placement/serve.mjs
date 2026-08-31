@@ -21,6 +21,7 @@ const server = createServer(async (req, res) => {
 		if (path === '/maps/master-level-1.png') path = '/templates/classroom/maps/master-level-1.png';
 		if (path === '/maps/master-level-2.png') path = '/templates/classroom/maps/master-level-2.png';
 		if (path === '/data/room-map-overlay.json') path = '/data/room-map-overlay.json';
+		if (path === '/data/room-routes.json') path = '/data/room-routes.json';
 
 		const filePath = join(ROOT, path.replace(/^\//, ''));
 		const body = await readFile(filePath);

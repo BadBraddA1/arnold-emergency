@@ -24,11 +24,12 @@ pnpm run map:place
 
 Open http://localhost:3456 — for each room:
 
-1. Select floor + room
-2. **Pin** mode → click center of room
-3. **Route** mode → click hallway waypoints toward exit
-4. Pick **nearest exit** from dropdown
-5. **Save room** → **Download overlay JSON** when done (merge into `data/room-map-overlay.json`)
+1. Select floor + room — **exits are labeled on the map** (blue dots); dashed gray lines show straight-line distance to every exit from your pin
+2. **Pin** mode → click center of room (red **YOU ARE HERE**)
+3. **Route** mode → click hallway waypoints toward exit (green line + arrow updates live)
+4. Use **Pick nearest exit** to auto-select by straight-line distance, or choose manually and compare against the spreadsheet note in the sidebar
+5. **Straight route** clears waypoints if the path is a direct shot
+6. **Save room** → **Download overlay JSON** when done (merge into `data/room-map-overlay.json`)
 
 ### 2. Generate PNGs
 
