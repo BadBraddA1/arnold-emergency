@@ -1,6 +1,8 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
+import { remarkGlossary } from './src/plugins/remark-glossary.mjs';
+import terminology from './src/data/terminology.json';
 
 // https://astro.build/config
 export default defineConfig({
@@ -35,12 +37,16 @@ export default defineConfig({
 					},
 				},
 			],
+			markdown: {
+				remarkPlugins: [[remarkGlossary, { terms: terminology }]],
+			},
 			sidebar: [
 				{
 					label: 'Start here',
 					items: [
 						{ label: 'Overview', slug: 'index' },
 						{ label: 'Quick reference', slug: 'quick-reference' },
+						{ label: 'Terminology', slug: 'terminology' },
 					],
 				},
 				{
@@ -71,6 +77,10 @@ export default defineConfig({
 						{ label: 'System limits', slug: 'system/limits' },
 						{ label: 'Naming guide', slug: 'system/naming' },
 					],
+				},
+				{
+					label: 'Terminology (A–Z)',
+					items: [{ autogenerate: { directory: 'terminology/terms' } }],
 				},
 				{
 					label: 'Classrooms',

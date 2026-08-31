@@ -3,6 +3,10 @@ title: Naming guide
 description: Arnold Alert component names for staff training and UI.
 ---
 
+:::tip[Full glossary]
+Every name below is also a **clickable term** across this site. Browse the full A–Z list: [Terminology](/terminology/).
+:::
+
 **Platform:** **Arnold Alert** — *Campus bells & emergency codes — Arnold Church of Christ*
 
 | Layer | Pattern | Example |

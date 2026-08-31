@@ -18,3 +18,15 @@
 .sl-markdown-content table {
 	font-size: 0.92rem;
 }
+
+/* Glossary auto-links */
+.sl-markdown-content a.term-link {
+	color: var(--sl-color-accent-high);
+	text-decoration: underline;
+	text-decoration-style: dotted;
+	text-underline-offset: 0.15em;
+}
+
+.sl-markdown-content a.term-link:hover {
+	text-decoration-style: solid;
+}

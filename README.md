@@ -38,10 +38,15 @@ All pages: `src/content/docs/`
 | Section | Purpose |
 |---------|---------|
 | Quick reference | Printable card |
+| **Terminology** | A–Z glossary — auto-linked across every page |
 | Codes | Red, Blue, all clear |
 | Roles | IC, nursery, pulpit, office |
 | System | Arnold Alert naming & limits |
 | Classroom | Per-room handout template |
+
+### Glossary / auto-links
+
+Defined terms live in `src/data/terminology.json`. Run `pnpm run generate:terminology` to refresh term pages, then build. Any matching word in procedure pages becomes a **dotted green link** to its definition.
 
 ## Deploy
 

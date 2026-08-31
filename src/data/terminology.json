@@ -1,0 +1,310 @@
+[
+  {
+    "slug": "arnold-alert",
+    "term": "Arnold Alert",
+    "aliases": ["Arnold Alarm"],
+    "short": "Campus bells and emergency audio system",
+    "what": "The whole campus safety platform: phone app, desk console, fobs, campus horns, and Alert Line (9090). Staff use it to ring class bells and declare Code Red or Code Blue.",
+    "usage": "Say **Arnold Alert** when you mean the tool at alarm.arnoldcoc.org — not this playbook site.",
+    "notSameAs": ["Arnold Emergency (this website — the human SOP)"],
+    "related": ["alert-mobile", "alert-desk", "campus-horns"]
+  },
+  {
+    "slug": "arnold-emergency",
+    "term": "Arnold Emergency",
+    "short": "This website — the emergency playbook",
+    "what": "The live source of truth for who does what during Code Red or Code Blue. Markdown in git, published at emergency.arnoldcoc.org.",
+    "usage": "Say **Arnold Emergency** when you mean procedures and roles — not the horn system.",
+    "notSameAs": ["Arnold Alert (the audio/app system)"],
+    "related": ["incident-commander", "code-red", "code-blue"]
+  },
+  {
+    "slug": "alert-mobile",
+    "term": "Alert Mobile",
+    "short": "Staff phone app (PWA)",
+    "what": "The PIN-gated Progressive Web App at alarm.arnoldcoc.org. Add to iPhone Home Screen for one-tap access to codes, bells, and fob arm.",
+    "usage": "Primary panic path on a phone — **Alert Emergency** panel for Code Red / Blue.",
+    "related": ["arnold-alert", "alert-emergency", "alert-pin"]
+  },
+  {
+    "slug": "alert-desk",
+    "term": "Alert Desk",
+    "aliases": ["Desktop console"],
+    "short": "Admin computer console",
+    "what": "The management dashboard at alarm.arnoldcoc.org/desk/ — speakers, activity log, staff PINs, bells schedule, fobs, arm/standby.",
+    "usage": "System Admins on a computer; not the first choice during an active crisis on your phone.",
+    "related": ["arnold-alert", "desk-activity", "system-admin"]
+  },
+  {
+    "slug": "alert-emergency",
+    "term": "Alert Emergency",
+    "short": "Mobile panel for codes",
+    "what": "The big-button screen in Alert Mobile for Code Red, Code Blue, and All clear.",
+    "usage": "Open Arnold Alert → sign in → **Alert Emergency** (requires Code Leader or System Admin PIN).",
+    "related": ["code-red", "code-blue", "all-clear", "alert-countdown"]
+  },
+  {
+    "slug": "alert-bells",
+    "term": "Alert Bells",
+    "short": "Class bell panel",
+    "what": "First Bell and Second Bell — play now or schedule to campus clock. Separate from emergency codes.",
+    "usage": "Bell Ringer PIN only. Never use bells for lockdown or evacuate.",
+    "related": ["first-bell", "second-bell", "bell-ringer"]
+  },
+  {
+    "slug": "alert-control",
+    "term": "Alert Control",
+    "short": "Mobile admin panel",
+    "what": "Arm/standby, volumes, speaker check, and mobile staff PIN management on a phone.",
+    "usage": "System Admin scope on Alert Mobile.",
+    "related": ["system-armed", "system-standby", "alert-check"]
+  },
+  {
+    "slug": "alert-fob-link",
+    "term": "Alert Fob Link",
+    "aliases": ["Arm fob", "Fob Arm"],
+    "short": "Pair and arm a physical fob",
+    "what": "Links a campus fob to your staff PIN and arms it for **3 hours**. Unarmed fobs do nothing when pressed.",
+    "usage": "App → **Arm fob**, or Alert Line 9090 → press **4** → PIN. Re-arm every 3 hours.",
+    "related": ["alert-fobs", "fob-arm"]
+  },
+  {
+    "slug": "code-red",
+    "term": "Code Red",
+    "short": "Evacuate",
+    "what": "Campus emergency code meaning **leave the building** and go to the assembly area. Red tone loops on campus horns until all clear.",
+    "usage": "Fire, smoke, gas, structural hazard, or when the incident commander orders evacuation.",
+    "related": ["code-blue", "all-clear", "incident-commander"]
+  },
+  {
+    "slug": "code-blue",
+    "term": "Code Blue",
+    "short": "Lockdown",
+    "what": "Campus emergency code meaning **shelter in place** — lock doors, lights off, silence phones. Blue tone loops until all clear.",
+    "usage": "Threat inside the building or when IC orders lockdown. Do not evacuate unless IC or law enforcement says so.",
+    "related": ["code-red", "all-clear", "incident-commander"]
+  },
+  {
+    "slug": "all-clear",
+    "term": "All clear",
+    "aliases": ["Stop & All clear"],
+    "short": "End the active code",
+    "what": "Declares the emergency over. Plays Code Green tone ×2 on campus horns. Only available after Code Red or Blue was issued.",
+    "usage": "**Incident commander or backup only.** Not for general staff or volunteers.",
+    "related": ["incident-commander", "code-red", "code-blue"]
+  },
+  {
+    "slug": "alert-codes",
+    "term": "Alert Codes",
+    "short": "Emergency code feature",
+    "what": "Collective name for Code Red, Code Blue, and All clear in Arnold Alert — the **Alert Emergency** panel and fob buttons.",
+    "usage": "“Trigger an Alert Code” = declare Red or Blue through the system.",
+    "related": ["alert-emergency", "code-red", "code-blue"]
+  },
+  {
+    "slug": "alert-countdown",
+    "term": "Alert Countdown",
+    "short": "10-second phone arming",
+    "what": "After you tap Code Red or Blue on a phone, a **10-second countdown** runs with a local phone alarm. Campus horns stay silent until you tap **Send now** or the timer hits zero.",
+    "usage": "Lets you cancel a mistaken tap before the whole campus hears it.",
+    "related": ["alert-emergency", "code-red", "code-blue"]
+  },
+  {
+    "slug": "incident-commander",
+    "term": "Incident commander",
+    "aliases": ["IC"],
+    "short": "On-site authority during a crisis",
+    "what": "The person who decides Red vs. Blue, ensures 911 is called, assigns nursery/class accountability, and **authorizes all clear**.",
+    "usage": "Fill in names on the [Roles](/roles/) page. Backup IC assumes command if primary is unavailable.",
+    "related": ["all-clear", "code-red", "code-blue"]
+  },
+  {
+    "slug": "campus-horns",
+    "term": "Campus Horns",
+    "aliases": ["Alert Speakers", "AI speakers"],
+    "short": "Building speakers",
+    "what": "UniFi Protect AI speakers in lobby, hallways, and fellowship hall. Play bells, emergency codes, and PA.",
+    "usage": "Friendly name for “the speakers” in conversation with volunteers.",
+    "related": ["arnold-alert", "alert-check", "system-armed"]
+  },
+  {
+    "slug": "alert-fobs",
+    "term": "Alert Fobs",
+    "short": "Physical emergency buttons",
+    "what": "Carried devices: button **1** = Code Red, **2** = Code Blue, **4** = All clear. Registered in Alert Desk → System → Fobs.",
+    "usage": "Must **Fob Arm** before buttons work. Activity log shows who had it armed.",
+    "related": ["alert-fob-link", "fob-arm", "code-red"]
+  },
+  {
+    "slug": "fob-arm",
+    "term": "Fob Arm",
+    "short": "3-hour fob activation window",
+    "what": "The period when your assigned fob will actually trigger codes. Same 3-hour window as a normal app login session.",
+    "usage": "Arm when you pick up a fob; re-arm if your shift is longer than 3 hours.",
+    "related": ["alert-fob-link", "alert-fobs"]
+  },
+  {
+    "slug": "alert-line",
+    "term": "Alert Line",
+    "short": "Phone extension 9090",
+    "what": "IVR menu on UniFi Talk: page, test, PIN codes, fob arm, system arm. Caller ID may show **Campus Security**.",
+    "usage": "**Not** the primary way to declare a code in a crisis — use Alert Mobile or an armed fob. OK for paging (press 1) when appropriate.",
+    "related": ["alert-page", "alert-line-codes", "system-arm"]
+  },
+  {
+    "slug": "alert-page",
+    "term": "Alert Page",
+    "short": "Convenience PA (9090 → 1)",
+    "what": "Live paging to campus horns after a beep. For announcements — **not** lockdown or evacuate.",
+    "usage": "Office convenience only. Never substitute for Code Red or Blue.",
+    "related": ["alert-line", "quick-page"]
+  },
+  {
+    "slug": "alert-line-codes",
+    "term": "Alert Line Codes",
+    "short": "9090 → 3 → PIN",
+    "what": "Declare Code Red or Blue from any phone with a staff evacuation PIN.",
+    "usage": "Backup if you do not have Alert Mobile handy.",
+    "related": ["alert-line", "code-leader", "alert-emergency"]
+  },
+  {
+    "slug": "quick-page",
+    "term": "Quick Page",
+    "short": "Extension 8080",
+    "what": "Direct dial to campus PA without the 9090 menu — beep then open mic.",
+    "usage": "Facilities / staff who need fast paging. Still not for emergency codes.",
+    "related": ["alert-page"]
+  },
+  {
+    "slug": "alert-check",
+    "term": "Alert Check",
+    "aliases": ["Speaker check"],
+    "short": "Full-campus horn test",
+    "what": "Alert Notify (desk phones) → start tone → TEST ACOC on every horn. Run when building is empty.",
+    "usage": "Alert Desk → Speaker test, or Alert Control on mobile.",
+    "related": ["alert-notify", "campus-horns"]
+  },
+  {
+    "slug": "alert-notify",
+    "term": "Alert Notify",
+    "short": "Desk phone warning before horn test",
+    "what": "Rings configured desk phones before speaker check horns. Press **0** on a desk phone to delay horns (tests only).",
+    "usage": "Not an emergency feature — part of Alert Check workflow.",
+    "related": ["alert-check"]
+  },
+  {
+    "slug": "system-armed",
+    "term": "System Armed",
+    "aliases": ["Armed"],
+    "short": "Horns will play",
+    "what": "Normal operating state. Bells and emergency codes **sound on campus**. Default before services.",
+    "usage": "Opposite of System Standby. Toggle in Alert Control, Alert Desk, or 9090 → 5.",
+    "related": ["system-standby", "queued-standby"]
+  },
+  {
+    "slug": "system-standby",
+    "term": "System Standby",
+    "aliases": ["Unarmed"],
+    "short": "Horns stay silent",
+    "what": "Commands are **logged but held** — no audio on campus until a System Admin arms again.",
+    "usage": "Maintenance, empty-building work, AV tests. Do not leave standby during public gatherings without reason.",
+    "related": ["system-armed", "queued-standby"]
+  },
+  {
+    "slug": "queued-standby",
+    "term": "Queued (standby)",
+    "aliases": ["Held"],
+    "short": "Command recorded while standby",
+    "what": "Someone triggered a bell or code while the system was on standby. Logged in Desk Activity; horns did not play.",
+    "usage": "Admin arms the system if the command should still run (usually review first).",
+    "related": ["system-standby", "desk-activity"]
+  },
+  {
+    "slug": "code-red-active",
+    "term": "Code Red Active",
+    "short": "Red code is live",
+    "what": "Evacuation code is playing on campus horns. All clear is available; Code Blue is blocked until cleared.",
+    "related": ["code-red", "all-clear"]
+  },
+  {
+    "slug": "code-blue-active",
+    "term": "Code Blue Active",
+    "short": "Blue code is live",
+    "what": "Lockdown code is playing on campus horns. All clear is available; Code Red is blocked until cleared.",
+    "related": ["code-blue", "all-clear"]
+  },
+  {
+    "slug": "bell-ringer",
+    "term": "Bell Ringer",
+    "short": "Staff PIN scope — bells only",
+    "what": "Permission for Alert Bells only. Cannot declare codes or open Alert Desk.",
+    "related": ["alert-bells", "alert-pin"]
+  },
+  {
+    "slug": "code-leader",
+    "term": "Code Leader",
+    "short": "Staff PIN scope — evacuation",
+    "what": "Permission for Alert Emergency, fobs, and Alert Line Codes. Cannot manage staff PINs or arm/standby.",
+    "related": ["alert-emergency", "alert-fobs", "triggers"]
+  },
+  {
+    "slug": "system-admin",
+    "term": "System Admin",
+    "short": "Staff PIN scope — full admin",
+    "what": "Alert Desk, Alert Control, arm/standby, staff PIN management, speaker settings.",
+    "related": ["alert-desk", "alert-control", "system-armed"]
+  },
+  {
+    "slug": "remote-operator",
+    "term": "Remote Operator",
+    "short": "Staff PIN scope — off-campus queue",
+    "what": "Queue plays from cellular when not on church Wi‑Fi. Grant sparingly.",
+    "related": ["arnold-alert", "alert-gateway"]
+  },
+  {
+    "slug": "alert-pin",
+    "term": "Alert PIN",
+    "aliases": ["Staff PIN"],
+    "short": "6-digit staff login",
+    "what": "Hashed PIN in Arnold Alert. Scopes control bells, codes, admin, or remote. Sessions last 3 hours idle.",
+    "usage": "Never share your PIN. Temp PINs must be changed on first login.",
+    "related": ["bell-ringer", "code-leader", "system-admin"]
+  },
+  {
+    "slug": "desk-activity",
+    "term": "Desk Activity",
+    "short": "Audit log",
+    "what": "Who triggered what and when — codes, bells, held commands, arm changes. Central time.",
+    "usage": "Review after incidents: Alert Desk → Activity.",
+    "related": ["alert-desk", "post-incident"]
+  },
+  {
+    "slug": "first-bell",
+    "term": "First Bell",
+    "short": "Class bell — one tone",
+    "what": "Single Start_Bell_Tone on all campus horns at bell volume.",
+    "related": ["alert-bells", "second-bell"]
+  },
+  {
+    "slug": "second-bell",
+    "term": "Second Bell",
+    "short": "Class bell — two tones",
+    "what": "Two Start_Bell_Tone plays on all horns (~1.5s apart).",
+    "related": ["alert-bells", "first-bell"]
+  },
+  {
+    "slug": "alert-gateway",
+    "term": "Alert Gateway",
+    "aliases": ["alarm-gw", "Pi gateway"],
+    "short": "On-site audio engine (Raspberry Pi)",
+    "what": "Connects Arnold Alert cloud to UniFi Protect speakers on church LAN. Not used directly by most staff.",
+    "related": ["arnold-alert", "campus-horns"]
+  },
+  {
+    "slug": "system-arm",
+    "term": "System Arm",
+    "short": "9090 → 5 → admin PIN",
+    "what": "Phone menu path to toggle System Armed ↔ System Standby.",
+    "related": ["system-armed", "system-standby", "alert-line"]
+  }
+]
