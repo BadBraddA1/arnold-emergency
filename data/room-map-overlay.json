@@ -6,7 +6,9 @@
       "exits": {
         "L1-EAST-UPPER": { "x": 718, "y": 318, "label": "EXIT" },
         "L1-EAST-LOWER": { "x": 718, "y": 662, "label": "EXIT" }
-      }
+      },
+      "aed": {},
+      "firstAid": {}
     },
     "2": {
       "master": "templates/classroom/maps/master-level-2.png",
@@ -15,7 +17,9 @@
         "L2-WEST-LOWER": { "x": 76, "y": 900, "label": "EXIT" },
         "L2-EAST-UPPER": { "x": 718, "y": 400, "label": "EXIT" },
         "L2-EAST-LOWER": { "x": 718, "y": 748, "label": "EXIT" }
-      }
+      },
+      "aed": {},
+      "firstAid": {}
     }
   },
   "rooms": {

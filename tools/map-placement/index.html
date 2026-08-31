@@ -64,7 +64,9 @@
     <div class="mode">
       <button type="button" data-mode="pin" class="active">Pin</button>
       <button type="button" data-mode="route">Route</button>
-      <button type="button" data-mode="exit">Exit ref</button>
+      <button type="button" data-mode="exit">Exit</button>
+      <button type="button" data-mode="aed">AED</button>
+      <button type="button" data-mode="firstaid">First aid</button>
     </div>
 
     <label for="exit">Nearest exit (saved on room)</label>
@@ -72,8 +74,21 @@
 
     <div class="toggles">
       <label><input type="checkbox" id="showExits" checked /> Show exit labels</label>
+      <label><input type="checkbox" id="showAed" checked /> Show AED</label>
+      <label><input type="checkbox" id="showFirstAid" checked /> Show first aid kits</label>
       <label><input type="checkbox" id="showRoute" checked /> Show route line</label>
       <label><input type="checkbox" id="showCompare" checked /> Show distance to all exits</label>
+    </div>
+
+    <p class="section-title">AED &amp; first aid (per floor)</p>
+    <p class="hint" style="margin-top:0">Switch to <strong>AED</strong> or <strong>First aid</strong> mode, pick a unit, click the map. Same on every room poster for that floor.</p>
+    <label for="medicalUnit">Unit to place</label>
+    <select id="medicalUnit"></select>
+    <label for="medicalNote">Location note (optional)</label>
+    <input id="medicalNote" type="text" placeholder="e.g. Foyer wall near doors" />
+    <div class="row2">
+      <button type="button" class="secondary" id="addMedicalUnit">Add unit</button>
+      <button type="button" class="secondary" id="removeMedicalUnit">Remove unit</button>
     </div>
 
     <button type="button" class="secondary" id="suggestExit">Pick nearest exit (straight-line)</button>
@@ -97,6 +112,8 @@
 
     <p class="legend">
       <span style="background:#2563eb;border:2px solid #fff"></span> Exit &nbsp;
+      <span style="background:#059669"></span> AED &nbsp;
+      <span style="background:#dc2626;border:2px solid #fff"></span> First aid &nbsp;
       <span style="background:#16a34a"></span> Route &nbsp;
       <span style="background:#dc2626;border:2px solid #fff"></span> You are here
     </p>
@@ -117,6 +134,10 @@
       pinLabelBadgeSvg,
       pinLabelLeaderSvg,
     } from "/scripts/map-label-placement.mjs";
+    import {
+      medicalMarkerSvg,
+      nearestMedical,
+    } from "/scripts/map-medical-markers.mjs";
 
     const ROOMS = {
       1: ["101","102","103","104","105","106","107","108","109","110","111","112","nursery","cry-room","foyer","work-room"],
@@ -139,6 +160,7 @@
     let mode = "pin";
     let overlay = { imageSize: { width: 794, height: 1286 }, floors: {}, rooms: {} };
     let roomRoutes = { exits: {}, rooms: [] };
+    let medicalEquipment = { slots: {} };
     let current = { pin: null, route: [], exit: null };
     let hover = null;
     let shiftDown = false;
@@ -155,6 +177,51 @@
     const jsonEl = document.getElementById("json");
     const routeStatusEl = document.getElementById("routeStatus");
     const autosaveStatusEl = document.getElementById("autosaveStatus");
+    const medicalUnitEl = document.getElementById("medicalUnit");
+    const medicalNoteEl = document.getElementById("medicalNote");
+
+    function medicalKind() {
+      if (mode === "aed") return "aed";
+      if (mode === "firstaid") return "firstAid";
+      return null;
+    }
+
+    function ensureFloorMedical(floor) {
+      if (!overlay.floors[floor]) overlay.floors[floor] = { exits: {} };
+      if (!overlay.floors[floor].aed) overlay.floors[floor].aed = {};
+      if (!overlay.floors[floor].firstAid) overlay.floors[floor].firstAid = {};
+    }
+
+    function floorMedical(floor) {
+      ensureFloorMedical(floor);
+      return overlay.floors[floor];
+    }
+
+    function medicalUnitIds(floor, kind) {
+      const slots = medicalEquipment.slots?.[floor]?.[kind] ?? [];
+      const placed = Object.keys(floorMedical(floor)[kind] ?? {});
+      return [...new Set([...slots.map((s) => s.id), ...placed])].sort();
+    }
+
+    function fillMedicalUnitSelect() {
+      const kind = medicalKind() ?? "aed";
+      const floor = floorEl.value;
+      const ids = medicalUnitIds(floor, kind);
+      if (!ids.length) ids.push(kind === "aed" ? `L${floor}-AED-1` : `L${floor}-FA-1`);
+      const current = medicalUnitEl.value;
+      medicalUnitEl.innerHTML = ids.map((id) => `<option value="${id}">${id}</option>`).join("");
+      if (ids.includes(current)) medicalUnitEl.value = current;
+      const placed = floorMedical(floor)[kind]?.[medicalUnitEl.value];
+      medicalNoteEl.value = placed?.note ?? "";
+    }
+
+    function nextMedicalId(floor, kind) {
+      const prefix = kind === "aed" ? `L${floor}-AED-` : `L${floor}-FA-`;
+      let n = 1;
+      const ids = medicalUnitIds(floor, kind);
+      while (ids.includes(`${prefix}${n}`)) n++;
+      return `${prefix}${n}`;
+    }
 
     function roomCount() {
       return Object.keys(overlay.rooms ?? {}).length;
@@ -317,10 +384,33 @@
 
       const floor = floorEl.value;
       const showExits = document.getElementById("showExits").checked;
+      const showAed = document.getElementById("showAed").checked;
+      const showFirstAid = document.getElementById("showFirstAid").checked;
       const showRoute = document.getElementById("showRoute").checked;
       const showCompare = document.getElementById("showCompare").checked;
       const selectedExit = exitEl.value;
       const exits = floorExits(floor);
+      const medical = floorMedical(floor);
+      const selectedMedical = medicalKind() ? medicalUnitEl.value : null;
+
+      if (showAed) {
+        for (const [id, pt] of Object.entries(medical.aed ?? {})) {
+          if (!pt?.x) continue;
+          appendSvgFragment(
+            svgEl,
+            medicalMarkerSvg("aed", id, pt, { selected: mode === "aed" && id === selectedMedical })
+          );
+        }
+      }
+      if (showFirstAid) {
+        for (const [id, pt] of Object.entries(medical.firstAid ?? {})) {
+          if (!pt?.x) continue;
+          appendSvgFragment(
+            svgEl,
+            medicalMarkerSvg("firstAid", id, pt, { selected: mode === "firstaid" && id === selectedMedical })
+          );
+        }
+      }
 
       if (showCompare && current.pin) {
         const dists = exitDistances(current.pin, floor);
@@ -387,7 +477,6 @@
         }
 
         const { w: imgW, h: imgH } = svgSize();
-        const pts = routePoints();
         const labelPlacement = pickPinLabelPlacement({
           pin: current.pin,
           routePoints: pts,
@@ -508,6 +597,7 @@
       const nearest = dists[0];
       const routeLen = pathLength(routePoints());
       const straightNearest = nearest?.id;
+      const medical = floorMedical(floor);
 
       let html = "";
       if (nearest) {
@@ -522,6 +612,15 @@
         html += `</ul>`;
         if (current.route.length) {
           html += `<div style="margin-top:0.35rem">Walk path: <strong>${Math.round(routeLen)}px</strong> (${current.route.length} waypoint${current.route.length === 1 ? "" : "s"})</div>`;
+        }
+        const nearAed = nearestMedical(current.pin, medical.aed);
+        const nearFa = nearestMedical(current.pin, medical.firstAid);
+        if (nearAed || nearFa) {
+          html += `<div style="margin-top:0.35rem">Medical: `;
+          if (nearAed) html += `<strong>${nearAed.id}</strong> ${Math.round(nearAed.dist)}px`;
+          if (nearAed && nearFa) html += ` · `;
+          if (nearFa) html += `<strong>${nearFa.id}</strong> ${Math.round(nearFa.dist)}px`;
+          html += `</div>`;
         }
       }
 
@@ -571,6 +670,7 @@
         .join("");
       mapEl.src = MAPS[f];
       mapEl.alt = f === "1" ? "Level 1 floor plan" : "Level 2 floor plan";
+      fillMedicalUnitSelect();
       loadRoom();
     }
 
@@ -618,6 +718,17 @@
         if (!overlay.floors[floorEl.value]) overlay.floors[floorEl.value] = { exits: {} };
         overlay.floors[floorEl.value].exits = overlay.floors[floorEl.value].exits || {};
         overlay.floors[floorEl.value].exits[key] = { x: raw.x, y: raw.y, label: "EXIT" };
+      } else if (mode === "aed" || mode === "firstaid") {
+        const kind = medicalKind();
+        const floor = floorEl.value;
+        const id = medicalUnitEl.value;
+        const collection = floorMedical(floor)[kind];
+        collection[id] = {
+          x: raw.x,
+          y: raw.y,
+          label: kind === "aed" ? "AED" : "First aid",
+          note: medicalNoteEl.value.trim() || undefined,
+        };
       }
       renderOverlay();
       autosave();
@@ -638,6 +749,7 @@
         btn.classList.add("active");
         mode = btn.dataset.mode;
         stage.classList.toggle("snap-route", mode === "route");
+        fillMedicalUnitSelect();
         hover = null;
         renderOverlay();
       });
@@ -689,7 +801,47 @@
       a.click();
     };
 
-    for (const id of ["showExits", "showRoute", "showCompare", "snapHV", "showPreview"]) {
+    document.getElementById("addMedicalUnit").onclick = () => {
+      const kind = medicalKind() ?? "aed";
+      const floor = floorEl.value;
+      const id = nextMedicalId(floor, kind);
+      medicalUnitEl.innerHTML += `<option value="${id}">${id}</option>`;
+      medicalUnitEl.value = id;
+      medicalNoteEl.value = "";
+      autosave();
+    };
+
+    document.getElementById("removeMedicalUnit").onclick = () => {
+      const kind = medicalKind() ?? "aed";
+      const floor = floorEl.value;
+      const id = medicalUnitEl.value;
+      if (!id) return;
+      if (!confirm(`Remove ${id} from this floor?`)) return;
+      delete floorMedical(floor)[kind][id];
+      fillMedicalUnitSelect();
+      renderOverlay();
+      autosave({ immediate: true });
+    };
+
+    medicalUnitEl.addEventListener("change", () => {
+      const kind = medicalKind() ?? "aed";
+      const placed = floorMedical(floorEl.value)[kind]?.[medicalUnitEl.value];
+      medicalNoteEl.value = placed?.note ?? "";
+      renderOverlay();
+    });
+
+    medicalNoteEl.addEventListener("change", () => {
+      const kind = medicalKind() ?? "aed";
+      const floor = floorEl.value;
+      const id = medicalUnitEl.value;
+      const placed = floorMedical(floor)[kind]?.[id];
+      if (!placed?.x) return;
+      placed.note = medicalNoteEl.value.trim() || undefined;
+      autosave();
+      renderOverlay();
+    });
+
+    for (const id of ["showExits", "showRoute", "showCompare", "showAed", "showFirstAid", "snapHV", "showPreview"]) {
       document.getElementById(id).addEventListener("change", renderOverlay);
     }
 
@@ -704,9 +856,11 @@
 
     Promise.all([
       fetch("/data/room-map-overlay.json").then((r) => r.json()).catch(() => null),
-      fetch("/data/room-routes.json").then((r) => r.json()).catch(() => ({ exits: {}, rooms: [] }))
-    ]).then(([data, routes]) => {
+      fetch("/data/room-routes.json").then((r) => r.json()).catch(() => ({ exits: {}, rooms: [] })),
+      fetch("/data/medical-equipment.json").then((r) => r.json()).catch(() => ({ slots: {} }))
+    ]).then(([data, routes, medical]) => {
       if (routes) roomRoutes = routes;
+      if (medical) medicalEquipment = medical;
       if (data) {
         overlay = data;
         const saved = localStorage.getItem(STORAGE_KEY);

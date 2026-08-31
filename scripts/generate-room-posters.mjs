@@ -13,6 +13,7 @@ import {
 	pinLabelBadgeSvg,
 	pinLabelLeaderSvg,
 } from './map-label-placement.mjs';
+import { buildMedicalMarkersSvg } from './map-medical-markers.mjs';
 
 const ROOT = join(import.meta.dirname, '..');
 
@@ -33,9 +34,10 @@ function escapeXml(s) {
 		.replace(/"/g, '&quot;');
 }
 
-function buildOverlaySvg({ width, height, pin, route, exit, exitKey, roomLabel }) {
+function buildOverlaySvg({ width, height, pin, route, exit, exitKey, roomLabel, floorData }) {
 	const points = [{ x: pin.x, y: pin.y }, ...route, { x: exit.x, y: exit.y }];
 	const poly = points.map((p) => `${p.x},${p.y}`).join(' ');
+	const medical = buildMedicalMarkersSvg(floorData);
 
 	const last = points[points.length - 2] ?? pin;
 	const dx = exit.x - last.x;
@@ -57,6 +59,7 @@ function buildOverlaySvg({ width, height, pin, route, exit, exitKey, roomLabel }
 	});
 
 	return `<svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">
+  ${medical}
   <polyline points="${poly}" fill="none" stroke="#16a34a" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity="0.95"/>
   <polygon points="${arrow}" fill="#16a34a"/>
   <circle cx="${exit.x}" cy="${exit.y}" r="11" fill="#2563eb" stroke="#fff" stroke-width="2"/>
@@ -119,6 +122,7 @@ for (const roomId of toGenerate) {
 		exit,
 		exitKey,
 		roomLabel,
+		floorData: floor,
 	});
 
 	const outFile = join(args.outDir, `room-${roomId}.png`);

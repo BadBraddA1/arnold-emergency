@@ -1,0 +1,27 @@
+{
+  "meta": {
+    "church": "Arnold Church of Christ",
+    "notes": [
+      "Place units on the map with pnpm run map:place — AED and First aid modes",
+      "Verify battery dates and kit contents during building walk-through"
+    ]
+  },
+  "slots": {
+    "1": {
+      "aed": [
+        { "id": "L1-AED-1", "name": "AED 1", "hint": "Main level — foyer or central hallway" }
+      ],
+      "firstAid": [
+        { "id": "L1-FA-1", "name": "First aid kit 1", "hint": "Office, kitchen, or work room" }
+      ]
+    },
+    "2": {
+      "aed": [
+        { "id": "L2-AED-1", "name": "AED 1", "hint": "Upper level — fellowship hall or stair landing" }
+      ],
+      "firstAid": [
+        { "id": "L2-FA-1", "name": "First aid kit 1", "hint": "Fellowship hall or north hallway" }
+      ]
+    }
+  }
+}

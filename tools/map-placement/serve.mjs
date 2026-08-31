@@ -40,6 +40,8 @@ const server = createServer(async (req, res) => {
 		if (path === '/data/room-map-overlay.json') path = '/data/room-map-overlay.json';
 		if (path === '/data/room-routes.json') path = '/data/room-routes.json';
 		if (path === '/scripts/map-label-placement.mjs') path = '/scripts/map-label-placement.mjs';
+		if (path === '/scripts/map-medical-markers.mjs') path = '/scripts/map-medical-markers.mjs';
+		if (path === '/data/medical-equipment.json') path = '/data/medical-equipment.json';
 
 		const filePath = join(ROOT, path.replace(/^\//, ''));
 		const body = await readFile(filePath);

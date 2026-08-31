@@ -40,7 +40,8 @@ Fill these in when leadership is ready. Until then, treat as open questions.
 
 | Topic | Status | Notes |
 |-------|--------|-------|
-| **AED locations** | _[TBD]_ | Map each unit; who checks batteries monthly |
+| **AED locations** | _[Place on map]_ | Run `pnpm run map:place` → **AED** mode; see `data/medical-equipment.json` |
+| **First aid kits** | _[Place on map]_ | Same tool → **First aid** mode; shown on room posters for that floor |
 | **Who calls 911** | _[TBD]_ | Anyone? Office only? Area lead first? |
 | **First aid / CPR-trained staff** | _[TBD]_ | Names or “whoever is present” |
 | **When to also declare Code Red** | _[TBD]_ | e.g. fire, gas, need to clear building for EMS |
