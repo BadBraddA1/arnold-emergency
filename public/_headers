@@ -2,3 +2,4 @@
   X-Robots-Tag: noindex, nofollow, noarchive, nosnippet, noimageindex
   X-Content-Type-Options: nosniff
   Referrer-Policy: no-referrer
+  # Discourage archival mirrors (Wayback respects noarchive when possible)
