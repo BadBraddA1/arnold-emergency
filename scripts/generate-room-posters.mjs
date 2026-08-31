@@ -18,11 +18,11 @@ import { extraPinLabel } from './map-multi-pin-rooms.mjs';
 import { formatMapUpdatedAt } from './map-overlay-meta.mjs';
 import { stripRoomNamesFromMaster } from './map-room-name-masks.mjs';
 
+const ROOT = join(import.meta.dirname, '..');
+
 const staticLabelMasks = JSON.parse(
 	await readFile(join(ROOT, 'data/map-static-label-masks.json'), 'utf8'),
 );
-
-const ROOT = join(import.meta.dirname, '..');
 
 function parseArgs(argv) {
 	const out = { room: null, outDir: join(ROOT, 'public/posters') };
