@@ -62,8 +62,20 @@
           "label": "EXIT"
         }
       },
-      "aed": {},
-      "firstAid": {}
+      "aed": {
+        "L2-AED-1": {
+          "x": 188,
+          "y": 784,
+          "label": "AED"
+        }
+      },
+      "firstAid": {
+        "L2-FA-1": {
+          "x": 188,
+          "y": 731,
+          "label": "First aid"
+        }
+      }
     }
   },
   "rooms": {
