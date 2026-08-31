@@ -1,9 +1,9 @@
 /** ADA-accessible exit IDs — keep in sync with data/room-routes.json adaExits */
 
-export const ADA_EXIT_IDS = ['L1-EAST-UPPER', 'L2-WEST-LOWER'];
+export const ADA_EXIT_IDS = ['L1-EAST-UPPER', 'L1-EAST-LOWER', 'L2-WEST-LOWER'];
 
 export const ADA_EXIT_NOTE =
-	'Only ADA-accessible exits: Level 1 — east upper (L1-EAST-UPPER); Level 2 — west lower (L2-WEST-LOWER).';
+	'Only ADA-accessible exits: Level 1 — east upper and east lower; Level 2 — west lower.';
 
 export function isAdaExit(id) {
 	return ADA_EXIT_IDS.includes(id);

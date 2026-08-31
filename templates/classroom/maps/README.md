@@ -35,7 +35,7 @@ Open http://localhost:3456 — edits **autosave** to `data/room-map-overlay.json
 
 ### Exits (once per floor)
 
-**ADA-accessible exits only:** Level 1 — **east upper** (`L1-EAST-UPPER`); Level 2 — **west lower** (`L2-WEST-LOWER`). Marked ♿ in the map tool and on posters.
+**ADA-accessible exits only:** Level 1 — **east upper** and **east lower** (`L1-EAST-UPPER`, `L1-EAST-LOWER`); Level 2 — **west lower** (`L2-WEST-LOWER`). Marked ♿ in the map tool and on posters.
 
 1. **Exit** mode → select exit (or **Add exit** for a new door) → click on map
 2. Optional **Exit label** (e.g. “West foyer”) — shows on map and posters

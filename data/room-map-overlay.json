@@ -16,7 +16,8 @@
         "L1-EAST-LOWER": {
           "x": 725,
           "y": 525,
-          "label": "EXIT"
+          "label": "EXIT",
+          "ada": true
         },
         "L1-EXIT-1": {
           "x": 728,
