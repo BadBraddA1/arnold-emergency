@@ -165,7 +165,9 @@
     let hover = null;
     let shiftDown = false;
     let activeRoomId = null;
+    let activeFloor = "1";
     let diskSaveTimer = null;
+    let overlayReady = false;
     const STORAGE_KEY = "arnold-map-overlay";
 
     const floorEl = document.getElementById("floor");
@@ -223,6 +225,52 @@
       return `${prefix}${n}`;
     }
 
+    function mergeOverlay(base, local) {
+      if (!local) return base;
+      const mergedFloors = { ...base.floors };
+      for (const [key, lf] of Object.entries(local.floors ?? {})) {
+        const bf = base.floors?.[key] ?? {};
+        mergedFloors[key] = {
+          ...bf,
+          ...lf,
+          exits: { ...bf.exits, ...lf.exits },
+          aed: { ...bf.aed, ...lf.aed },
+          firstAid: { ...bf.firstAid, ...lf.firstAid },
+        };
+      }
+      return {
+        ...base,
+        ...local,
+        imageSize: local.imageSize ?? base.imageSize,
+        floors: mergedFloors,
+        rooms: { ...base.rooms, ...local.rooms },
+      };
+    }
+
+    function populateRoomSelect() {
+      const f = floorEl.value;
+      roomEl.innerHTML = ROOMS[f]
+        .map((id) => {
+          const saved = overlay.rooms?.[id];
+          const mark = saved?.pin ? " ✓" : "";
+          return `<option value="${id}">${id}${mark}</option>`;
+        })
+        .join("");
+      exitEl.innerHTML = Object.entries(EXITS[f])
+        .map(([k, v]) => `<option value="${k}">${v} (${k})</option>`)
+        .join("");
+    }
+
+    function refreshFloorUi() {
+      const f = floorEl.value;
+      activeFloor = f;
+      populateRoomSelect();
+      mapEl.src = MAPS[f];
+      mapEl.alt = f === "1" ? "Level 1 floor plan" : "Level 2 floor plan";
+      fillMedicalUnitSelect();
+      loadRoom();
+    }
+
     function roomCount() {
       return Object.keys(overlay.rooms ?? {}).length;
     }
@@ -248,7 +296,7 @@
     function commitCurrentRoom() {
       if (!activeRoomId || !current.pin) return;
       overlay.rooms[activeRoomId] = {
-        floor: Number(floorEl.value),
+        floor: Number(activeFloor),
         pin: { ...current.pin },
         route: current.route.map((p) => ({ ...p })),
         exit: exitEl.value,
@@ -261,6 +309,8 @@
       } catch {
         setAutosaveStatus("local");
       }
+
+      if (!overlayReady) return;
 
       const writeDisk = async () => {
         setAutosaveStatus("saving");
@@ -286,6 +336,8 @@
     function autosave({ immediate = false } = {}) {
       commitCurrentRoom();
       persistOverlay({ immediate });
+      populateRoomSelect();
+      if (roomEl.value) roomEl.value = activeRoomId;
       updateJson();
     }
 
@@ -383,11 +435,11 @@
       svgEl.innerHTML = "";
 
       const floor = floorEl.value;
-      const showExits = document.getElementById("showExits").checked;
-      const showAed = document.getElementById("showAed").checked;
-      const showFirstAid = document.getElementById("showFirstAid").checked;
-      const showRoute = document.getElementById("showRoute").checked;
-      const showCompare = document.getElementById("showCompare").checked;
+      const showExits = document.getElementById("showExits")?.checked ?? true;
+      const showAed = document.getElementById("showAed")?.checked ?? true;
+      const showFirstAid = document.getElementById("showFirstAid")?.checked ?? true;
+      const showRoute = document.getElementById("showRoute")?.checked ?? true;
+      const showCompare = document.getElementById("showCompare")?.checked ?? true;
       const selectedExit = exitEl.value;
       const exits = floorExits(floor);
       const medical = floorMedical(floor);
@@ -637,7 +689,9 @@
     }
 
     function fillRooms() {
-      switchFloor();
+      commitCurrentRoom();
+      refreshFloorUi();
+      if (overlayReady) persistOverlay();
     }
 
     function loadRoom() {
@@ -650,6 +704,7 @@
         : { pin: null, route: [], exit: meta?.nearestExit ?? exitEl.value };
       if (current.exit) exitEl.value = current.exit;
       else if (meta?.nearestExit) exitEl.value = meta.nearestExit;
+      activeFloor = String(saved?.floor ?? meta?.floor ?? floorEl.value);
       renderOverlay();
       updateJson();
     }
@@ -657,20 +712,7 @@
     function switchRoom() {
       commitCurrentRoom();
       persistOverlay();
-      loadRoom();
-    }
-
-    function switchFloor() {
-      commitCurrentRoom();
-      persistOverlay();
-      const f = floorEl.value;
-      roomEl.innerHTML = ROOMS[f].map((id) => `<option value="${id}">${id}</option>`).join("");
-      exitEl.innerHTML = Object.entries(EXITS[f])
-        .map(([k, v]) => `<option value="${k}">${v} (${k})</option>`)
-        .join("");
-      mapEl.src = MAPS[f];
-      mapEl.alt = f === "1" ? "Level 1 floor plan" : "Level 2 floor plan";
-      fillMedicalUnitSelect();
+      populateRoomSelect();
       loadRoom();
     }
 
@@ -854,6 +896,11 @@
     roomEl.addEventListener("change", switchRoom);
     floorEl.addEventListener("change", fillRooms);
 
+    activeFloor = floorEl.value;
+    populateRoomSelect();
+    activeRoomId = roomEl.value;
+    loadRoom();
+
     Promise.all([
       fetch("/data/room-map-overlay.json").then((r) => r.json()).catch(() => null),
       fetch("/data/room-routes.json").then((r) => r.json()).catch(() => ({ exits: {}, rooms: [] })),
@@ -865,18 +912,25 @@
         overlay = data;
         const saved = localStorage.getItem(STORAGE_KEY);
         if (saved) {
-          const local = JSON.parse(saved);
-          overlay = {
-            ...data,
-            ...local,
-            floors: { ...data.floors, ...local.floors },
-            rooms: { ...data.rooms, ...local.rooms }
-          };
+          try {
+            overlay = mergeOverlay(data, JSON.parse(saved));
+          } catch {
+            console.warn("Ignoring invalid localStorage overlay");
+          }
         }
+        overlayReady = true;
         setAutosaveStatus("disk", `${roomCount()} rooms loaded`);
+        refreshFloorUi();
+      } else {
+        overlayReady = true;
+        setAutosaveStatus("local", "Could not load overlay file — using browser storage only");
       }
-    }).finally(() => {
-      fillRooms();
+    }).catch((err) => {
+      console.error(err);
+      overlayReady = true;
+      autosaveStatusEl.className = "autosave warn";
+      autosaveStatusEl.textContent = `Load error: ${err.message}`;
+      refreshFloorUi();
     });
   </script>
 </body>
