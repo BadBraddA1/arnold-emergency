@@ -1,0 +1,56 @@
+---
+title: Arnold Emergency
+description: Emergency response procedures for Arnold Church of Christ.
+template: splash
+hero:
+  tagline: Who does what when Code Red or Code Blue sounds — the live playbook for Arnold Church of Christ. Campus audio runs on Arnold Alert; this site is the human response.
+  actions:
+    - text: Quick reference
+      link: /quick-reference/
+      icon: right-arrow
+    - text: Code Red — Evacuate
+      link: /codes/code-red/
+      icon: right-arrow
+      variant: primary
+    - text: Arnold Alert app
+      link: https://alarm.arnoldcoc.org
+      icon: external
+      variant: minimal
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+## Start here
+
+<CardGrid stagger>
+	<Card title="Quick reference" icon="document">
+		Printable card — Code Red, Code Blue, all clear, 911.
+		[Open →](/quick-reference/)
+	</Card>
+	<Card title="Roles" icon="puzzle">
+		Incident commander, nursery, pulpit, office — who owns what.
+		[Open →](/roles/)
+	</Card>
+	<Card title="Code Red" icon="rocket">
+		Evacuate — when to use it and step-by-step response.
+		[Open →](/codes/code-red/)
+	</Card>
+	<Card title="Code Blue" icon="lock">
+		Lockdown — shelter in place procedures.
+		[Open →](/codes/code-blue/)
+	</Card>
+	<Card title="Arnold Alert" icon="setting">
+		Phone app, desk console, fobs, campus horns.
+		[Open →](/system/arnold-alert/)
+	</Card>
+	<Card title="Classroom handouts" icon="add-document">
+		Generate room-specific sheets from the template.
+		[Open →](/classroom/handout-template/)
+	</Card>
+</CardGrid>
+
+:::note[Source of truth]
+This repo is markdown in git. Edit on GitHub or clone locally — deploy updates the live site at **emergency.arnoldcoc.org**.
+:::
+
+**Status:** Draft — leadership sign-off required. See [Approval](/approval/).

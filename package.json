@@ -1,0 +1,19 @@
+{
+  "name": "arnold-emergency",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "generate:classroom": "node scripts/generate-classroom.mjs",
+    "deploy": "pnpm build && wrangler pages deploy dist --project-name=arnold-emergency"
+  },
+  "dependencies": {
+    "@astrojs/starlight": "^0.41.10",
+    "astro": "^7.1.6",
+    "sharp": "^0.35.3"
+  }
+}
