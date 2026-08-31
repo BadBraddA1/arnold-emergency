@@ -247,8 +247,10 @@
       };
     }
 
-    function populateRoomSelect() {
+    function populateRoomSelect(keepSelected) {
       const f = floorEl.value;
+      const selected = keepSelected ?? roomEl.value ?? activeRoomId;
+      const exitSelected = exitEl.value;
       roomEl.innerHTML = ROOMS[f]
         .map((id) => {
           const saved = overlay.rooms?.[id];
@@ -259,6 +261,8 @@
       exitEl.innerHTML = Object.entries(EXITS[f])
         .map(([k, v]) => `<option value="${k}">${v} (${k})</option>`)
         .join("");
+      if (selected && ROOMS[f].includes(selected)) roomEl.value = selected;
+      if (exitSelected && EXITS[f][exitSelected]) exitEl.value = exitSelected;
     }
 
     function refreshFloorUi() {
@@ -336,8 +340,7 @@
     function autosave({ immediate = false } = {}) {
       commitCurrentRoom();
       persistOverlay({ immediate });
-      populateRoomSelect();
-      if (roomEl.value) roomEl.value = activeRoomId;
+      populateRoomSelect(activeRoomId);
       updateJson();
     }
 
@@ -710,9 +713,10 @@
     }
 
     function switchRoom() {
+      const nextId = roomEl.value;
       commitCurrentRoom();
       persistOverlay();
-      populateRoomSelect();
+      populateRoomSelect(nextId);
       loadRoom();
     }
 
