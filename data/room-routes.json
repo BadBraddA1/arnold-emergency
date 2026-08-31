@@ -1,0 +1,259 @@
+{
+  "meta": {
+    "church": "Arnold Church of Christ",
+    "address": "1363 Jeffco Blvd, Arnold, MO 63010",
+    "assemblyDefault": "South parking lot",
+    "masterMaps": {
+      "level1": "templates/classroom/maps/master-level-1.png",
+      "level2": "templates/classroom/maps/master-level-2.png",
+      "pdf": "templates/classroom/maps/master-both-floors.pdf"
+    },
+    "notes": [
+      "verified=false until IC walks each route",
+      "Do not use stairs (TO-L2 / TO-L1) for Code Red unless IC or fire dept directs",
+      "Level 2 has multiple spaces labeled 210 — confirm names with facilities before printing"
+    ]
+  },
+  "exits": {
+    "L1-EAST-UPPER": "East exit — top of right hallway (near rooms 107–108)",
+    "L1-EAST-LOWER": "East exit — mid/right hallway (near work room / foyer side)",
+    "L2-WEST-UPPER": "West exit — upper left (near room 212)",
+    "L2-WEST-LOWER": "West exit — lower left (fellowship hall / bottom corner)",
+    "L2-EAST-UPPER": "East exit — upper right (near storage / stairs)",
+    "L2-EAST-LOWER": "East exit — lower right wall"
+  },
+  "rooms": [
+    {
+      "id": "101",
+      "floor": 1,
+      "name": "Secretaries Office",
+      "nearestExit": "L1-EAST-LOWER",
+      "path": "Out door → right (east) through hallway → EXIT on right wall",
+      "verified": false
+    },
+    {
+      "id": "102",
+      "floor": 1,
+      "name": "NA Office",
+      "nearestExit": "L1-EAST-LOWER",
+      "path": "Out door → east through hallway → EXIT on right wall",
+      "verified": false
+    },
+    {
+      "id": "103",
+      "floor": 1,
+      "name": "Classroom",
+      "nearestExit": "L1-EAST-LOWER",
+      "path": "Out door → east to main hallway → EXIT on right wall",
+      "verified": false
+    },
+    {
+      "id": "104",
+      "floor": 1,
+      "name": "Elders Office",
+      "nearestExit": "L1-EAST-LOWER",
+      "path": "Out door → east through corridor (past library wing) → EXIT on right wall",
+      "verified": false
+    },
+    {
+      "id": "105",
+      "floor": 1,
+      "name": "Classroom",
+      "nearestExit": "L1-EAST-LOWER",
+      "path": "Out nearest door → east to right-hand hallway → EXIT on right wall",
+      "verified": false
+    },
+    {
+      "id": "106",
+      "floor": 1,
+      "name": "Library",
+      "nearestExit": "L1-EAST-LOWER",
+      "path": "Out door → east along hallway → EXIT on right wall",
+      "verified": false
+    },
+    {
+      "id": "107",
+      "floor": 1,
+      "name": "Classroom",
+      "nearestExit": "L1-EAST-UPPER",
+      "path": "Out door → short walk east → nearest EXIT on right wall",
+      "verified": false
+    },
+    {
+      "id": "108",
+      "floor": 1,
+      "name": "Classroom",
+      "nearestExit": "L1-EAST-UPPER",
+      "path": "Out door → east → EXIT on right wall",
+      "verified": false
+    },
+    {
+      "id": "109",
+      "floor": 1,
+      "name": "Classroom",
+      "nearestExit": "L1-EAST-UPPER",
+      "path": "Out door → east → EXIT on right wall",
+      "verified": false
+    },
+    {
+      "id": "110",
+      "floor": 1,
+      "name": "Classroom",
+      "nearestExit": "L1-EAST-UPPER",
+      "path": "Out door → south/east to right hallway → EXIT on right wall",
+      "verified": false
+    },
+    {
+      "id": "111",
+      "floor": 1,
+      "name": "Teachers Supply Room",
+      "nearestExit": "L1-EAST-UPPER",
+      "path": "Out door → east through north hallway → EXIT on right wall",
+      "verified": false
+    },
+    {
+      "id": "112",
+      "floor": 1,
+      "name": "Supply Room",
+      "nearestExit": "L1-EAST-UPPER",
+      "path": "Out door → east along north hallway → EXIT on right wall",
+      "verified": false
+    },
+    {
+      "id": "nursery",
+      "floor": 1,
+      "name": "Nursery",
+      "nearestExit": "L1-EAST-LOWER",
+      "path": "Exit nursery → east toward foyer/work room hall → EXIT on right wall",
+      "verified": false
+    },
+    {
+      "id": "cry-room",
+      "floor": 1,
+      "name": "Cry Room",
+      "nearestExit": "L1-EAST-LOWER",
+      "path": "Out to hallway → east → EXIT on right wall",
+      "verified": false
+    },
+    {
+      "id": "foyer",
+      "floor": 1,
+      "name": "Foyer",
+      "nearestExit": "L1-EAST-LOWER",
+      "path": "Use main east-side EXIT in right hallway (not front decorative doors unless that is the designated exit)",
+      "verified": false
+    },
+    {
+      "id": "work-room",
+      "floor": 1,
+      "name": "Work Room",
+      "nearestExit": "L1-EAST-LOWER",
+      "path": "Out door → EXIT on right wall (very close)",
+      "verified": false
+    },
+    {
+      "id": "204",
+      "floor": 2,
+      "name": "Classroom",
+      "nearestExit": "L2-EAST-UPPER",
+      "path": "Out door → south to east hallway → EXIT on right wall",
+      "verified": false
+    },
+    {
+      "id": "205",
+      "floor": 2,
+      "name": "Classroom",
+      "nearestExit": "L2-EAST-UPPER",
+      "path": "Out door → south/east → EXIT on right wall",
+      "verified": false
+    },
+    {
+      "id": "206",
+      "floor": 2,
+      "name": "Classroom",
+      "nearestExit": "L2-EAST-UPPER",
+      "path": "Out door → east side hallway → EXIT on right wall",
+      "verified": false
+    },
+    {
+      "id": "207",
+      "floor": 2,
+      "name": "Classroom",
+      "nearestExit": "L2-EAST-UPPER",
+      "path": "Out door → east → EXIT on right wall",
+      "verified": false
+    },
+    {
+      "id": "208",
+      "floor": 2,
+      "name": "Classroom",
+      "nearestExit": "L2-WEST-UPPER",
+      "path": "Out door → west along north hallway → EXIT on left wall",
+      "verified": false
+    },
+    {
+      "id": "209",
+      "floor": 2,
+      "name": "Classroom",
+      "nearestExit": "L2-WEST-UPPER",
+      "path": "Out door → west → EXIT on left wall (near 212)",
+      "verified": false
+    },
+    {
+      "id": "210-hall",
+      "floor": 2,
+      "name": "Classroom (north hall — west end)",
+      "nearestExit": "L2-WEST-UPPER",
+      "path": "Out door → west → EXIT on left wall",
+      "verified": false
+    },
+    {
+      "id": "210-quad-ne",
+      "floor": 2,
+      "name": "Classroom (center quad — NE)",
+      "nearestExit": "L2-EAST-UPPER",
+      "path": "Out door → east to right hallway → EXIT on right wall",
+      "verified": false
+    },
+    {
+      "id": "210-quad-nw",
+      "floor": 2,
+      "name": "Classroom (center quad — NW)",
+      "nearestExit": "L2-WEST-UPPER",
+      "path": "Out door → west/north → EXIT on left wall",
+      "verified": false
+    },
+    {
+      "id": "210-quad-se",
+      "floor": 2,
+      "name": "Classroom (center quad — SE)",
+      "nearestExit": "L2-EAST-LOWER",
+      "path": "Out door → east/south → EXIT on right wall",
+      "verified": false
+    },
+    {
+      "id": "210-quad-sw",
+      "floor": 2,
+      "name": "Classroom (center quad — SW)",
+      "nearestExit": "L2-WEST-LOWER",
+      "path": "Out door → west/south toward fellowship → EXIT on left wall (lower)",
+      "verified": false
+    },
+    {
+      "id": "212",
+      "floor": 2,
+      "name": "Classroom",
+      "nearestExit": "L2-WEST-UPPER",
+      "path": "Out door → short walk west → EXIT on left wall",
+      "verified": false
+    },
+    {
+      "id": "fellowship-hall",
+      "floor": 2,
+      "name": "Fellowship Hall",
+      "nearestExit": "L2-WEST-LOWER",
+      "path": "Move to nearest west lower EXIT; if blocked use east lower EXIT",
+      "verified": false
+    }
+  ]
+}
