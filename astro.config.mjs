@@ -7,6 +7,9 @@ import terminology from './src/data/terminology.json';
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://emergency.arnoldcoc.org',
+	markdown: {
+		remarkPlugins: [[remarkGlossary, { terms: terminology }]],
+	},
 	integrations: [
 		starlight({
 			title: 'Arnold Emergency',
@@ -37,9 +40,6 @@ export default defineConfig({
 					},
 				},
 			],
-			markdown: {
-				remarkPlugins: [[remarkGlossary, { terms: terminology }]],
-			},
 			sidebar: [
 				{
 					label: 'Start here',
