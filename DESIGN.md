@@ -76,7 +76,7 @@ Starlight documentation site in **Read** mode: staff scan procedures under stres
 - Home splash content max ~52rem.
 - **Tool pair:** 1 column mobile, 2 columns ≥42rem.
 - **Site map:** stacked list rows with icons, not wide tables on phone.
-- **Sidebar:** link icons from `pathIconMap` + `termIconMap` when href matches.
+- **Icons:** Google Material Symbols, outlined weight 400 (same library as [Creators Repo → Material](https://creatorsrepo.com/icons?system=material)). Swap names in `symbols.ts` — use snake_case filenames from the package (e.g. `local_fire_department` for Code Red).
 - WIP banner: minimal on mobile (single “WIP” link), full strip ≥50rem.
 
 ## Elevation & Depth
@@ -95,7 +95,7 @@ Card 0.65rem; list 0.55rem; status pills 0.25rem; audio controls 0.35rem (`--ae-
 | `SiteMapList` | Home | Grouped nav with status pills + per-row icons |
 | `TerminologyList` | Terminology index | A–Z list with icons |
 | `CrisisCard` | Home | Code-colored shortcut cards (`tone`: red/blue/green/amber) |
-| `EmergencyIcon` | Global | 24px SVG set — `src/components/icons/registry.ts` |
+| `EmergencyIcon` | Global | Material Symbols (outlined) via `@material-symbols/svg-400` — map in `src/components/icons/symbols.ts` |
 | `PageTitle` | Inner pages | Auto icon from `iconForPath()` |
 | `Hero` | Home splash | Custom hero actions with `EmergencyIcon` |
 | `SidebarSublist` | Sidebar | Starlight override — icons on nav links |

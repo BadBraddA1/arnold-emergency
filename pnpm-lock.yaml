@@ -17,6 +17,9 @@ importers:
       '@fontsource/source-serif-4':
         specifier: ^5.3.0
         version: 5.3.0
+      '@material-symbols/svg-400':
+        specifier: ^0.47.0
+        version: 0.47.0
       astro:
         specifier: ^7.1.6
         version: 7.2.9(@astrojs/markdown-remark@7.2.4)(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@types/node@24.13.3)
@@ -986,6 +989,9 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.9':
     resolution: {integrity: sha512-3Belt6tdc8bPgAtbcmdtNJlirVoTmEb5e2gC94PnkwEW9jI6CAHUeoG85tjWP5WquqfavoMtMwiG4P926ZKKuQ==}
+
+  '@material-symbols/svg-400@0.47.0':
+    resolution: {integrity: sha512-M3vW/MQCkr7NlN+1D9LDwRiKJeUjXbUB/O3gqPExNFAz1Vk/IFr0Ajlhr/lXVti46yhWknooVKAYMQj4o1VE3w==}
 
   '@mdx-js/mdx@3.1.1':
     resolution: {integrity: sha512-f6ZO2ifpwAQIpzGWaBQT2TXxPv6z3RBzQKpVftEWN78Vl/YweF1uwussDx8ECAXVtr3Rs89fKyG9YlzUs9DyGQ==}
@@ -3215,6 +3221,8 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.6.0
+
+  '@material-symbols/svg-400@0.47.0': {}
 
   '@mdx-js/mdx@3.1.1':
     dependencies:

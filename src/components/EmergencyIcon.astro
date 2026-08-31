@@ -1,6 +1,6 @@
 ---
 import type { EmergencyIconId } from './icons/registry';
-import { emergencyIconPaths } from './icons/registry';
+import { iconToSymbol, parseMaterialSvg, symbolSvg } from './icons/symbols';
 
 interface Props {
 	name: EmergencyIconId;
@@ -11,16 +11,18 @@ interface Props {
 
 const { name, label, size = '1.25em', class: className } = Astro.props;
 const a11y = label ? { 'aria-label': label } : { 'aria-hidden': 'true' };
+
+const symbol = iconToSymbol[name];
+const raw = symbolSvg[symbol];
+const { viewBox, inner } = parseMaterialSvg(raw);
 ---
 
 <svg
 	{...a11y}
 	class:list={['ae-icon', className]}
-	width="24"
-	height="24"
-	viewBox="0 0 24 24"
+	viewBox={viewBox}
 	fill="currentColor"
-	set:html={emergencyIconPaths[name]}
+	set:html={inner}
 />
 
 <style define:vars={{ 'ae-icon-size': size }}>
