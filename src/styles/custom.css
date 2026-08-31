@@ -1,3 +1,8 @@
+@import '@fontsource/dm-sans/400.css';
+@import '@fontsource/dm-sans/600.css';
+@import '@fontsource/dm-sans/700.css';
+@import '@fontsource/source-serif-4/600.css';
+
 :root {
 	--sl-color-accent-low: #1a2e24;
 	--sl-color-accent: #3d9a6a;
@@ -19,6 +24,14 @@
 	--ae-text-section: 0.95rem;
 	--ae-text-card-title: 1.15rem;
 	--ae-radius-media: 0.35rem;
+	--ae-radius-title-icon: 0.45rem;
+	/* Emergency code accents (DESIGN.md) */
+	--ae-code-red-fg: var(--ae-code-red-fg);
+	--ae-code-red-bg: var(--ae-code-red-bg);
+	--ae-code-blue-fg: var(--ae-code-blue-fg);
+	--ae-code-blue-bg: var(--ae-code-blue-bg);
+	--ae-code-amber-fg: var(--ae-code-amber-fg);
+	--ae-code-amber-bg: var(--ae-code-amber-bg);
 }
 
 ::selection {
@@ -89,6 +102,27 @@
 
 :root[data-theme='light'] .audio-clip {
 	background: var(--sl-color-bg-sidebar);
+}
+
+:root[data-theme='light'] .site-map-icon--code-red,
+:root[data-theme='light'] .term-list-icon--code-red,
+:root[data-theme='light'] .page-title-wrap--code-red .page-title-icon {
+	color: color-mix(in oklab, var(--ae-code-red-bg) 72%, var(--ae-code-red-fg));
+}
+
+:root[data-theme='light'] .site-map-icon--code-blue,
+:root[data-theme='light'] .term-list-icon--code-blue,
+:root[data-theme='light'] .page-title-wrap--code-blue .page-title-icon {
+	color: color-mix(in oklab, var(--ae-code-blue-bg) 70%, var(--ae-code-blue-fg));
+}
+
+:root[data-theme='light'] .site-map-icon--medical,
+:root[data-theme='light'] .site-map-icon--medical-draft,
+:root[data-theme='light'] .term-list-icon--medical,
+:root[data-theme='light'] .term-list-icon--medical-draft,
+:root[data-theme='light'] .page-title-wrap--medical .page-title-icon,
+:root[data-theme='light'] .page-title-wrap--medical-draft .page-title-icon {
+	color: color-mix(in oklab, var(--ae-code-amber-bg) 75%, var(--ae-code-amber-fg));
 }
 
 :root[data-theme='light'] .audio-clip-player {
@@ -186,6 +220,11 @@
 
 @media (prefers-reduced-motion: reduce) {
 	.tool-card {
+		transition: none;
+	}
+
+	.crisis-card,
+	.crisis-card-icon {
 		transition: none;
 	}
 }
@@ -302,15 +341,15 @@
 }
 
 .site-map-icon--code-red {
-	color: #f87171;
-	background: color-mix(in oklab, #dc2626 12%, var(--sl-color-gray-6));
-	border-color: color-mix(in oklab, #dc2626 28%, var(--sl-color-hairline-shade));
+	color: var(--ae-code-red-fg);
+	background: color-mix(in oklab, var(--ae-code-red-bg) 12%, var(--sl-color-gray-6));
+	border-color: color-mix(in oklab, var(--ae-code-red-bg) 28%, var(--sl-color-hairline-shade));
 }
 
 .site-map-icon--code-blue {
-	color: #60a5fa;
-	background: color-mix(in oklab, #2563eb 12%, var(--sl-color-gray-6));
-	border-color: color-mix(in oklab, #2563eb 28%, var(--sl-color-hairline-shade));
+	color: var(--ae-code-blue-fg);
+	background: color-mix(in oklab, var(--ae-code-blue-bg) 12%, var(--sl-color-gray-6));
+	border-color: color-mix(in oklab, var(--ae-code-blue-bg) 28%, var(--sl-color-hairline-shade));
 }
 
 .site-map-icon--all-clear {
@@ -320,13 +359,13 @@
 
 .site-map-icon--medical,
 .site-map-icon--medical-draft {
-	color: #fbbf24;
-	background: color-mix(in oklab, #d97706 12%, var(--sl-color-gray-6));
-	border-color: color-mix(in oklab, #d97706 25%, var(--sl-color-hairline-shade));
+	color: var(--ae-code-amber-fg);
+	background: color-mix(in oklab, var(--ae-code-amber-bg) 12%, var(--sl-color-gray-6));
+	border-color: color-mix(in oklab, var(--ae-code-amber-bg) 25%, var(--sl-color-hairline-shade));
 }
 
 .site-map-icon--alert-system {
-	color: #fbbf24;
+	color: var(--ae-code-amber-fg);
 }
 
 .site-map-list {
@@ -572,15 +611,15 @@
 }
 
 .crisis-card--red .crisis-card-icon {
-	color: #f87171;
-	background: color-mix(in oklab, #dc2626 14%, var(--sl-color-gray-6));
-	border-color: color-mix(in oklab, #dc2626 35%, var(--sl-color-hairline-shade));
+	color: var(--ae-code-red-fg);
+	background: color-mix(in oklab, var(--ae-code-red-bg) 14%, var(--sl-color-gray-6));
+	border-color: color-mix(in oklab, var(--ae-code-red-bg) 35%, var(--sl-color-hairline-shade));
 }
 
 .crisis-card--blue .crisis-card-icon {
-	color: #60a5fa;
-	background: color-mix(in oklab, #2563eb 14%, var(--sl-color-gray-6));
-	border-color: color-mix(in oklab, #2563eb 35%, var(--sl-color-hairline-shade));
+	color: var(--ae-code-blue-fg);
+	background: color-mix(in oklab, var(--ae-code-blue-bg) 14%, var(--sl-color-gray-6));
+	border-color: color-mix(in oklab, var(--ae-code-blue-bg) 35%, var(--sl-color-hairline-shade));
 }
 
 .crisis-card--green .crisis-card-icon {
@@ -590,9 +629,9 @@
 }
 
 .crisis-card--amber .crisis-card-icon {
-	color: #fbbf24;
-	background: color-mix(in oklab, #d97706 14%, var(--sl-color-gray-6));
-	border-color: color-mix(in oklab, #d97706 30%, var(--sl-color-hairline-shade));
+	color: var(--ae-code-amber-fg);
+	background: color-mix(in oklab, var(--ae-code-amber-bg) 14%, var(--sl-color-gray-6));
+	border-color: color-mix(in oklab, var(--ae-code-amber-bg) 30%, var(--sl-color-hairline-shade));
 }
 
 .crisis-card-body {
@@ -616,7 +655,7 @@
 	display: inline-flex;
 	margin-top: 0.15rem;
 	padding: 0.35rem;
-	border-radius: 0.45rem;
+	border-radius: var(--ae-radius-title-icon);
 	border: 1px solid var(--sl-color-hairline-shade);
 	background: var(--sl-color-bg-sidebar);
 	color: var(--sl-color-accent-high);
@@ -624,19 +663,19 @@
 }
 
 .page-title-wrap--code-red .page-title-icon {
-	color: #f87171;
-	background: color-mix(in oklab, #dc2626 12%, var(--sl-color-gray-6));
+	color: var(--ae-code-red-fg);
+	background: color-mix(in oklab, var(--ae-code-red-bg) 12%, var(--sl-color-gray-6));
 }
 
 .page-title-wrap--code-blue .page-title-icon {
-	color: #60a5fa;
-	background: color-mix(in oklab, #2563eb 12%, var(--sl-color-gray-6));
+	color: var(--ae-code-blue-fg);
+	background: color-mix(in oklab, var(--ae-code-blue-bg) 12%, var(--sl-color-gray-6));
 }
 
 .page-title-wrap--medical-draft .page-title-icon,
 .page-title-wrap--medical .page-title-icon {
-	color: #fbbf24;
-	background: color-mix(in oklab, #d97706 12%, var(--sl-color-gray-6));
+	color: var(--ae-code-amber-fg);
+	background: color-mix(in oklab, var(--ae-code-amber-bg) 12%, var(--sl-color-gray-6));
 }
 
 /* Terminology A–Z list */
@@ -690,13 +729,13 @@
 }
 
 .term-list-icon--code-red {
-	color: #f87171;
-	background: color-mix(in oklab, #dc2626 12%, var(--sl-color-gray-6));
+	color: var(--ae-code-red-fg);
+	background: color-mix(in oklab, var(--ae-code-red-bg) 12%, var(--sl-color-gray-6));
 }
 
 .term-list-icon--code-blue {
-	color: #60a5fa;
-	background: color-mix(in oklab, #2563eb 12%, var(--sl-color-gray-6));
+	color: var(--ae-code-blue-fg);
+	background: color-mix(in oklab, var(--ae-code-blue-bg) 12%, var(--sl-color-gray-6));
 }
 
 .term-list-text {

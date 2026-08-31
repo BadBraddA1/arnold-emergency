@@ -35,7 +35,7 @@ if command -v ffmpeg >/dev/null 2>&1; then
     [[ -f "$ogg" ]] || continue
     mp3="${ogg%.ogg}.mp3"
     echo "  → MP3 for iPhone: $(basename "$mp3")"
-    ffmpeg -y -loglevel error -i "$ogg" -codec:a libmp3lame -qscale:a 8 "$mp3"
+    ffmpeg -y -loglevel error -i "$ogg" -codec:a libmp3lame -qscale:a 9 "$mp3"
   done
 else
   echo "  ! ffmpeg not found — iPhone may not play .ogg clips" >&2

@@ -20,6 +20,8 @@ export default defineConfig({
 			components: {
 				PageFrame: './src/components/PageFrame.astro',
 				PageTitle: './src/components/PageTitle.astro',
+				Hero: './src/components/Hero.astro',
+				SidebarSublist: './src/components/SidebarSublist.astro',
 			},
 			editLink: {
 				baseUrl: 'https://github.com/BadBraddA1/arnold-emergency/edit/main/',
@@ -35,13 +37,6 @@ export default defineConfig({
 				{
 					tag: 'meta',
 					attrs: { name: 'robots', content: 'noindex, nofollow' },
-				},
-				{
-					tag: 'link',
-					attrs: {
-						rel: 'stylesheet',
-						href: 'https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700&family=Source+Serif+4:wght@600&display=swap',
-					},
 				},
 			],
 			sidebar: [
