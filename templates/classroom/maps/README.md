@@ -16,6 +16,7 @@ Each room poster adds:
 - Green arrow path to nearest exit
 - **AED** (green) and **first aid** (red +) markers for the floor
 - Room label banner (e.g. `Room 107 — Classroom`)
+- **Updated** date (bottom-right) — from `updatedAt` in the overlay file; refreshes whenever you save in the map tool
 
 ### 1. Place pins (one time per room)
 
@@ -65,7 +66,7 @@ Output: `generated/posters/room-107.png` — print or drop into Canva.
 | File | Purpose |
 |------|---------|
 | `data/room-routes.json` | Room names, nearest exit IDs, walk notes |
-| `data/room-map-overlay.json` | Pin x/y, route points, exit coordinates, AED & first aid |
+| `data/room-map-overlay.json` | Pin x/y, route points, exit coordinates, AED & first aid, `updatedAt` timestamp |
 | `data/medical-equipment.json` | Default AED / first aid unit IDs per floor |
 | `data/room-routes.csv` | Spreadsheet for IC walk-through |
 

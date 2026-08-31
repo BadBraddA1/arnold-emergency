@@ -3,6 +3,7 @@
 import { createServer } from 'node:http';
 import { readFile, writeFile } from 'node:fs/promises';
 import { join, extname } from 'node:path';
+import { stampOverlay } from '../../scripts/map-overlay-meta.mjs';
 
 const ROOT = join(import.meta.dirname, '../..');
 const PORT = 3456;
@@ -23,13 +24,14 @@ const server = createServer(async (req, res) => {
 		if (req.method === 'POST' && path === '/api/overlay') {
 			const chunks = [];
 			for await (const chunk of req) chunks.push(chunk);
-			const overlay = JSON.parse(Buffer.concat(chunks).toString('utf8'));
+			const overlay = stampOverlay(JSON.parse(Buffer.concat(chunks).toString('utf8')));
 			await writeFile(OVERLAY_FILE, `${JSON.stringify(overlay, null, 2)}\n`);
 			res.writeHead(200, { 'Content-Type': 'application/json' });
 			res.end(
 				JSON.stringify({
 					ok: true,
 					rooms: Object.keys(overlay.rooms ?? {}).length,
+					updatedAt: overlay.updatedAt,
 				}),
 			);
 			return;
@@ -44,6 +46,7 @@ const server = createServer(async (req, res) => {
 		if (path === '/scripts/map-medical-markers.mjs') path = '/scripts/map-medical-markers.mjs';
 		if (path === '/scripts/map-ada-exits.mjs') path = '/scripts/map-ada-exits.mjs';
 		if (path === '/scripts/map-multi-pin-rooms.mjs') path = '/scripts/map-multi-pin-rooms.mjs';
+		if (path === '/scripts/map-overlay-meta.mjs') path = '/scripts/map-overlay-meta.mjs';
 		if (path === '/data/medical-equipment.json') path = '/data/medical-equipment.json';
 
 		const filePath = join(ROOT, path.replace(/^\//, ''));

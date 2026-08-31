@@ -15,6 +15,7 @@ import {
 import { buildMedicalMarkersSvg } from './map-medical-markers.mjs';
 import { isAdaExit, adaExitBadgeSvg } from './map-ada-exits.mjs';
 import { extraPinLabel } from './map-multi-pin-rooms.mjs';
+import { formatMapUpdatedAt } from './map-overlay-meta.mjs';
 
 const ROOT = join(import.meta.dirname, '..');
 
@@ -35,7 +36,7 @@ function escapeXml(s) {
 		.replace(/"/g, '&quot;');
 }
 
-function buildOverlaySvg({ width, height, pin, pin2, roomId, route, exit, exitKey, roomLabel, floorData, showAdaExit }) {
+function buildOverlaySvg({ width, height, pin, pin2, roomId, route, exit, exitKey, roomLabel, floorData, showAdaExit, updatedLabel }) {
 	const points = [{ x: pin.x, y: pin.y }, ...route, { x: exit.x, y: exit.y }];
 	const poly = points.map((p) => `${p.x},${p.y}`).join(' ');
 	const medical = buildMedicalMarkersSvg(floorData);
@@ -73,12 +74,14 @@ function buildOverlaySvg({ width, height, pin, pin2, roomId, route, exit, exitKe
   ${primaryPinMarkerSvg(pin, { routePoints: points, width, height, label: extraPinLabel(roomId, 1) })}
   <rect x="40" y="118" width="320" height="34" rx="8" fill="#4c1d95" opacity="0.9"/>
   <text x="52" y="141" font-family="Arial,Helvetica,sans-serif" font-size="16" font-weight="700" fill="#ffffff">${escapeXml(roomLabel)}</text>
+  ${updatedLabel ? `<text x="${width - 14}" y="${height - 16}" text-anchor="end" font-family="Arial,Helvetica,sans-serif" font-size="11" fill="#475569">Updated ${escapeXml(updatedLabel)}</text>` : ''}
 </svg>`;
 }
 
 const args = parseArgs(process.argv);
 const routes = JSON.parse(await readFile(join(ROOT, 'data/room-routes.json'), 'utf8'));
 const overlay = JSON.parse(await readFile(join(ROOT, 'data/room-map-overlay.json'), 'utf8'));
+const updatedLabel = formatMapUpdatedAt(overlay.updatedAt);
 const adaExits = new Set(routes.adaExits ?? []);
 
 const roomMeta = new Map(routes.rooms.map((r) => [r.id, r]));
@@ -129,6 +132,7 @@ for (const roomId of toGenerate) {
 		roomLabel,
 		floorData: floor,
 		showAdaExit: adaExits.has(exitKey) || Boolean(exit.ada) || isAdaExit(exitKey),
+		updatedLabel,
 	});
 
 	const outFile = join(args.outDir, `room-${roomId}.png`);
@@ -141,7 +145,7 @@ for (const roomId of toGenerate) {
 	ok++;
 }
 
-console.log(`Done: ${ok} poster(s), ${skipped} skipped.`);
+console.log(`Done: ${ok} poster(s), ${skipped} skipped.${updatedLabel ? ` Map data updated ${updatedLabel}.` : ''}`);
 if (skipped && !args.room) {
 	console.log('Place pins: pnpm run map:place — then merge JSON into data/room-map-overlay.json');
 }
