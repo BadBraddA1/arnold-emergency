@@ -12,7 +12,7 @@
 
 Each room poster adds:
 
-- **YOU ARE HERE** pin + green route (room numbers/names are on the master map art)
+- **YOU ARE HERE** pin + green route (room **numbers** stay; room **names** like “Classroom” are painted out on posters)
 - **Updated** date — shown on the [room posters page](/classroom/room-posters/) only (not on printed PNGs)
 
 ### 1. Place pins (one time per room)

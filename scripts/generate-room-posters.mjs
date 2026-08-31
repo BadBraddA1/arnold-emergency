@@ -16,6 +16,11 @@ import { buildMedicalMarkersSvg } from './map-medical-markers.mjs';
 import { isAdaExit, adaExitBadgeSvg } from './map-ada-exits.mjs';
 import { extraPinLabel } from './map-multi-pin-rooms.mjs';
 import { formatMapUpdatedAt } from './map-overlay-meta.mjs';
+import { stripRoomNamesFromMaster } from './map-room-name-masks.mjs';
+
+const staticLabelMasks = JSON.parse(
+	await readFile(join(ROOT, 'data/map-static-label-masks.json'), 'utf8'),
+);
 
 const ROOT = join(import.meta.dirname, '..');
 
@@ -88,6 +93,26 @@ const toGenerate = args.room
 
 await mkdir(args.outDir, { recursive: true });
 
+/** @type {Map<number, import('sharp').Sharp>} */
+const strippedMasters = new Map();
+
+async function masterForFloor(floorNum, floor) {
+	if (strippedMasters.has(floorNum)) return strippedMasters.get(floorNum);
+
+	const masterPath = join(ROOT, floor.master);
+	let image = sharp(masterPath);
+	const floorRooms = Object.fromEntries(
+		Object.entries(overlay.rooms).filter(([, p]) => p.floor === floorNum),
+	);
+	image = await stripRoomNamesFromMaster(
+		image,
+		floorRooms,
+		staticLabelMasks[String(floorNum)] ?? [],
+	);
+	strippedMasters.set(floorNum, image);
+	return image;
+}
+
 let ok = 0;
 let skipped = 0;
 
@@ -114,7 +139,7 @@ for (const roomId of toGenerate) {
 		continue;
 	}
 
-	const masterPath = join(ROOT, floor.master);
+	const master = await masterForFloor(placement.floor, floor);
 	const { width, height } = overlay.imageSize;
 	const svg = buildOverlaySvg({
 		width,
@@ -130,7 +155,8 @@ for (const roomId of toGenerate) {
 	});
 
 	const outFile = join(args.outDir, `room-${roomId}.png`);
-	await sharp(masterPath)
+	await master
+		.clone()
 		.composite([{ input: Buffer.from(svg), top: 0, left: 0 }])
 		.png()
 		.toFile(outFile);

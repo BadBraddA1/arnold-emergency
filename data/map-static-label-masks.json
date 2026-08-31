@@ -1,0 +1,23 @@
+{
+  "meta": {
+    "notes": [
+      "White rectangles painted over fixed labels on master map art (not tied to room pins).",
+      "Coordinates for 794×1286 master PNGs."
+    ]
+  },
+  "1": [
+    { "x": 318, "y": 358, "width": 118, "height": 28, "label": "Furnace room (north)" },
+    { "x": 408, "y": 448, "width": 118, "height": 28, "label": "Furnace room (center)" },
+    { "x": 328, "y": 518, "width": 88, "height": 26, "label": "Pantry" },
+    { "x": 408, "y": 518, "width": 128, "height": 26, "label": "Printing room" },
+    { "x": 548, "y": 448, "width": 138, "height": 28, "label": "Womens restroom (center)" },
+    { "x": 228, "y": 838, "width": 118, "height": 28, "label": "Mens restroom" },
+    { "x": 288, "y": 838, "width": 138, "height": 28, "label": "Womens restroom (south)" },
+    { "x": 52, "y": 358, "width": 128, "height": 28, "label": "Storage room (west stairs)" },
+    { "x": 612, "y": 358, "width": 128, "height": 28, "label": "Storage room (east stairs)" }
+  ],
+  "2": [
+    { "x": 52, "y": 358, "width": 128, "height": 28, "label": "Storage room (west stairs)" },
+    { "x": 612, "y": 358, "width": 128, "height": 28, "label": "Storage room (east stairs)" }
+  ]
+}
