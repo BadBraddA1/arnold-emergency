@@ -31,6 +31,7 @@
     .status.info { background: #e0e7ff; color: #312e81; }
     .autosave { font-size: 0.8125rem; padding: 0.45rem 0.65rem; border-radius: 6px; background: #ecfdf5; color: #065f46; margin-top: 0.75rem; line-height: 1.4; }
     .autosave.warn { background: #fef3c7; color: #78350f; }
+    .ada-note { font-size: 0.8125rem; padding: 0.5rem 0.65rem; border-radius: 6px; background: #f5f3ff; color: #5b21b6; margin-top: 0.75rem; line-height: 1.45; }
     .legend { font-size: 0.75rem; color: #475569; margin-top: 0.75rem; line-height: 1.6; }
     .legend span { display: inline-block; width: 0.75rem; height: 0.75rem; border-radius: 50%; margin-right: 0.25rem; vertical-align: -1px; }
     .dist-list { font-size: 0.8125rem; margin: 0.35rem 0 0; padding-left: 1.1rem; color: #334155; }
@@ -59,6 +60,8 @@
     <div id="routeStatus" class="status info">Load a room to compare exits.</div>
 
     <div id="autosaveStatus" class="autosave">Autosave on — local only until server connects</div>
+
+    <p class="ada-note" id="adaNote">♿ <strong>ADA exits only:</strong> Level 1 east upper · Level 2 west lower</p>
 
     <label>Click mode</label>
     <div class="mode">
@@ -147,6 +150,7 @@
       medicalMarkerSvg,
       nearestMedical,
     } from "/scripts/map-medical-markers.mjs";
+    import { isAdaExit, adaExitBadgeSvg } from "/scripts/map-ada-exits.mjs";
 
     const ROOMS = {
       1: ["101","102","103","104","105","106","107","108","109","110","111","112","nursery","cry-room","foyer","work-room"],
@@ -221,6 +225,12 @@
       return id.replace(/^L\d-/, "").replace(/-/g, " ");
     }
 
+    function isFloorAdaExit(id) {
+      if (isAdaExit(id)) return true;
+      if (roomRoutes.adaExits?.includes(id)) return true;
+      return Boolean(floorExitPoints(floorEl.value)[id]?.ada);
+    }
+
     function fillExitSelect(keepSelected) {
       const f = floorEl.value;
       const ids = exitIds(f);
@@ -230,7 +240,8 @@
           const pt = floorExitPoints(f)[id];
           const name = exitDisplayName(f, id, pt);
           const placed = pt?.x != null ? " ✓" : "";
-          return `<option value="${id}">${name}${placed} (${id})</option>`;
+          const ada = isAdaExit(id) || roomRoutes.adaExits?.includes(id) || pt?.ada ? " ♿" : "";
+          return `<option value="${id}">${name}${ada}${placed} (${id})</option>`;
         })
         .join("");
       if (selected && ids.includes(selected)) exitEl.value = selected;
@@ -686,6 +697,9 @@
           });
           t2.textContent = caption;
           svgEl.appendChild(t2);
+          if (isAdaExit(id) || roomRoutes.adaExits?.includes(id) || pt?.ada) {
+            appendSvgFragment(svgEl, adaExitBadgeSvg(pt.x, pt.y + 14));
+          }
         }
       }
 
@@ -1025,7 +1039,13 @@
       fetch("/data/room-routes.json").then((r) => r.json()).catch(() => ({ exits: {}, rooms: [] })),
       fetch("/data/medical-equipment.json").then((r) => r.json()).catch(() => ({ slots: {} }))
     ]).then(([data, routes, medical]) => {
-      if (routes) roomRoutes = routes;
+      if (routes) {
+        roomRoutes = routes;
+        const adaEl = document.getElementById("adaNote");
+        if (adaEl && routes.adaNote) {
+          adaEl.innerHTML = `♿ <strong>ADA exits only:</strong> ${routes.adaNote.replace(/^Only exits that meet ADA access: /, "")}`;
+        }
+      }
       if (medical) medicalEquipment = medical;
       if (data) {
         overlay = data;

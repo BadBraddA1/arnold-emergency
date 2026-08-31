@@ -18,6 +18,7 @@ description: When and how to evacuate Arnold Church of Christ campus.
 ## Everyone
 
 - Leave by the nearest **safe** exit.
+- **ADA-accessible exits only:** Level 1 — **east upper**; Level 2 — **west lower**. Assist wheelchair users and anyone who cannot use stairs to these doors when another exit is not accessible.
 - Do not use elevators if fire is suspected.
 - Help visitors and children — go to assembly, not your car first.
 - Do not re-enter for belongings.

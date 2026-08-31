@@ -11,14 +11,17 @@
     "notes": [
       "verified=false until IC walks each route",
       "Do not use stairs (TO-L2 / TO-L1) for Code Red unless IC or fire dept directs",
-      "Level 2 center block uses rooms 202, 203, 214, 215 (fixed master map)"
-    ]
+      "Level 2 center block uses rooms 202, 203, 214, 215 (fixed master map)",
+      "ADA-accessible exits only: L1-EAST-UPPER (Level 1 east upper) and L2-WEST-LOWER (Level 2 west lower)"
+    ],
+    "adaExits": ["L1-EAST-UPPER", "L2-WEST-LOWER"],
+    "adaNote": "Only exits that meet ADA access: Level 1 — east upper; Level 2 — west lower. Route wheelchair users and mobility-impaired persons to these doors when the nearest exit is not accessible."
   },
   "exits": {
-    "L1-EAST-UPPER": "East exit — top of right hallway (near rooms 107–108)",
+    "L1-EAST-UPPER": "East exit — top of right hallway (near rooms 107–108) · ADA accessible",
     "L1-EAST-LOWER": "East exit — mid/right hallway (near work room / foyer side)",
     "L2-WEST-UPPER": "West exit — upper left (near room 212)",
-    "L2-WEST-LOWER": "West exit — lower left (fellowship hall / bottom corner)",
+    "L2-WEST-LOWER": "West exit — lower left (fellowship hall / bottom corner) · ADA accessible",
     "L2-EAST-UPPER": "East exit — upper right (near storage / stairs)",
     "L2-EAST-LOWER": "East exit — lower right wall"
   },

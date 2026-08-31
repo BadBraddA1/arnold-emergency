@@ -14,6 +14,7 @@ import {
 	pinLabelLeaderSvg,
 } from './map-label-placement.mjs';
 import { buildMedicalMarkersSvg } from './map-medical-markers.mjs';
+import { isAdaExit, adaExitBadgeSvg } from './map-ada-exits.mjs';
 
 const ROOT = join(import.meta.dirname, '..');
 
@@ -34,7 +35,7 @@ function escapeXml(s) {
 		.replace(/"/g, '&quot;');
 }
 
-function buildOverlaySvg({ width, height, pin, route, exit, exitKey, roomLabel, floorData }) {
+function buildOverlaySvg({ width, height, pin, route, exit, exitKey, roomLabel, floorData, showAdaExit }) {
 	const points = [{ x: pin.x, y: pin.y }, ...route, { x: exit.x, y: exit.y }];
 	const poly = points.map((p) => `${p.x},${p.y}`).join(' ');
 	const medical = buildMedicalMarkersSvg(floorData);
@@ -51,6 +52,7 @@ function buildOverlaySvg({ width, height, pin, route, exit, exitKey, roomLabel, 
 	const py = ux;
 	const arrow = `${exit.x},${exit.y} ${ax + px * 8},${ay + py * 8} ${ax - px * 8},${ay - py * 8}`;
 	const exitShort = exit.name ?? (exitKey ? String(exitKey).replace(/^L\d-/, '') : 'EXIT');
+	const showAda = showAdaExit;
 	const labelPlacement = pickPinLabelPlacement({
 		pin,
 		routePoints: points,
@@ -65,6 +67,7 @@ function buildOverlaySvg({ width, height, pin, route, exit, exitKey, roomLabel, 
   <circle cx="${exit.x}" cy="${exit.y}" r="11" fill="#2563eb" stroke="#fff" stroke-width="2"/>
   <rect x="${exit.x - 58}" y="${exit.y + 12}" width="116" height="22" rx="5" fill="#1e3a5f" opacity="0.92"/>
   <text x="${exit.x}" y="${exit.y + 27}" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="11" font-weight="700" fill="#ffffff">${escapeXml(exitShort)}</text>
+  ${showAda ? adaExitBadgeSvg(exit.x, exit.y + 12) : ''}
   ${pinLabelLeaderSvg(pin, labelPlacement)}
   <circle cx="${pin.x}" cy="${pin.y}" r="16" fill="#dc2626" stroke="#fff" stroke-width="3"/>
   <circle cx="${pin.x}" cy="${pin.y}" r="5" fill="#fff"/>
@@ -77,6 +80,7 @@ function buildOverlaySvg({ width, height, pin, route, exit, exitKey, roomLabel, 
 const args = parseArgs(process.argv);
 const routes = JSON.parse(await readFile(join(ROOT, 'data/room-routes.json'), 'utf8'));
 const overlay = JSON.parse(await readFile(join(ROOT, 'data/room-map-overlay.json'), 'utf8'));
+const adaExits = new Set(routes.adaExits ?? []);
 
 const roomMeta = new Map(routes.rooms.map((r) => [r.id, r]));
 const toGenerate = args.room
@@ -123,6 +127,7 @@ for (const roomId of toGenerate) {
 		exitKey,
 		roomLabel,
 		floorData: floor,
+		showAdaExit: adaExits.has(exitKey) || Boolean(exit.ada) || isAdaExit(exitKey),
 	});
 
 	const outFile = join(args.outDir, `room-${roomId}.png`);

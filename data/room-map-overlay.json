@@ -1,36 +1,368 @@
 {
-  "imageSize": { "width": 794, "height": 1286 },
+  "imageSize": {
+    "width": 794,
+    "height": 1286
+  },
   "floors": {
     "1": {
       "master": "templates/classroom/maps/master-level-1.png",
       "exits": {
-        "L1-EAST-UPPER": { "x": 718, "y": 318, "label": "EXIT" },
-        "L1-EAST-LOWER": { "x": 718, "y": 662, "label": "EXIT" }
+        "L1-EAST-UPPER": {
+          "x": 725,
+          "y": 327,
+          "label": "EXIT",
+          "ada": true
+        },
+        "L1-EAST-LOWER": {
+          "x": 725,
+          "y": 525,
+          "label": "EXIT"
+        },
+        "L1-EXIT-1": {
+          "x": 728,
+          "y": 1033,
+          "label": "EXIT"
+        }
       },
-      "aed": {},
-      "firstAid": {}
+      "aed": {
+        "L1-AED-1": {
+          "x": 603,
+          "y": 1048,
+          "label": "AED"
+        }
+      },
+      "firstAid": {
+        "L1-FA-1": {
+          "x": 652,
+          "y": 1077,
+          "label": "First aid"
+        }
+      }
     },
     "2": {
       "master": "templates/classroom/maps/master-level-2.png",
       "exits": {
-        "L2-WEST-UPPER": { "x": 76, "y": 318, "label": "EXIT" },
-        "L2-WEST-LOWER": { "x": 76, "y": 900, "label": "EXIT" },
-        "L2-EAST-UPPER": { "x": 718, "y": 400, "label": "EXIT" },
-        "L2-EAST-LOWER": { "x": 718, "y": 748, "label": "EXIT" }
+        "L2-WEST-UPPER": {
+          "x": 95,
+          "y": 321,
+          "label": "EXIT"
+        },
+        "L2-WEST-LOWER": {
+          "x": 96,
+          "y": 834,
+          "label": "EXIT",
+          "ada": true
+        },
+        "L2-EAST-UPPER": {
+          "x": 715,
+          "y": 509,
+          "label": "EXIT"
+        },
+        "L2-EAST-LOWER": {
+          "x": 713,
+          "y": 740,
+          "label": "EXIT"
+        }
       },
       "aed": {},
       "firstAid": {}
     }
   },
   "rooms": {
+    "101": {
+      "floor": 1,
+      "pin": {
+        "x": 551,
+        "y": 670
+      },
+      "route": [
+        {
+          "x": 592,
+          "y": 703
+        },
+        {
+          "x": 592,
+          "y": 528
+        }
+      ],
+      "exit": "L1-EAST-LOWER"
+    },
+    "102": {
+      "floor": 1,
+      "pin": {
+        "x": 399,
+        "y": 557
+      },
+      "route": [
+        {
+          "x": 376,
+          "y": 557
+        },
+        {
+          "x": 376,
+          "y": 527
+        }
+      ],
+      "exit": "L1-EAST-LOWER"
+    },
+    "103": {
+      "floor": 1,
+      "pin": {
+        "x": 296,
+        "y": 566
+      },
+      "route": [
+        {
+          "x": 317,
+          "y": 566
+        },
+        {
+          "x": 317,
+          "y": 530
+        }
+      ],
+      "exit": "L1-EAST-LOWER"
+    },
+    "104": {
+      "floor": 1,
+      "pin": {
+        "x": 171,
+        "y": 659
+      },
+      "route": [
+        {
+          "x": 171,
+          "y": 687
+        },
+        {
+          "x": 213,
+          "y": 687
+        },
+        {
+          "x": 213,
+          "y": 526
+        }
+      ],
+      "exit": "L1-EAST-LOWER"
+    },
+    "105": {
+      "floor": 1,
+      "pin": {
+        "x": 267,
+        "y": 430
+      },
+      "route": [
+        {
+          "x": 267,
+          "y": 455
+        },
+        {
+          "x": 226,
+          "y": 455
+        },
+        {
+          "x": 226,
+          "y": 523
+        }
+      ],
+      "exit": "L1-EAST-LOWER"
+    },
+    "106": {
+      "floor": 1,
+      "pin": {
+        "x": 270,
+        "y": 428
+      },
+      "route": [
+        {
+          "x": 270,
+          "y": 456
+        },
+        {
+          "x": 228,
+          "y": 456
+        },
+        {
+          "x": 228,
+          "y": 524
+        }
+      ],
+      "exit": "L1-EAST-LOWER"
+    },
     "107": {
       "floor": 1,
-      "pin": { "x": 598, "y": 248 },
+      "pin": {
+        "x": 656,
+        "y": 293
+      },
       "route": [
-        { "x": 620, "y": 280 },
-        { "x": 680, "y": 310 }
+        {
+          "x": 637,
+          "y": 293
+        },
+        {
+          "x": 637,
+          "y": 328
+        }
       ],
       "exit": "L1-EAST-UPPER"
+    },
+    "108": {
+      "floor": 1,
+      "pin": {
+        "x": 575,
+        "y": 291
+      },
+      "route": [
+        {
+          "x": 594,
+          "y": 291
+        },
+        {
+          "x": 594,
+          "y": 327
+        }
+      ],
+      "exit": "L1-EAST-UPPER"
+    },
+    "109": {
+      "floor": 1,
+      "pin": {
+        "x": 468,
+        "y": 289
+      },
+      "route": [
+        {
+          "x": 493,
+          "y": 289
+        },
+        {
+          "x": 493,
+          "y": 327
+        }
+      ],
+      "exit": "L1-EAST-UPPER"
+    },
+    "110": {
+      "floor": 1,
+      "pin": {
+        "x": 301,
+        "y": 290
+      },
+      "route": [
+        {
+          "x": 329,
+          "y": 290
+        },
+        {
+          "x": 329,
+          "y": 329
+        }
+      ],
+      "exit": "L1-EAST-UPPER"
+    },
+    "111": {
+      "floor": 1,
+      "pin": {
+        "x": 160,
+        "y": 306
+      },
+      "route": [
+        {
+          "x": 160,
+          "y": 337
+        }
+      ],
+      "exit": "L1-EAST-UPPER"
+    },
+    "112": {
+      "floor": 1,
+      "pin": {
+        "x": 126,
+        "y": 282
+      },
+      "route": [
+        {
+          "x": 126,
+          "y": 333
+        }
+      ],
+      "exit": "L1-EAST-UPPER"
+    },
+    "nursery": {
+      "floor": 1,
+      "pin": {
+        "x": 368,
+        "y": 872
+      },
+      "route": [
+        {
+          "x": 368,
+          "y": 895
+        },
+        {
+          "x": 649,
+          "y": 895
+        },
+        {
+          "x": 649,
+          "y": 1030
+        }
+      ],
+      "exit": "L1-EXIT-1"
+    },
+    "cry-room": {
+      "floor": 1,
+      "pin": {
+        "x": 547,
+        "y": 929
+      },
+      "route": [
+        {
+          "x": 547,
+          "y": 890
+        },
+        {
+          "x": 645,
+          "y": 890
+        },
+        {
+          "x": 645,
+          "y": 1033
+        }
+      ],
+      "exit": "L1-EXIT-1"
+    },
+    "foyer": {
+      "floor": 1,
+      "pin": {
+        "x": 628,
+        "y": 855
+      },
+      "route": [],
+      "exit": "L1-EXIT-1"
+    },
+    "work-room": {
+      "floor": 1,
+      "pin": {
+        "x": 627,
+        "y": 764
+      },
+      "route": [
+        {
+          "x": 627,
+          "y": 792
+        },
+        {
+          "x": 588,
+          "y": 792
+        },
+        {
+          "x": 588,
+          "y": 1009
+        }
+      ],
+      "exit": "L1-EXIT-1"
     }
   }
 }
