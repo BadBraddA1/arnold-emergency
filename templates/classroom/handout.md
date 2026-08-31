@@ -17,11 +17,6 @@ Secure this room: lock the door, lights off, phones on silent.
 Everyone away from the door and windows. Stay quiet. Do not leave.  
 Do not open the door for anyone except law enforcement or verified IC.
 
-**ALL CLEAR — WAIT FOR IC**  
-You will hear **Code Green** (two tones) or get a direct announcement from leadership.  
-**Only the incident commander** may end the code (Arnold Alert app or fob button 4).  
-**Room staff do not press all clear.** Do not open for strangers.
-
 ---
 
 ## This room
@@ -30,7 +25,6 @@ You will hear **Code Green** (two tones) or get a direct announcement from leade
 |------|--------|
 | **Code Red** | Exit {{EXIT}} → assemble at {{ASSEMBLY}} |
 | **Code Blue** | Lock, lights off, silence, shelter in place |
-| **All clear** | Wait for Code Green or IC — then resume normal |
 
 ## Before class
 

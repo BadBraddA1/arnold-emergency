@@ -1,78 +1,78 @@
 ---
 title: Classroom handout template
-description: Per-room emergency sheet for teachers and volunteers.
+description: Per-room emergency sheets — map posters and door cards.
 ---
 
-Use this template for each classroom, nursery room, and office suite. **Post near the door.**
+Two print formats for classrooms and offices:
 
-## Generate a handout
+| Format | Use | Template |
+|--------|-----|----------|
+| **Room map poster** | Floor plan + emergency footer on the wall | [`room-map-poster.md`](https://github.com/BadBraddA1/arnold-emergency/blob/main/templates/classroom/room-map-poster.md) |
+| **Door card** | Text-only checklist near the door | `handout.md` (below) |
+
+**Room map posters** show only **Code Red**, **Code Blue**, and **911** — not IC steps (app, fob, who ends the code). Teachers wait for the official all clear; that lives in the full playbook.
+
+---
+
+## Generate map poster copy
+
+Add your floor-plan art in Canva or Illustrator; use this for the footer text:
 
 ```bash
-git clone https://github.com/BadBraddA1/arnold-emergency.git
-cd arnold-emergency
-pnpm install
-pnpm run generate:classroom -- \
-  --room "Room 204 — Teen class" \
-  --exit "South hallway, turn left" \
-  --assembly "South parking lot — flagpole" \
-  --out ./generated/room-204.md
+pnpm run generate:classroom-map -- \
+  --number 107 \
+  --name "Classroom" \
+  --assembly "South parking lot — flagpole"
 ```
 
-Print from the generated markdown or export to PDF.
+Output: `generated/maps/room-107-classroom.md`
+
+### Footer copy (paste into your design)
+
+```
+EMERGENCY ACTIONS
+
+CODE RED — EVACUATE
+Leave building. Assembly: [fill in]
+
+CODE BLUE — LOCKDOWN
+Secure room. Lights off. Stay quiet.
+
+LIFE-THREATENING EMERGENCY: CALL 911 FIRST.
+```
 
 ---
 
-## Template (fill in per room)
+## Generate door card (text handout)
+
+```bash
+pnpm run generate:classroom -- \
+  --room "Room 107 — Classroom" \
+  --exit "South hallway, turn left" \
+  --assembly "South parking lot — flagpole" \
+  --out ./generated
+```
+
+---
+
+## Door card template (fill in per room)
 
 ### {{ROOM}}
 
-**Arnold Church of Christ — In-room emergency card**  
-*Post near the door. Fill in blanks before printing.*
-
----
-
-#### At a glance
+**Arnold Church of Christ — In-room emergency card**
 
 **CODE RED — EVACUATE**  
-Leave the building now. Calm voice: *"We're leaving — follow me."*  
-**Exit:** {{EXIT}} → **Assembly:** {{ASSEMBLY}}  
-Take your roster. Line up at the door. Count every person at assembly. Report missing to the incident commander.
+Leave the building now. **Exit:** {{EXIT}} → **Assembly:** {{ASSEMBLY}}  
+Take roster. Count everyone at assembly.
 
 **CODE BLUE — LOCKDOWN**  
-Secure this room: lock the door, lights off, phones on silent.  
-Everyone away from the door and windows. Stay quiet. Do not leave.  
-Do not open the door for anyone except law enforcement or verified IC.
+Lock door, lights off, phones silent. Stay quiet. Do not leave.
 
-**ALL CLEAR — WAIT FOR IC**  
-You will hear **Code Green** (two tones) or get a direct announcement from leadership.  
-**Only the incident commander** may end the code (Arnold Alert app or fob button 4).  
-**Room staff do not press all clear.** Do not open for strangers.
+**911** when life is at risk. Horns do not call police for you.
+
+- Arnold Alert: [alarm.arnoldcoc.org](https://alarm.arnoldcoc.org)
+- Full playbook: [emergency.arnoldcoc.org](https://emergency.arnoldcoc.org)
 
 ---
 
-#### This room
-
-| Code | You do |
-|------|--------|
-| **Code Red** | Exit {{EXIT}} → assemble at {{ASSEMBLY}} |
-| **Code Blue** | Lock, lights off, silence, shelter in place |
-| **All clear** | Wait for Code Green or IC — then resume normal |
-
-#### Before class
-
-- [ ] Know today's roster / attendance sheet location
-- [ ] Walk the exit route once a quarter
-- [ ] Nursery / IC contact: _______________
-
-#### 911
-
-Call **911** first when life is at risk. Campus horns announce the code — they do **not** call police for you.
-
-#### Tools
-
-- **Arnold Alert** (staff PIN): [alarm.arnoldcoc.org](https://alarm.arnoldcoc.org)
-- **Full playbook:** [emergency.arnoldcoc.org](https://emergency.arnoldcoc.org)
-
----
-
-*Generated from arnold-emergency — update when exits or assembly areas change.*
+*Update when exits or assembly areas change.*

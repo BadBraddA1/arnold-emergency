@@ -30,6 +30,17 @@ pnpm build        # static site → dist/
 
 ## Generate a classroom handout
 
+**Map poster** (floor plan + footer — Red / Blue / 911 only):
+
+```bash
+pnpm run generate:classroom-map -- \
+  --number 107 \
+  --name "Classroom" \
+  --assembly "South parking lot — flagpole"
+```
+
+**Door card** (text checklist):
+
 ```bash
 pnpm run generate:classroom -- \
   --room "Room 204 — Teen class" \
@@ -37,7 +48,7 @@ pnpm run generate:classroom -- \
   --assembly "South parking lot — flagpole"
 ```
 
-Output: `generated/room-204-teen-class.md`
+Templates: `templates/classroom/room-map-poster.md` · `templates/classroom/handout.md`
 
 ## Content
 
@@ -51,7 +62,7 @@ All pages: `src/content/docs/`
 | Other | Medical emergency (draft) |
 | Roles | IC, nursery, pulpit, office |
 | System | Arnold Alert naming & limits |
-| Classroom | Per-room handout template |
+| Classroom | Map poster + door card templates |
 
 ### Campus audio
 

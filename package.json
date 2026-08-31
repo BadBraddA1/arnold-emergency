@@ -8,6 +8,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "generate:classroom": "node scripts/generate-classroom.mjs",
+    "generate:classroom-map": "node scripts/generate-classroom-map.mjs",
     "generate:terminology": "node scripts/generate-terminology.mjs",
     "build": "pnpm run generate:terminology && astro build",
     "deploy": "pnpm build && pnpm exec wrangler pages deploy dist --project-name=arnold-emergency"
