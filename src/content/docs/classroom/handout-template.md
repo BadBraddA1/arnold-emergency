@@ -5,64 +5,52 @@ description: Per-room emergency sheets — map posters and door cards.
 
 Two print formats for classrooms and offices:
 
-| Format | Use | Template |
-|--------|-----|----------|
-| **Room map poster** | Floor plan + route on the wall | **[Browse & print all rooms →](/classroom/room-posters/)** |
-| **Door card** | Text-only checklist near the door | `handout.md` (below) |
+| Format | Where | On the site |
+|--------|-------|-------------|
+| **Room map poster** | Wall — floor plan + evacuation route | **[Room evacuation posters →](/classroom/room-posters/)** |
+| **Door card** | Door — text checklist (Red / Blue / 911) | **[Door cards →](/classroom/door-cards/)** |
 
-**Room map posters** show only **Code Red**, **Code Blue**, and **911** — not IC steps (app, fob, who ends the code). Teachers wait for the official all clear; that lives in the full playbook.
+**Map posters** show the floor plan with YOU ARE HERE, route, exits, AED, and first aid. Room numbers and names are already on the building drawing — no extra title banner.
 
----
+**Door cards** pull exit steps and assembly from `data/room-routes.json`. Post one at each door; laminate if you can.
 
-## Generate map poster copy
-
-Add your floor-plan art in Canva or Illustrator; use this for the footer text:
-
-```bash
-pnpm run generate:classroom-map -- \
-  --number 107 \
-  --name "Classroom" \
-  --assembly "South parking lot — flagpole"
-```
-
-Output: `generated/maps/room-107-classroom.md`
-
-### Footer copy (paste into your design)
-
-```
-EMERGENCY ACTIONS
-
-CODE RED — EVACUATE
-Leave building. Assembly: [fill in]
-
-CODE BLUE — LOCKDOWN
-Secure room. Lights off. Stay quiet.
-
-LIFE-THREATENING EMERGENCY: CALL 911 FIRST.
-```
+Neither format includes IC steps (app, fob, who ends the code). Teachers wait for the official all clear.
 
 ---
 
-## Generate door card (text handout)
+## Door cards (recommended)
+
+1. Open **[Door cards](/classroom/door-cards/)**
+2. Find the room → **Print**
+3. Tape or laminate at the door
+
+To change exit wording for all rooms, edit `data/room-routes.json` (or the CSV) and redeploy.
+
+### CLI (optional markdown export)
 
 ```bash
 pnpm run generate:classroom -- \
   --room "Room 107 — Classroom" \
-  --exit "South hallway, turn left" \
-  --assembly "South parking lot — flagpole" \
-  --out ./generated
+  --exit "Out door → east → EXIT on right wall" \
+  --assembly "South parking lot"
 ```
+
+Output: `generated/room-107-classroom.md` (local only — the site pages above are the staff-facing copy).
 
 ---
 
-## Door card template (fill in per room)
+## Map posters
 
-### {{ROOM}}
+1. Place pins: `pnpm run map:place`
+2. Regenerate: `pnpm run map:generate`
+3. Browse & print: **[Room evacuation posters](/classroom/room-posters/)**
 
-**Arnold Church of Christ — In-room emergency card**
+---
+
+## Door card copy reference
 
 **CODE RED — EVACUATE**  
-Leave the building now. **Exit:** {{EXIT}} → **Assembly:** {{ASSEMBLY}}  
+Leave the building now. **Exit:** _[route]_ → **Assembly:** South parking lot  
 Take roster. Count everyone at assembly.
 
 **CODE BLUE — LOCKDOWN**  

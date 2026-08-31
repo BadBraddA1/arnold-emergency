@@ -1,0 +1,130 @@
+---
+const { title, exit, assembly, compact = false } = Astro.props as {
+	title: string;
+	exit: string;
+	assembly: string;
+	compact?: boolean;
+};
+---
+
+<article class:list={['door-card', compact && 'door-card--compact']}>
+	<header class="door-card-head">
+		<p class="door-card-org">Arnold Church of Christ</p>
+		<h1 class="door-card-title">{title}</h1>
+		<p class="door-card-tag">In-room emergency card · post near the door</p>
+	</header>
+
+	<section class="door-card-block" aria-label="Code Red">
+		<h2 class="door-card-code door-card-code--red">Code Red — Evacuate</h2>
+		<p>Leave the building now. Calm voice: <em>“We’re leaving — follow me.”</em></p>
+		<p>
+			<strong>Exit:</strong> {exit} → <strong>Assembly:</strong> {assembly}
+		</p>
+		<p>Take your roster. Count everyone at assembly.</p>
+	</section>
+
+	<section class="door-card-block" aria-label="Code Blue">
+		<h2 class="door-card-code door-card-code--blue">Code Blue — Lockdown</h2>
+		<p>Lock the door, lights off, phones silent. Stay quiet. Do not leave.</p>
+		<p>Do not open the door except law enforcement or verified IC.</p>
+	</section>
+
+	<section class="door-card-block" aria-label="911">
+		<h2 class="door-card-code door-card-code--amber">911</h2>
+		<p>Call <strong>911</strong> first when life is at risk. Horns do not call police for you.</p>
+	</section>
+
+	<footer class="door-card-foot">
+		<p>Arnold Alert: alarm.arnoldcoc.org · Playbook: emergency.arnoldcoc.org</p>
+	</footer>
+</article>
+
+<style>
+	.door-card {
+		max-width: 28rem;
+		margin: 0 auto;
+		padding: 1.1rem 1.15rem 1rem;
+		border: 2px solid #1e293b;
+		border-radius: 0.5rem;
+		background: #fff;
+		color: #0f172a;
+		font-family: 'DM Sans', system-ui, sans-serif;
+		font-size: 0.9rem;
+		line-height: 1.45;
+	}
+
+	.door-card--compact {
+		max-width: none;
+		margin: 0;
+	}
+
+	.door-card-head {
+		margin-bottom: 0.85rem;
+		padding-bottom: 0.65rem;
+		border-bottom: 1px solid #cbd5e1;
+	}
+
+	.door-card-org {
+		margin: 0;
+		font-size: 0.72rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		color: #475569;
+	}
+
+	.door-card-title {
+		margin: 0.2rem 0 0;
+		font-family: 'Source Serif 4', Georgia, serif;
+		font-size: 1.35rem;
+		line-height: 1.2;
+	}
+
+	.door-card-tag {
+		margin: 0.35rem 0 0;
+		font-size: 0.78rem;
+		color: #64748b;
+	}
+
+	.door-card-block {
+		margin: 0 0 0.85rem;
+	}
+
+	.door-card-code {
+		margin: 0 0 0.35rem;
+		font-size: 0.95rem;
+		line-height: 1.25;
+	}
+
+	.door-card-code--red {
+		color: #b91c1c;
+	}
+
+	.door-card-code--blue {
+		color: #1d4ed8;
+	}
+
+	.door-card-code--amber {
+		color: #b45309;
+	}
+
+	.door-card-block p {
+		margin: 0 0 0.35rem;
+	}
+
+	.door-card-block p:last-child {
+		margin-bottom: 0;
+	}
+
+	.door-card-foot {
+		margin-top: 0.5rem;
+		padding-top: 0.55rem;
+		border-top: 1px solid #e2e8f0;
+		font-size: 0.75rem;
+		color: #64748b;
+	}
+
+	.door-card-foot p {
+		margin: 0;
+	}
+</style>

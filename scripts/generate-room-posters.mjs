@@ -36,7 +36,7 @@ function escapeXml(s) {
 		.replace(/"/g, '&quot;');
 }
 
-function buildOverlaySvg({ width, height, pin, pin2, roomId, route, exit, exitKey, roomLabel, floorData, showAdaExit }) {
+function buildOverlaySvg({ width, height, pin, pin2, roomId, route, exit, exitKey, floorData, showAdaExit }) {
 	const points = [{ x: pin.x, y: pin.y }, ...route, { x: exit.x, y: exit.y }];
 	const poly = points.map((p) => `${p.x},${p.y}`).join(' ');
 	const medical = buildMedicalMarkersSvg(floorData);
@@ -72,7 +72,6 @@ function buildOverlaySvg({ width, height, pin, pin2, roomId, route, exit, exitKe
   ${showAda ? adaExitBadgeSvg(exit.x, exit.y + 12) : ''}
   ${extraPin}
   ${primaryPinMarkerSvg(pin, { routePoints: points, width, height, label: extraPinLabel(roomId, 1) })}
-  <text x="${width / 2}" y="126" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="13" font-weight="600" fill="#334155">${escapeXml(roomLabel)}</text>
 </svg>`;
 }
 
@@ -117,9 +116,6 @@ for (const roomId of toGenerate) {
 
 	const masterPath = join(ROOT, floor.master);
 	const { width, height } = overlay.imageSize;
-	const roomLabel = /^\d+$/.test(roomId)
-		? `Room ${roomId} — ${meta.name}`
-		: meta.name;
 	const svg = buildOverlaySvg({
 		width,
 		height,
@@ -129,7 +125,6 @@ for (const roomId of toGenerate) {
 		route: placement.route ?? [],
 		exit,
 		exitKey,
-		roomLabel,
 		floorData: floor,
 		showAdaExit: adaExits.has(exitKey) || Boolean(exit.ada) || isAdaExit(exitKey),
 	});

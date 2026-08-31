@@ -1,0 +1,92 @@
+---
+import roomRoutes from '../../../../data/room-routes.json';
+import DoorCardPreview from '../../../components/DoorCardPreview.astro';
+import { formatRoomLabel } from '../../../lib/rooms.mjs';
+
+export function getStaticPaths() {
+	return roomRoutes.rooms.map((room) => ({ params: { room: room.id } }));
+}
+
+const { room } = Astro.params;
+const meta = roomRoutes.rooms.find((r) => r.id === room);
+if (!meta) {
+	throw new Error(`Unknown room: ${room}`);
+}
+
+const title = formatRoomLabel(meta.id, meta.name);
+const assembly = roomRoutes.meta.assemblyDefault ?? 'South parking lot';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="robots" content="noindex, nofollow" />
+		<title>Print door card — {title}</title>
+		<style>
+			* {
+				box-sizing: border-box;
+			}
+			body {
+				margin: 0;
+				font-family: system-ui, sans-serif;
+				background: #f1f5f9;
+				color: #0f172a;
+			}
+			.toolbar {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.5rem;
+				align-items: center;
+				padding: 0.75rem 1rem;
+				background: #fff;
+				border-bottom: 1px solid #cbd5e1;
+			}
+			.toolbar a,
+			.toolbar button {
+				font: inherit;
+				font-size: 0.95rem;
+				padding: 0.45rem 0.85rem;
+				border-radius: 6px;
+				border: 1px solid #94a3b8;
+				background: #fff;
+				color: #0f172a;
+				text-decoration: none;
+				cursor: pointer;
+			}
+			.toolbar button.primary {
+				background: #1e3a5f;
+				border-color: #1e3a5f;
+				color: #fff;
+				font-weight: 600;
+			}
+			.frame {
+				padding: 1rem;
+				display: flex;
+				justify-content: center;
+			}
+			@media print {
+				.toolbar {
+					display: none;
+				}
+				body {
+					background: #fff;
+				}
+				.frame {
+					padding: 0;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="toolbar">
+			<button type="button" class="primary" onclick="window.print()">Print</button>
+			<a href="/classroom/door-cards/">All door cards</a>
+			<a href={`/classroom/room-posters/#room-${meta.id}`}>Map poster</a>
+		</div>
+		<div class="frame">
+			<DoorCardPreview title={title} exit={meta.path} assembly={assembly} />
+		</div>
+	</body>
+</html>

@@ -12,10 +12,7 @@
 
 Each room poster adds:
 
-- Red **YOU ARE HERE** pin
-- Green arrow path to nearest exit
-- **AED** (green) and **first aid** (red +) markers for the floor
-- Room label banner (e.g. `Room 107 — Classroom`)
+- **YOU ARE HERE** pin + green route (room numbers/names are on the master map art)
 - **Updated** date — shown on the [room posters page](/classroom/room-posters/) only (not on printed PNGs)
 
 ### 1. Place pins (one time per room)

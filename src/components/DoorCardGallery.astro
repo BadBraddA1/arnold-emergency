@@ -1,0 +1,155 @@
+---
+import roomRoutes from '../../data/room-routes.json';
+import overlay from '../../data/room-map-overlay.json';
+import DoorCardPreview from './DoorCardPreview.astro';
+import { formatRoomLabel, sortRoomsByFloor } from '../lib/rooms.mjs';
+
+const assembly = roomRoutes.meta.assemblyDefault ?? 'South parking lot';
+const overlayIds = new Set(Object.keys(overlay.rooms ?? {}));
+
+const rows = roomRoutes.rooms
+	.map((room) => ({
+		id: room.id,
+		floor: room.floor,
+		label: formatRoomLabel(room.id, room.name),
+		exit: room.path,
+		hasPoster: overlayIds.has(room.id),
+		printHref: `/print/door-card/${room.id}/`,
+	}))
+	.sort(sortRoomsByFloor);
+
+const byFloor = [1, 2].map((floor) => ({
+	floor,
+	rooms: rows.filter((r) => r.floor === floor),
+}));
+---
+
+<p class="door-gallery-intro">
+	Text checklist for the door frame — Code Red, Code Blue, and 911 only. Same exit notes as the map data.
+	<strong>Assembly:</strong> {assembly}
+</p>
+
+{
+	byFloor.map(({ floor, rooms }) =>
+		rooms.length ? (
+			<section class="door-gallery-floor" aria-labelledby={`door-floor-${floor}`}>
+				<h2 id={`door-floor-${floor}`}>Level {floor}</h2>
+				<ul class="door-gallery-list">
+					{rooms.map((room) => (
+						<li class="door-gallery-item" id={`door-${room.id}`}>
+							<div class="door-gallery-item-head">
+								<h3>{room.label}</h3>
+								<div class="door-gallery-actions">
+									<a class="door-btn door-btn--primary" href={room.printHref}>
+										Print
+									</a>
+									{room.hasPoster ? (
+										<a class="door-btn" href={`/classroom/room-posters/#room-${room.id}`}>
+											Map poster
+										</a>
+									) : null}
+								</div>
+							</div>
+							<details class="door-gallery-preview">
+								<summary>Preview card</summary>
+								<DoorCardPreview
+									title={room.label}
+									exit={room.exit}
+									assembly={assembly}
+									compact
+								/>
+							</details>
+						</li>
+					))}
+				</ul>
+			</section>
+		) : null,
+	)
+}
+
+<style>
+	.door-gallery-intro {
+		font-size: var(--ae-text-body-md);
+		color: var(--sl-color-gray-2);
+		margin: 0 0 1.25rem;
+		line-height: 1.5;
+	}
+
+	.door-gallery-floor {
+		margin: 2rem 0 0;
+	}
+
+	.door-gallery-floor h2 {
+		margin: 0 0 0.75rem;
+		font-family: 'Source Serif 4', Georgia, serif;
+	}
+
+	.door-gallery-list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: grid;
+		gap: 0.85rem;
+	}
+
+	.door-gallery-item {
+		border: 1px solid var(--sl-color-hairline-shade);
+		border-radius: 0.65rem;
+		background: var(--sl-color-bg-sidebar);
+		padding: 0.85rem 1rem;
+	}
+
+	.door-gallery-item-head {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: flex-start;
+		justify-content: space-between;
+		gap: 0.65rem;
+	}
+
+	.door-gallery-item-head h3 {
+		margin: 0;
+		font-size: var(--ae-text-body-lg);
+	}
+
+	.door-gallery-actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.45rem;
+	}
+
+	.door-btn {
+		display: inline-flex;
+		align-items: center;
+		padding: 0.38rem 0.7rem;
+		border-radius: 6px;
+		border: 1px solid var(--sl-color-hairline-shade);
+		background: var(--sl-color-bg);
+		color: inherit;
+		font-size: var(--ae-text-body-sm);
+		font-weight: 600;
+		text-decoration: none;
+	}
+
+	.door-btn--primary {
+		background: var(--sl-color-accent-low);
+		border-color: var(--sl-color-accent-low);
+		color: #fff;
+	}
+
+	.door-gallery-preview {
+		margin-top: 0.75rem;
+	}
+
+	.door-gallery-preview summary {
+		cursor: pointer;
+		font-size: var(--ae-text-meta);
+		font-weight: 600;
+		color: var(--sl-color-accent-high);
+		margin-bottom: 0.65rem;
+	}
+
+	.door-gallery-preview[open] summary {
+		margin-bottom: 0.85rem;
+	}
+</style>

@@ -12,7 +12,7 @@ The person who decides Red vs. Blue, ensures 911 is called, assigns nursery/clas
 
 ## How to use this term
 
-Fill in names on the [Roles](/roles/) page. **Allan Miller** is always primary IC; elders back up if he is unavailable.
+Fill in names on the [Roles](/roles/) page. Backup IC assumes command if primary is unavailable.
 
 ## Related terms
 

@@ -2,6 +2,7 @@
 import roomRoutes from '../../data/room-routes.json';
 import overlay from '../../data/room-map-overlay.json';
 import { formatMapUpdatedAtLong } from '../../scripts/map-overlay-meta.mjs';
+import { formatRoomLabel, sortRoomsByFloor } from '../lib/rooms.mjs';
 
 type RoomRow = {
 	id: string;
@@ -12,20 +13,6 @@ type RoomRow = {
 	posterSrc: string;
 	printHref: string;
 };
-
-function roomLabel(id: string, name: string) {
-	return /^\d+$/.test(id) ? `Room ${id} — ${name}` : name;
-}
-
-function sortRooms(a: RoomRow, b: RoomRow) {
-	if (a.floor !== b.floor) return a.floor - b.floor;
-	const aNum = /^\d+$/.test(a.id);
-	const bNum = /^\d+$/.test(b.id);
-	if (aNum && bNum) return Number(a.id) - Number(b.id);
-	if (aNum) return -1;
-	if (bNum) return 1;
-	return a.id.localeCompare(b.id);
-}
 
 const metaById = new Map(roomRoutes.rooms.map((r) => [r.id, r]));
 const exitLabels = roomRoutes.exits as Record<string, string>;
@@ -39,13 +26,13 @@ const rows: RoomRow[] = Object.keys(overlay.rooms ?? {})
 			floor: meta.floor,
 			name: meta.name,
 			nearestExit: meta.nearestExit,
-			label: roomLabel(id, meta.name),
+			label: formatRoomLabel(id, meta.name),
 			posterSrc: `/posters/room-${id}.png`,
 			printHref: `/print/poster/${id}/`,
 		};
 	})
 	.filter((r): r is RoomRow => r !== null)
-	.sort(sortRooms);
+	.sort(sortRoomsByFloor);
 
 const byFloor = [1, 2].map((floor) => ({
 	floor,

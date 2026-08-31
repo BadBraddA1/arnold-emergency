@@ -8,8 +8,6 @@ description: Staff PIN scope — full admin
 
 Alert Desk, Alert Control, arm/standby, staff PIN management, speaker settings.
 
-**Arnold Church of Christ:** Adin Bradd (see [Roles](/roles/)).
-
 ## How to use this term
 
 _Use the name consistently in training and on radios._
