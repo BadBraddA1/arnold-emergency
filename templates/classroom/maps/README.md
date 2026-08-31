@@ -16,7 +16,7 @@ Each room poster adds:
 - Green arrow path to nearest exit
 - **AED** (green) and **first aid** (red +) markers for the floor
 - Room label banner (e.g. `Room 107 — Classroom`)
-- **Updated** date (bottom-right) — from `updatedAt` in the overlay file; refreshes whenever you save in the map tool
+- **Updated** date — shown on the [room posters page](/classroom/room-posters/) only (not on printed PNGs)
 
 ### 1. Place pins (one time per room)
 

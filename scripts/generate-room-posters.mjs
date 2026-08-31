@@ -36,7 +36,7 @@ function escapeXml(s) {
 		.replace(/"/g, '&quot;');
 }
 
-function buildOverlaySvg({ width, height, pin, pin2, roomId, route, exit, exitKey, roomLabel, floorData, showAdaExit, updatedLabel }) {
+function buildOverlaySvg({ width, height, pin, pin2, roomId, route, exit, exitKey, roomLabel, floorData, showAdaExit }) {
 	const points = [{ x: pin.x, y: pin.y }, ...route, { x: exit.x, y: exit.y }];
 	const poly = points.map((p) => `${p.x},${p.y}`).join(' ');
 	const medical = buildMedicalMarkersSvg(floorData);
@@ -72,9 +72,7 @@ function buildOverlaySvg({ width, height, pin, pin2, roomId, route, exit, exitKe
   ${showAda ? adaExitBadgeSvg(exit.x, exit.y + 12) : ''}
   ${extraPin}
   ${primaryPinMarkerSvg(pin, { routePoints: points, width, height, label: extraPinLabel(roomId, 1) })}
-  <rect x="40" y="118" width="320" height="34" rx="8" fill="#4c1d95" opacity="0.9"/>
-  <text x="52" y="141" font-family="Arial,Helvetica,sans-serif" font-size="16" font-weight="700" fill="#ffffff">${escapeXml(roomLabel)}</text>
-  ${updatedLabel ? `<text x="${width - 14}" y="${height - 16}" text-anchor="end" font-family="Arial,Helvetica,sans-serif" font-size="11" fill="#475569">Updated ${escapeXml(updatedLabel)}</text>` : ''}
+  <text x="${width / 2}" y="126" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="13" font-weight="600" fill="#334155">${escapeXml(roomLabel)}</text>
 </svg>`;
 }
 
@@ -119,7 +117,9 @@ for (const roomId of toGenerate) {
 
 	const masterPath = join(ROOT, floor.master);
 	const { width, height } = overlay.imageSize;
-	const roomLabel = `Room ${roomId} — ${meta.name}`;
+	const roomLabel = /^\d+$/.test(roomId)
+		? `Room ${roomId} — ${meta.name}`
+		: meta.name;
 	const svg = buildOverlaySvg({
 		width,
 		height,
@@ -132,7 +132,6 @@ for (const roomId of toGenerate) {
 		roomLabel,
 		floorData: floor,
 		showAdaExit: adaExits.has(exitKey) || Boolean(exit.ada) || isAdaExit(exitKey),
-		updatedLabel,
 	});
 
 	const outFile = join(args.outDir, `room-${roomId}.png`);
