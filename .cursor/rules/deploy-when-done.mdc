@@ -1,0 +1,16 @@
+---
+description: Always commit, push, and deploy arnold-emergency when finishing work
+alwaysApply: true
+---
+
+# Arnold Emergency — deploy when done
+
+When you finish a task on **arnold-emergency** (`~/Code/arnold-emergency`, https://emergency.arnoldcoc.org):
+
+1. **Build** — `pnpm build` (or fix until it passes).
+2. **Commit** — stage only source changes (no secrets, no `dist/`).
+3. **Push** — `git push origin main`.
+4. **Deploy** — push triggers `.github/workflows/deploy.yml` (Cloudflare Pages). If CI is slow or broken, run `pnpm deploy` locally as fallback.
+5. **Confirm** — `gh run list --limit 1` or note the commit hash in your reply.
+
+Do not leave unpushed icon, content, or UI work on this repo. Pair with **arnold-alarm** (`~/Code/arnold-alarm`) only when the task explicitly touches both apps.
