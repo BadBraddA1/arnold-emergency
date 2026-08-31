@@ -22,7 +22,7 @@ Each room poster adds:
 pnpm run map:place
 ```
 
-Open http://localhost:3456 — for each room:
+Open http://localhost:3456 — edits **autosave** to `data/room-map-overlay.json` (and browser storage as backup). For each room:
 
 1. Select floor + room — **exits are labeled on the map** (blue dots); dashed gray lines show straight-line distance to every exit from your pin
 2. **Pin** mode → click center of room (red **YOU ARE HERE**)
@@ -30,7 +30,7 @@ Open http://localhost:3456 — for each room:
 4. Or use **L-route** buttons for a one-corner path (horizontal-first or vertical-first), then tweak with more route clicks
 5. Use **Pick nearest exit** to auto-select by straight-line distance, or choose manually and compare against the spreadsheet note in the sidebar
 6. **Direct line** clears waypoints if the path is a straight shot to the exit
-7. **Save room** → **Download overlay JSON** when done (merge into `data/room-map-overlay.json`)
+7. **Save room** → optional **Download overlay JSON** backup; file autosaves while `pnpm run map:place` is running
 
 ### 2. Generate PNGs
 

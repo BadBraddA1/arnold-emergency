@@ -29,6 +29,8 @@
     .status.ok { background: #dcfce7; color: #14532d; }
     .status.warn { background: #fef3c7; color: #78350f; }
     .status.info { background: #e0e7ff; color: #312e81; }
+    .autosave { font-size: 0.8125rem; padding: 0.45rem 0.65rem; border-radius: 6px; background: #ecfdf5; color: #065f46; margin-top: 0.75rem; line-height: 1.4; }
+    .autosave.warn { background: #fef3c7; color: #78350f; }
     .legend { font-size: 0.75rem; color: #475569; margin-top: 0.75rem; line-height: 1.6; }
     .legend span { display: inline-block; width: 0.75rem; height: 0.75rem; border-radius: 50%; margin-right: 0.25rem; vertical-align: -1px; }
     .dist-list { font-size: 0.8125rem; margin: 0.35rem 0 0; padding-left: 1.1rem; color: #334155; }
@@ -43,7 +45,7 @@
 <body>
   <aside>
     <h1>Map placement</h1>
-    <p class="hint">Exits are labeled on the map. Set the room pin, click hallway waypoints for the walk path, then confirm the <strong>nearest exit</strong>. Green line = route on the printed poster. <strong>YOU ARE HERE</strong> auto-shifts to avoid crossing the route.</p>
+    <p class="hint">Exits are labeled on the map. Edits <strong>autosave</strong> when you change rooms and every few clicks (browser + <code>data/room-map-overlay.json</code>). Set the room pin, click hallway waypoints, confirm nearest exit. <strong>YOU ARE HERE</strong> auto-shifts off the route.</p>
 
     <label for="floor">Floor</label>
     <select id="floor">
@@ -55,6 +57,8 @@
     <select id="room"></select>
 
     <div id="routeStatus" class="status info">Load a room to compare exits.</div>
+
+    <div id="autosaveStatus" class="autosave">Autosave on — local only until server connects</div>
 
     <label>Click mode</label>
     <div class="mode">
@@ -86,7 +90,7 @@
     </div>
     <button type="button" class="secondary" id="straightRoute">Direct line (no waypoints)</button>
 
-    <button type="button" class="primary" id="saveRoom">Save room to overlay</button>
+    <button type="button" class="secondary" id="saveRoom">Save to file now</button>
     <button type="button" id="undoRoute">Undo last route point</button>
     <button type="button" id="clearRoom">Clear this room</button>
     <button type="button" id="download">Download overlay JSON</button>
@@ -138,6 +142,9 @@
     let current = { pin: null, route: [], exit: null };
     let hover = null;
     let shiftDown = false;
+    let activeRoomId = null;
+    let diskSaveTimer = null;
+    const STORAGE_KEY = "arnold-map-overlay";
 
     const floorEl = document.getElementById("floor");
     const roomEl = document.getElementById("room");
@@ -147,6 +154,73 @@
     const stage = document.getElementById("stage");
     const jsonEl = document.getElementById("json");
     const routeStatusEl = document.getElementById("routeStatus");
+    const autosaveStatusEl = document.getElementById("autosaveStatus");
+
+    function roomCount() {
+      return Object.keys(overlay.rooms ?? {}).length;
+    }
+
+    function setAutosaveStatus(kind, detail = "") {
+      const n = roomCount();
+      const roomWord = n === 1 ? "room" : "rooms";
+      if (kind === "disk") {
+        autosaveStatusEl.className = "autosave";
+        autosaveStatusEl.textContent = `Autosaved ${n} ${roomWord} to file${detail ? ` · ${detail}` : ""}`;
+      } else if (kind === "local") {
+        autosaveStatusEl.className = "autosave warn";
+        autosaveStatusEl.textContent = `Saved ${n} ${roomWord} in browser only — use pnpm run map:place so file autosave works`;
+      } else if (kind === "saving") {
+        autosaveStatusEl.className = "autosave";
+        autosaveStatusEl.textContent = `Saving…`;
+      } else {
+        autosaveStatusEl.className = "autosave";
+        autosaveStatusEl.textContent = detail || `Autosave on`;
+      }
+    }
+
+    function commitCurrentRoom() {
+      if (!activeRoomId || !current.pin) return;
+      overlay.rooms[activeRoomId] = {
+        floor: Number(floorEl.value),
+        pin: { ...current.pin },
+        route: current.route.map((p) => ({ ...p })),
+        exit: exitEl.value,
+      };
+    }
+
+    function persistOverlay({ immediate = false } = {}) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(overlay));
+      } catch {
+        setAutosaveStatus("local");
+      }
+
+      const writeDisk = async () => {
+        setAutosaveStatus("saving");
+        try {
+          const res = await fetch("/api/overlay", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(overlay),
+          });
+          if (!res.ok) throw new Error("save failed");
+          const time = new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+          setAutosaveStatus("disk", time);
+        } catch {
+          setAutosaveStatus("local");
+        }
+      };
+
+      clearTimeout(diskSaveTimer);
+      if (immediate) writeDisk();
+      else diskSaveTimer = setTimeout(writeDisk, 500);
+    }
+
+    function autosave({ immediate = false } = {}) {
+      commitCurrentRoom();
+      persistOverlay({ immediate });
+      updateJson();
+    }
 
     function roomMeta(id) {
       return roomRoutes.rooms.find((r) => r.id === id);
@@ -219,7 +293,7 @@
       if (!exitPt) return alert("Exit not placed on map yet.");
       current.route = buildLRoute(current.pin, exitPt, horizontalFirst);
       renderOverlay();
-      updateJson();
+      autosave();
     }
 
     function routePoints() {
@@ -464,18 +538,12 @@
     }
 
     function fillRooms() {
-      const f = floorEl.value;
-      roomEl.innerHTML = ROOMS[f].map((id) => `<option value="${id}">${id}</option>`).join("");
-      exitEl.innerHTML = Object.entries(EXITS[f])
-        .map(([k, v]) => `<option value="${k}">${v} (${k})</option>`)
-        .join("");
-      mapEl.src = MAPS[f];
-      mapEl.alt = f === "1" ? "Level 1 floor plan" : "Level 2 floor plan";
-      loadRoom();
+      switchFloor();
     }
 
     function loadRoom() {
       const id = roomEl.value;
+      activeRoomId = id;
       const meta = roomMeta(id);
       const saved = overlay.rooms[id];
       current = saved
@@ -485,6 +553,25 @@
       else if (meta?.nearestExit) exitEl.value = meta.nearestExit;
       renderOverlay();
       updateJson();
+    }
+
+    function switchRoom() {
+      commitCurrentRoom();
+      persistOverlay();
+      loadRoom();
+    }
+
+    function switchFloor() {
+      commitCurrentRoom();
+      persistOverlay();
+      const f = floorEl.value;
+      roomEl.innerHTML = ROOMS[f].map((id) => `<option value="${id}">${id}</option>`).join("");
+      exitEl.innerHTML = Object.entries(EXITS[f])
+        .map(([k, v]) => `<option value="${k}">${v} (${k})</option>`)
+        .join("");
+      mapEl.src = MAPS[f];
+      mapEl.alt = f === "1" ? "Level 1 floor plan" : "Level 2 floor plan";
+      loadRoom();
     }
 
     function updateJson() {
@@ -533,7 +620,16 @@
         overlay.floors[floorEl.value].exits[key] = { x: raw.x, y: raw.y, label: "EXIT" };
       }
       renderOverlay();
-      updateJson();
+      autosave();
+    });
+
+    window.addEventListener("beforeunload", () => {
+      commitCurrentRoom();
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(overlay));
+      } catch {
+        /* ignore */
+      }
     });
 
     document.querySelectorAll(".mode button").forEach((btn) => {
@@ -554,14 +650,14 @@
       exitEl.value = dists[0].id;
       current.exit = dists[0].id;
       renderOverlay();
-      updateJson();
+      autosave();
     };
 
     document.getElementById("straightRoute").onclick = () => {
       if (!current.pin) return alert("Set a pin first.");
       current.route = [];
       renderOverlay();
-      updateJson();
+      autosave();
     };
 
     document.getElementById("lRouteH").onclick = () => applyLRoute(true);
@@ -569,27 +665,20 @@
 
     document.getElementById("saveRoom").onclick = () => {
       if (!current.pin) return alert("Set a pin first.");
-      overlay.rooms[roomEl.value] = {
-        floor: Number(floorEl.value),
-        pin: current.pin,
-        route: current.route,
-        exit: exitEl.value
-      };
-      localStorage.setItem("arnold-map-overlay", JSON.stringify(overlay));
-      alert(`Saved ${roomEl.value}`);
+      autosave({ immediate: true });
     };
 
     document.getElementById("undoRoute").onclick = () => {
       current.route.pop();
       renderOverlay();
-      updateJson();
+      autosave();
     };
 
     document.getElementById("clearRoom").onclick = () => {
       current = { pin: null, route: [], exit: exitEl.value };
       delete overlay.rooms[roomEl.value];
       renderOverlay();
-      updateJson();
+      autosave({ immediate: true });
     };
 
     document.getElementById("download").onclick = () => {
@@ -607,10 +696,10 @@
     exitEl.addEventListener("change", () => {
       current.exit = exitEl.value;
       renderOverlay();
-      updateJson();
+      autosave();
     });
 
-    roomEl.addEventListener("change", loadRoom);
+    roomEl.addEventListener("change", switchRoom);
     floorEl.addEventListener("change", fillRooms);
 
     Promise.all([
@@ -620,7 +709,7 @@
       if (routes) roomRoutes = routes;
       if (data) {
         overlay = data;
-        const saved = localStorage.getItem("arnold-map-overlay");
+        const saved = localStorage.getItem(STORAGE_KEY);
         if (saved) {
           const local = JSON.parse(saved);
           overlay = {
@@ -630,8 +719,11 @@
             rooms: { ...data.rooms, ...local.rooms }
           };
         }
+        setAutosaveStatus("disk", `${roomCount()} rooms loaded`);
       }
-    }).finally(fillRooms);
+    }).finally(() => {
+      fillRooms();
+    });
   </script>
 </body>
 </html>
