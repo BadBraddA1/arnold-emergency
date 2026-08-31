@@ -43,7 +43,7 @@
 <body>
   <aside>
     <h1>Map placement</h1>
-    <p class="hint">Exits are labeled on the map. Set the room pin, click hallway waypoints for the walk path, then confirm the <strong>nearest exit</strong>. Green line = route on the printed poster.</p>
+    <p class="hint">Exits are labeled on the map. Set the room pin, click hallway waypoints for the walk path, then confirm the <strong>nearest exit</strong>. Green line = route on the printed poster. <strong>YOU ARE HERE</strong> auto-shifts to avoid crossing the route.</p>
 
     <label for="floor">Floor</label>
     <select id="floor">
@@ -107,7 +107,13 @@
     </div>
   </main>
 
-  <script>
+  <script type="module">
+    import {
+      pickPinLabelPlacement,
+      pinLabelBadgeSvg,
+      pinLabelLeaderSvg,
+    } from "/scripts/map-label-placement.mjs";
+
     const ROOMS = {
       1: ["101","102","103","104","105","106","107","108","109","110","111","112","nursery","cry-room","foyer","work-room"],
       2: ["204","205","206","207","208","209","210","212","202","203","214","215","fellowship-hall"]
@@ -306,6 +312,17 @@
           }));
         }
 
+        const { w: imgW, h: imgH } = svgSize();
+        const pts = routePoints();
+        const labelPlacement = pickPinLabelPlacement({
+          pin: current.pin,
+          routePoints: pts,
+          width: imgW,
+          height: imgH,
+        });
+
+        appendSvgFragment(svgEl, pinLabelLeaderSvg(current.pin, labelPlacement));
+
         svgEl.appendChild(el("circle", {
           cx: current.pin.x, cy: current.pin.y, r: 14,
           fill: "#dc2626", stroke: "#fff", "stroke-width": 3
@@ -313,16 +330,8 @@
         svgEl.appendChild(el("circle", {
           cx: current.pin.x, cy: current.pin.y, r: 4, fill: "#fff"
         }));
-        const pinLabel = el("text", {
-          x: current.pin.x, y: current.pin.y - 22,
-          "text-anchor": "middle",
-          "font-family": "system-ui,sans-serif",
-          "font-size": 12,
-          "font-weight": 700,
-          fill: "#111827"
-        });
-        pinLabel.textContent = "YOU ARE HERE";
-        svgEl.appendChild(pinLabel);
+
+        appendSvgFragment(svgEl, pinLabelBadgeSvg(labelPlacement, { variant: "poster" }));
       }
 
       if (mode === "route" && document.getElementById("showPreview")?.checked && hover && routeAnchor()) {
@@ -387,6 +396,17 @@
       }
 
       updateStatus();
+    }
+
+    function appendSvgFragment(parent, svgString) {
+      if (!svgString.trim()) return;
+      const doc = new DOMParser().parseFromString(
+        `<svg xmlns="http://www.w3.org/2000/svg">${svgString}</svg>`,
+        "image/svg+xml"
+      );
+      for (const child of doc.documentElement.childNodes) {
+        parent.appendChild(document.importNode(child, true));
+      }
     }
 
     function el(tag, attrs) {
