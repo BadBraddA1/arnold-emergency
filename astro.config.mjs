@@ -17,6 +17,9 @@ export default defineConfig({
 				'Emergency response procedures for Arnold Church of Christ — the live source of truth.',
 			logo: { alt: 'Arnold Emergency', src: './src/assets/logo.svg' },
 			customCss: ['./src/styles/custom.css'],
+			components: {
+				PageFrame: './src/components/PageFrame.astro',
+			},
 			editLink: {
 				baseUrl: 'https://github.com/BadBraddA1/arnold-emergency/edit/main/',
 			},
@@ -45,6 +48,7 @@ export default defineConfig({
 					label: 'Start here',
 					items: [
 						{ label: 'Overview', slug: 'index' },
+						{ label: 'Campus audio — hear clips', slug: 'system/campus-audio' },
 						{ label: 'Quick reference', slug: 'quick-reference' },
 						{ label: 'Terminology', slug: 'terminology' },
 					],
@@ -63,6 +67,7 @@ export default defineConfig({
 					items: [
 						{ label: 'Roles & responsibilities', slug: 'roles' },
 						{ label: 'Who may trigger a code', slug: 'triggers' },
+						{ label: 'Medical emergency (draft)', slug: 'medical-emergency' },
 						{ label: 'Communication checklist', slug: 'communication' },
 						{ label: 'Training & drills', slug: 'training' },
 						{ label: 'Post-incident', slug: 'post-incident' },

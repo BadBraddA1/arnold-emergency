@@ -5,7 +5,15 @@
 | **Live site** | https://emergency.arnoldcoc.org |
 | **Local** | `~/Code/arnold-emergency` |
 | **Alarm app** | https://alarm.arnoldcoc.org (Arnold Alert — trigger codes) |
-| **Status** | Draft SOP — leadership sign-off required |
+| **Status** | Draft — leadership sign-off required; [site map on home page](/) shows WIP per page |
+
+## Impeccable (design system)
+
+| File | Purpose |
+|------|---------|
+| `PRODUCT.md` | Product truth — users, scope, open decisions |
+| `DESIGN.md` | Visual system — tokens, components, do/don't |
+| `.impeccable/config.json` | Workflow defaults (`buildPath: code`, design hook on) |
 
 Emergency response **playbook** for Arnold Church of Christ — markdown in git, published as a docs site. Clone it, edit procedures, merge to `main`, site updates.
 
@@ -40,9 +48,18 @@ All pages: `src/content/docs/`
 | Quick reference | Printable card |
 | **Terminology** | A–Z glossary — auto-linked across every page |
 | Codes | Red, Blue, all clear |
+| Other | Medical emergency (draft) |
 | Roles | IC, nursery, pulpit, office |
 | System | Arnold Alert naming & limits |
 | Classroom | Per-room handout template |
+
+### Campus audio
+
+Production horn clips live in `public/audio/` (synced from the Pi). Reference page: [Campus audio](/system/campus-audio/) — MDX `AudioClip` cards with MP3 fallbacks for iPhone.
+
+```bash
+./scripts/sync-campus-audio.sh   # refresh from gateway + ~/.config/arnold-alarm/audio
+```
 
 ### Glossary / auto-links
 
@@ -50,7 +67,7 @@ Defined terms live in `src/data/terminology.json`. Run `pnpm run generate:termin
 
 ## Deploy
 
-Cloudflare Pages — `main` branch, build command `pnpm build`, output `dist/`.
+Cloudflare Pages — push to `main` runs GitHub Actions (`.github/workflows/deploy.yml`; needs `CLOUDFLARE_API_TOKEN` + `CLOUDFLARE_ACCOUNT_ID` repo secrets). Manual fallback:
 
 ```bash
 pnpm build

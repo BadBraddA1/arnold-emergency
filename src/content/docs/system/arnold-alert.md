@@ -17,8 +17,11 @@ description: Campus audio system — Alert Mobile, Alert Desk, fobs, and campus 
 
 1. Staff triggers Code Red or Blue (app, fob, or 9090 menu).
 2. Phone shows **Alert Countdown** (10 seconds) — campus is silent until Send.
-3. **Campus Horns** play the code tone and loop until **All clear**.
-4. Activity is logged in **Desk Activity**.
+3. **Campus Horns** play the code tone (loop, repeat every 2 min, or once — operator choice).
+4. **Stop horns** silences audio without ending the code; **All clear** ends the event and plays Code Green ×2.
+5. Activity is logged in **Desk Activity**.
+
+**Hear the tones:** [Campus audio reference](/system/campus-audio/)
 
 ## Alert Fobs
 

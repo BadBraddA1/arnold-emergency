@@ -1,0 +1,31 @@
+---
+interface Props {
+	title: string;
+	description?: string;
+	src: string;
+	srcMp3?: string;
+	id?: string;
+}
+
+const { title, description, src, srcMp3, id } = Astro.props;
+const isOgg = src.endsWith('.ogg');
+const mp3 = srcMp3 ?? (isOgg ? src.replace(/\.ogg$/i, '.mp3') : undefined);
+const titleId = id ? `${id}-title` : `audio-title-${title.replace(/\W+/g, '-').toLowerCase()}`;
+---
+
+<article class="audio-clip" id={id}>
+	<div class="audio-clip-text">
+		<h3 class="audio-clip-title" id={titleId}>{title}</h3>
+		{description ? <p class="audio-clip-desc">{description}</p> : null}
+	</div>
+	<audio
+		class="audio-clip-player"
+		controls
+		preload="none"
+		aria-labelledby={titleId}
+	>
+		{mp3 ? <source src={mp3} type="audio/mpeg" /> : null}
+		{isOgg ? <source src={src} type="audio/ogg" /> : <source src={src} type="audio/mpeg" />}
+		<a href={mp3 ?? src}>Download {title}</a>
+	</audio>
+</article>

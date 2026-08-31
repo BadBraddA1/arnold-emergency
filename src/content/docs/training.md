@@ -15,7 +15,8 @@ description: How often staff practice emergency procedures.
 ## New volunteer onboarding
 
 1. Read [Quick reference](/quick-reference/).
-2. Know your room's exit and assembly point — [Classroom handout](/classroom/handout-template/).
+2. **[Listen to campus tones](/system/campus-audio/)** — know Red, Blue, and all clear by ear.
+3. Know your room's exit and assembly point — [Classroom handout](/classroom/handout-template/).
 3. Add **Arnold Alert** to phone if you have a staff PIN.
 4. Attend next quarterly tabletop.
 

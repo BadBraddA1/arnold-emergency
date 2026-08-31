@@ -19,4 +19,5 @@ Friendly name for “the speakers” in conversation with volunteers.
 - [Arnold Alert](/terminology/terms/arnold-alert/)
 - [Alert Check](/terminology/terms/alert-check/)
 - [System Armed](/terminology/terms/system-armed/)
+- [Campus audio reference](/terminology/terms/campus-audio/)
 

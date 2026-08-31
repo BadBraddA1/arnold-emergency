@@ -10,6 +10,7 @@ ALL CLEAR = IC only      → Stop & All clear in app / fob button 4
 
 911 first when life is at risk.
 Do NOT use phone PA (9090) for codes.
+Medical emergency? Call 911 — see emergency.arnoldcoc.org/medical-emergency/
 ```
 
 ## At a glance
@@ -27,6 +28,8 @@ Do NOT use phone PA (9090) for codes.
 | **Alert Mobile** | [alarm.arnoldcoc.org](https://alarm.arnoldcoc.org) — add to Home Screen |
 | **Alert Desk** | [alarm.arnoldcoc.org/desk/](https://alarm.arnoldcoc.org/desk/) — admins |
 | **Alert Line** | Ext **9090** — paging menu only, **not** for declaring codes |
+
+	**[Hear campus tones →](/system/campus-audio/)** — Code Red, Blue, all clear, bells
 
 ## Assembly area
 

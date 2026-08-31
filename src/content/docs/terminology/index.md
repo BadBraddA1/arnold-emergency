@@ -29,6 +29,7 @@ No one should have to guess what **Arnold Alert**, **Code Blue**, or **Fob Arm**
 - [Arnold Alert](/terminology/terms/arnold-alert/) — Campus bells and emergency audio system
 - [Arnold Emergency](/terminology/terms/arnold-emergency/) — This website — the emergency playbook
 - [Bell Ringer](/terminology/terms/bell-ringer/) — Staff PIN scope — bells only
+- [Campus audio reference](/terminology/terms/campus-audio/) — SOP page with horn tone clips
 - [Campus Horns](/terminology/terms/campus-horns/) — Building speakers
 - [Code Blue](/terminology/terms/code-blue/) — Lockdown
 - [Code Blue Active](/terminology/terms/code-blue-active/) — Blue code is live
@@ -39,6 +40,7 @@ No one should have to guess what **Arnold Alert**, **Code Blue**, or **Fob Arm**
 - [First Bell](/terminology/terms/first-bell/) — Class bell — one tone
 - [Fob Arm](/terminology/terms/fob-arm/) — 3-hour fob activation window
 - [Incident commander](/terminology/terms/incident-commander/) — On-site authority during a crisis
+- [Medical emergency](/terminology/terms/medical-emergency/) — Serious illness or injury (not a campus code)
 - [Queued (standby)](/terminology/terms/queued-standby/) — Command recorded while standby
 - [Quick Page](/terminology/terms/quick-page/) — Extension 8080
 - [Remote Operator](/terminology/terms/remote-operator/) — Staff PIN scope — off-campus queue

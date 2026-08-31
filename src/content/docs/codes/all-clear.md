@@ -13,7 +13,7 @@ Only the **incident commander** or designated **backup** — not general staff o
 
 1. IC confirms threat is resolved and areas are checked (coordinate with law enforcement when applicable).
 2. Authorized person taps **Stop & All clear** in [Alert Mobile](https://alarm.arnoldcoc.org) or **fob button 4** (when fob is armed).
-3. Campus plays **Code Green** tone ×2.
+3. Campus plays **Code Green** tone ×2. [Listen →](/system/campus-audio/)
 4. Brief announcement: normal operations resume; counseling / debrief as needed.
 
 ## What all clear is not

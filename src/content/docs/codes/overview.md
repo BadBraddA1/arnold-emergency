@@ -7,9 +7,11 @@ Only **one** active code (Red or Blue) at a time. **All clear** is only availabl
 
 | Code | Meaning at Arnold | Campus audio | Typical human response |
 |------|-------------------|--------------|------------------------|
-| **Code Red** | **Evacuate** — leave the building / move to assembly | Red tone loops until all clear | Exit routes, head count, reunification |
-| **Code Blue** | **Lockdown** — shelter in place, secure rooms | Blue tone loops until all clear | Lock doors, lights out, silence phones |
+| **Code Red** | **Evacuate** — leave the building / move to assembly | Red tone until all clear | Exit routes, head count, reunification |
+| **Code Blue** | **Lockdown** — shelter in place, secure rooms | Blue tone until all clear | Lock doors, lights out, silence phones |
 | **All clear** | Emergency over | Code Green tone ×2 | Stand down; debrief as needed |
+
+**[Listen to each tone →](/system/campus-audio/)**
 
 ## Choosing Red vs. Blue
 

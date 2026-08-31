@@ -94,6 +94,14 @@
     "related": ["incident-commander", "code-red", "code-blue"]
   },
   {
+    "slug": "medical-emergency",
+    "term": "Medical emergency",
+    "short": "Serious illness or injury (not a campus code)",
+    "what": "Events like chest pain, seizure, major fall, or unresponsive person — handled with **911** and on-scene first aid. Usually **does not** use Code Red or Code Blue unless IC orders a building-wide response.",
+    "usage": "Say **medical emergency** to distinguish from lockdown or evacuate. Playbook is [draft](/medical-emergency/) — leadership decisions still pending.",
+    "related": ["incident-commander", "code-red", "all-clear", "arnold-emergency"]
+  },
+  {
     "slug": "alert-codes",
     "term": "Alert Codes",
     "short": "Emergency code feature",
@@ -125,7 +133,15 @@
     "short": "Building speakers",
     "what": "UniFi Protect AI speakers in lobby, hallways, and fellowship hall. Play bells, emergency codes, and PA.",
     "usage": "Friendly name for “the speakers” in conversation with volunteers.",
-    "related": ["arnold-alert", "alert-check", "system-armed"]
+    "related": ["arnold-alert", "alert-check", "system-armed", "campus-audio"]
+  },
+  {
+    "slug": "campus-audio",
+    "term": "Campus audio reference",
+    "short": "SOP page with horn tone clips",
+    "what": "The [Campus audio reference](/system/campus-audio/) page on Arnold Emergency — playable clips of Code Red, Code Blue, all clear, bells, and test tones. Matches files on the campus gateway.",
+    "usage": "Training and drills — “listen so you recognize the real horns.”",
+    "related": ["campus-horns", "code-red", "code-blue", "all-clear"]
   },
   {
     "slug": "alert-fobs",

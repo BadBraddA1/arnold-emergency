@@ -41,6 +41,7 @@ description: When and how to evacuate Arnold Church of Christ campus.
 
 ## Related
 
+- [Campus audio reference](/system/campus-audio/) — hear the Red tone
 - [All clear](/codes/all-clear/)
 - [Roles & responsibilities](/roles/)
 - [Communication checklist](/communication/)

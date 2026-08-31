@@ -1,0 +1,19 @@
+{
+  "evacuate.code_red": {
+    "file": "Code_Red_Full_Master.ogg",
+    "ringtoneId": "6a3b249800a1b103e4333e02"
+  },
+  "evacuate.code_blue": {
+    "file": "Code_Blue_Master.ogg",
+    "ringtoneId": "6a3ed6e80118b103e448e0cf"
+  },
+  "evacuate.code_green": {
+    "file": "Code_Green_au.ogg",
+    "ringtoneId": "6a3be7700373b103e436e522",
+    "repeat": 2
+  },
+  "bells.test": {
+    "file": "TEST_ACOC.ogg",
+    "ringtoneId": "6a3b08990181b103e432add6"
+  }
+}

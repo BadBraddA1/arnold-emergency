@@ -1,0 +1,97 @@
+---
+title: Campus audio reference
+description: Hear the exact tones played on campus horns — bells, emergency codes, and all clear.
+---
+
+import AudioClip from '../../../components/AudioClip.astro';
+
+Staff training and drills: **listen here** so you recognize what Arnold Alert plays on **Campus Horns**. Tap **Play** on each card below.
+
+:::tip[Headphones recommended]
+Emergency clips are loud. Start at low volume — especially Code Red.
+:::
+
+<div class="audio-page-intro">
+  <p><strong>You are in the right place.</strong> Scroll down — each tone has a green <strong>Play</strong> bar.</p>
+</div>
+
+<h2 id="emergency">Emergency codes</h2>
+
+On campus, Red and Blue can **loop**, **repeat every 2 minutes**, or **play once**. These are one full play of each file.
+
+<AudioClip
+  id="code-red"
+  title="Code Red — Evacuate"
+  description="Full red tone. Loops or repeats on campus until all clear."
+  src="/audio/Code_Red_Full_Master.ogg"
+/>
+
+<AudioClip
+  id="code-blue"
+  title="Code Blue — Lockdown"
+  description="Blue lockdown tone."
+  src="/audio/Code_Blue_Master.ogg"
+/>
+
+<AudioClip
+  id="all-clear"
+  title="All clear — Code Green"
+  description="Played twice on campus when IC ends the event. Clip is one play."
+  src="/audio/Code_Green_au.ogg"
+/>
+
+**Stop horns** silences audio but does **not** end the code. Only **All clear** returns the campus to idle.
+
+<h2 id="bells">Class bells</h2>
+
+<AudioClip
+  id="first-bell"
+  title="First bell"
+  description="Start_Bell_Tone.mp3 on all speakers."
+  src="/audio/Start_Bell_Tone.mp3"
+/>
+
+<AudioClip
+  id="second-bell"
+  title="Second bell (one tone)"
+  description="Same file played twice (~1.5s apart) on campus."
+  src="/audio/Start_Bell_Tone.mp3"
+/>
+
+<h2 id="test">System test tones</h2>
+
+<AudioClip
+  id="test-start"
+  title="Test start tone"
+  description="Speaker-check preamble and optional PA horn before live page."
+  src="/audio/Test_Start_Tone.mp3"
+/>
+
+<AudioClip
+  id="test-acoc"
+  title="TEST ACOC"
+  description="Plays on all horns after desk-phone notify during speaker check."
+  src="/audio/TEST_ACOC.ogg"
+/>
+
+<h2 id="legacy">Legacy</h2>
+
+<AudioClip
+  title="Bell_1 (legacy)"
+  description="Older bell file on the gateway. Production uses Start_Bell_Tone above."
+  src="/audio/Bell_1.mp3"
+/>
+
+## Related
+
+- [Codes overview](/codes/overview/)
+- [How Arnold Alert works](/system/arnold-alert/)
+- [Training & drills](/training/)
+
+## Refreshing clips
+
+```bash
+cd ~/Code/arnold-emergency
+./scripts/sync-campus-audio.sh
+pnpm run deploy
+```

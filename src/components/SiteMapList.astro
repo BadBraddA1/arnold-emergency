@@ -1,0 +1,44 @@
+---
+export type SiteMapItem = {
+	href: string;
+	label: string;
+	status: 'usable' | 'wip' | 'draft' | 'reference' | 'template';
+	note: string;
+};
+
+export type SiteMapGroup = {
+	title: string;
+	items: SiteMapItem[];
+};
+
+const { groups } = Astro.props as { groups: SiteMapGroup[] };
+
+const statusLabel: Record<SiteMapItem['status'], string> = {
+	usable: 'Usable',
+	wip: 'WIP',
+	draft: 'Draft',
+	reference: 'Reference',
+	template: 'Template',
+};
+---
+
+{
+	groups.map((group) => (
+		<section class="site-map-group" aria-labelledby={`site-map-${group.title.replace(/\W+/g, '-').toLowerCase()}`}>
+			<h3 id={`site-map-${group.title.replace(/\W+/g, '-').toLowerCase()}`}>{group.title}</h3>
+			<ul class="site-map-list">
+				{group.items.map((item) => (
+					<li>
+						<a class="site-map-link" href={item.href}>
+							<span class="site-map-label">{item.label}</span>
+							<span class={`site-map-status site-map-status--${item.status}`}>
+								{statusLabel[item.status]}
+							</span>
+						</a>
+						<p class="site-map-note">{item.note}</p>
+					</li>
+				))}
+			</ul>
+		</section>
+	))
+}

@@ -3,15 +3,18 @@ title: Arnold Emergency
 description: Emergency response procedures for Arnold Church of Christ.
 template: splash
 hero:
-  tagline: Who does what when Code Red or Code Blue sounds — the live playbook for Arnold Church of Christ. Campus audio runs on Arnold Alert; this site is the human response.
+  tagline: The human playbook for Code Red, Code Blue, and everything around them. Campus horns run on Arnold Alert — this site is who does what. Published for real use; leadership sign-off and several fields still in progress.
   actions:
+    - text: Hear campus clips
+      link: /system/campus-audio/
+      icon: star
+      variant: primary
     - text: Quick reference
       link: /quick-reference/
       icon: right-arrow
-    - text: Code Red — Evacuate
-      link: /codes/code-red/
-      icon: right-arrow
-      variant: primary
+    - text: All pages
+      link: '#site-map'
+      icon: list-format
     - text: Arnold Alert app
       link: https://alarm.arnoldcoc.org
       icon: external
@@ -19,44 +22,104 @@ hero:
 ---
 
 import { Card, CardGrid } from '@astrojs/starlight/components';
+import ToolPair from '../../components/ToolPair.astro';
+import SiteMapList from '../../components/SiteMapList.astro';
 
-## Start here
+:::caution[Work in progress]
+This site is **live for staff review** — not final policy until [Leadership approval](/approval/) is signed. Pages marked **Draft** or **WIP** have intentional blanks (names, assembly areas, medical decisions). Use what is written; do not invent missing details.
+:::
 
-<CardGrid stagger>
-	<Card title="Quick reference" icon="document">
-		Printable card — Code Red, Code Blue, all clear, 911.
-		[Open →](/quick-reference/)
-	</Card>
-	<Card title="Roles" icon="puzzle">
-		Incident commander, nursery, pulpit, office — who owns what.
-		[Open →](/roles/)
+## Two tools
+
+<ToolPair />
+
+## Crisis shortcuts
+
+<CardGrid>
+	<Card title="Hear the horns" icon="star">
+		Play Code Red, Blue, all clear, and bells — **[Campus audio reference](/system/campus-audio/)**
 	</Card>
 	<Card title="Code Red" icon="rocket">
-		Evacuate — when to use it and step-by-step response.
-		[Open →](/codes/code-red/)
+		Evacuate — [procedure](/codes/code-red/) · [hear tone](/system/campus-audio/)
 	</Card>
 	<Card title="Code Blue" icon="lock">
-		Lockdown — shelter in place procedures.
-		[Open →](/codes/code-blue/)
+		Lockdown — [procedure](/codes/code-blue/) · [hear tone](/system/campus-audio/)
 	</Card>
-	<Card title="Arnold Alert" icon="setting">
-		Phone app, desk console, fobs, campus horns.
-		[Open →](/system/arnold-alert/)
+	<Card title="All clear" icon="approve-check">
+		IC only — [procedure](/codes/all-clear/)
 	</Card>
-	<Card title="Terminology" icon="open-book">
-		Every Arnold Alert term defined — click dotted links anywhere on the site.
-		[Open →](/terminology/)
-	</Card>
-	<Card title="Classroom handouts" icon="add-document">
-		Generate room-specific sheets from the template.
-		[Open →](/classroom/handout-template/)
+	<Card title="911" icon="warning">
+		Life threat — call **911** first. [Medical (draft)](/medical-emergency/)
 	</Card>
 </CardGrid>
 
-:::note[Source of truth]
-This repo is markdown in git. Edit on GitHub or clone locally — deploy updates the live site at **emergency.arnoldcoc.org**.
+## Site map
 
-**Highlighted terms** (dotted green links) open a definition — see [Terminology](/terminology/).
+<span id="site-map"></span>
+
+Everything on this site — status shows how complete each page is.
+
+**Usable** · **WIP** · **Draft** · **Reference** · **Template**
+
+<div class="site-map">
+<SiteMapList groups={[
+  {
+    title: 'Start here',
+    items: [
+      { href: '/system/campus-audio/', label: 'Campus audio — hear the clips', status: 'reference', note: 'Code Red, Blue, Green, bells — tap play' },
+      { href: '/quick-reference/', label: 'Quick reference', status: 'wip', note: 'Printable card — assembly area still blank' },
+      { href: '/terminology/', label: 'Terminology', status: 'reference', note: 'A–Z glossary; dotted green links site-wide' },
+    ],
+  },
+  {
+    title: 'Emergency codes',
+    items: [
+      { href: '/codes/overview/', label: 'Codes overview', status: 'usable', note: 'Red vs. Blue vs. all clear' },
+      { href: '/codes/code-red/', label: 'Code Red — Evacuate', status: 'wip', note: 'Procedure written; assembly area TBD' },
+      { href: '/codes/code-blue/', label: 'Code Blue — Lockdown', status: 'usable', note: 'Shelter in place steps' },
+      { href: '/codes/all-clear/', label: 'All clear', status: 'usable', note: 'Who may end an active code' },
+    ],
+  },
+  {
+    title: 'People & process',
+    items: [
+      { href: '/roles/', label: 'Roles & responsibilities', status: 'wip', note: 'IC, nursery, pulpit — names not filled in' },
+      { href: '/triggers/', label: 'Who may trigger a code', status: 'usable', note: 'App, fob, 9090, PIN scopes' },
+      { href: '/medical-emergency/', label: 'Medical emergency', status: 'draft', note: '911 now; AED / policy TBD' },
+      { href: '/communication/', label: 'Communication checklist', status: 'wip', note: 'IC checklist; spokesperson TBD' },
+      { href: '/training/', label: 'Training & drills', status: 'wip', note: 'Schedule; owners TBD' },
+      { href: '/post-incident/', label: 'Post-incident', status: 'usable', note: 'Debrief within 72 hours' },
+      { href: '/approval/', label: 'Leadership approval', status: 'wip', note: 'Sign-off record — not signed' },
+    ],
+  },
+  {
+    title: 'Arnold Alert (system)',
+    items: [
+      { href: '/system/arnold-alert/', label: 'How Arnold Alert works', status: 'usable', note: 'Mobile, desk, fobs, horns, 9090' },
+      { href: '/system/campus-audio/', label: 'Campus audio reference', status: 'reference', note: 'Play Red, Blue, Green, bells' },
+      { href: '/system/arm-standby/', label: 'Arm & standby', status: 'usable', note: 'Armed vs. standby' },
+      { href: '/system/limits/', label: 'System limits', status: 'usable', note: 'What horns do not do' },
+      { href: '/system/naming/', label: 'Naming guide', status: 'reference', note: 'Arnold Alert vocabulary' },
+    ],
+  },
+  {
+    title: 'Classrooms & publishing',
+    items: [
+      { href: '/classroom/handout-template/', label: 'Room handout template', status: 'template', note: 'Generate per-room PDFs' },
+      { href: '/contributing/', label: 'Edit & publish', status: 'reference', note: 'How to update this site' },
+    ],
+  },
+]} />
+</div>
+
+### Terminology (A–Z)
+
+40 terms — each has its own page under [Terminology](/terminology/). Examples: [Incident commander](/terminology/terms/incident-commander/), [Campus Horns](/terminology/terms/campus-horns/), [Alert Fobs](/terminology/terms/alert-fobs/), [Medical emergency](/terminology/terms/medical-emergency/).
+
+:::note[How to read this site]
+- **Dotted green links** → term definitions  
+- **Blank fields** `_[like this]_` → leadership still deciding  
+- **Source of truth** — markdown in [GitHub](https://github.com/BadBraddA1/arnold-emergency); merge to `main` updates the live site  
 :::
 
-**Status:** Draft — leadership sign-off required. See [Approval](/approval/).
+**Next step for leadership:** [Approval](/approval/) → then fill [Roles](/roles/), [Quick reference](/quick-reference/) assembly area, and [Medical emergency](/medical-emergency/) decisions.

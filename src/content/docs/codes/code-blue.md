@@ -44,5 +44,6 @@ Only IC (or backup) should switch codes. Often: **All clear** first, then **Code
 
 ## Related
 
+- [Campus audio reference](/system/campus-audio/) — hear the Blue tone
 - [All clear](/codes/all-clear/)
 - [Roles & responsibilities](/roles/)
