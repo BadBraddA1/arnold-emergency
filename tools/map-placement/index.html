@@ -34,6 +34,10 @@
     .dist-list { font-size: 0.8125rem; margin: 0.35rem 0 0; padding-left: 1.1rem; color: #334155; }
     .dist-list li.nearest { font-weight: 700; color: #14532d; }
     .dist-list li.selected { color: #1e3a5f; }
+    .section-title { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: #334155; margin: 1.25rem 0 0.35rem; }
+    .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.35rem; }
+    .row2 button { margin-top: 0; font-size: 0.875rem; }
+    .stage.snap-route { cursor: cell; }
   </style>
 </head>
 <body>
@@ -69,7 +73,18 @@
     </div>
 
     <button type="button" class="secondary" id="suggestExit">Pick nearest exit (straight-line)</button>
-    <button type="button" class="secondary" id="straightRoute">Straight route (no waypoints)</button>
+
+    <p class="section-title">Straight lines</p>
+    <p class="hint" style="margin-top:0">Hallways are mostly horizontal or vertical. Route mode snaps each click to a straight H/V segment from the last point. Hold <strong>Shift</strong> for a free-angle point.</p>
+    <div class="toggles">
+      <label><input type="checkbox" id="snapHV" checked /> Snap route to H / V</label>
+      <label><input type="checkbox" id="showPreview" checked /> Preview next segment</label>
+    </div>
+    <div class="row2">
+      <button type="button" class="secondary" id="lRouteH">L-route: go horizontal first</button>
+      <button type="button" class="secondary" id="lRouteV">L-route: go vertical first</button>
+    </div>
+    <button type="button" class="secondary" id="straightRoute">Direct line (no waypoints)</button>
 
     <button type="button" class="primary" id="saveRoom">Save room to overlay</button>
     <button type="button" id="undoRoute">Undo last route point</button>
@@ -115,6 +130,8 @@
     let overlay = { imageSize: { width: 794, height: 1286 }, floors: {}, rooms: {} };
     let roomRoutes = { exits: {}, rooms: [] };
     let current = { pin: null, route: [], exit: null };
+    let hover = null;
+    let shiftDown = false;
 
     const floorEl = document.getElementById("floor");
     const roomEl = document.getElementById("room");
@@ -154,6 +171,49 @@
           desc: roomRoutes.exits?.[id] ?? ""
         }))
         .sort((a, b) => a.dist - b.dist);
+    }
+
+    function routeAnchor() {
+      if (current.route.length) return current.route[current.route.length - 1];
+      return current.pin;
+    }
+
+    function snapHV(anchor, point) {
+      if (!anchor) return point;
+      const dx = Math.abs(point.x - anchor.x);
+      const dy = Math.abs(point.y - anchor.y);
+      if (dx <= dy) return { x: anchor.x, y: point.y };
+      return { x: point.x, y: anchor.y };
+    }
+
+    function mapCoords(e) {
+      const rect = mapEl.getBoundingClientRect();
+      const scale = (mapEl.naturalWidth || 794) / rect.width;
+      return {
+        x: Math.round((e.clientX - rect.left) * scale),
+        y: Math.round((e.clientY - rect.top) * scale)
+      };
+    }
+
+    function routeClickPoint(raw, freeAngle) {
+      const anchor = routeAnchor();
+      if (!anchor) return raw;
+      if (freeAngle || !document.getElementById("snapHV").checked) return raw;
+      return snapHV(anchor, raw);
+    }
+
+    function buildLRoute(pin, exit, horizontalFirst) {
+      if (horizontalFirst) return [{ x: exit.x, y: pin.y }];
+      return [{ x: pin.x, y: exit.y }];
+    }
+
+    function applyLRoute(horizontalFirst) {
+      if (!current.pin) return alert("Set a pin first.");
+      const exitPt = floorExits(floorEl.value)[exitEl.value];
+      if (!exitPt) return alert("Exit not placed on map yet.");
+      current.route = buildLRoute(current.pin, exitPt, horizontalFirst);
+      renderOverlay();
+      updateJson();
     }
 
     function routePoints() {
@@ -263,6 +323,25 @@
         });
         pinLabel.textContent = "YOU ARE HERE";
         svgEl.appendChild(pinLabel);
+      }
+
+      if (mode === "route" && document.getElementById("showPreview")?.checked && hover && routeAnchor()) {
+        const anchor = routeAnchor();
+        const preview = routeClickPoint(hover, shiftDown);
+        svgEl.appendChild(el("line", {
+          x1: anchor.x, y1: anchor.y,
+          x2: preview.x, y2: preview.y,
+          stroke: shiftDown ? "#f59e0b" : "#22c55e",
+          "stroke-width": 3,
+          "stroke-dasharray": "10 6",
+          opacity: 0.85
+        }));
+        svgEl.appendChild(el("circle", {
+          cx: preview.x, cy: preview.y, r: 7,
+          fill: shiftDown ? "#f59e0b" : "#22c55e",
+          stroke: "#fff", "stroke-width": 2,
+          opacity: 0.9
+        }));
       }
 
       if (showExits) {
@@ -402,19 +481,36 @@
     mapEl.addEventListener("load", renderOverlay);
     window.addEventListener("resize", renderOverlay);
 
-    stage.addEventListener("click", (e) => {
-      const rect = mapEl.getBoundingClientRect();
-      const scale = (mapEl.naturalWidth || 794) / rect.width;
-      const x = Math.round((e.clientX - rect.left) * scale);
-      const y = Math.round((e.clientY - rect.top) * scale);
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Shift") { shiftDown = true; renderOverlay(); }
+    });
+    window.addEventListener("keyup", (e) => {
+      if (e.key === "Shift") { shiftDown = false; renderOverlay(); }
+    });
 
-      if (mode === "pin") current.pin = { x, y };
-      else if (mode === "route") current.route.push({ x, y });
-      else if (mode === "exit") {
+    stage.addEventListener("mousemove", (e) => {
+      if (mode !== "route") { hover = null; return; }
+      hover = mapCoords(e);
+      renderOverlay();
+    });
+    stage.addEventListener("mouseleave", () => {
+      hover = null;
+      renderOverlay();
+    });
+
+    stage.addEventListener("click", (e) => {
+      const raw = mapCoords(e);
+
+      if (mode === "pin") current.pin = { x: raw.x, y: raw.y };
+      else if (mode === "route") {
+        if (!current.pin) return alert("Set a pin first.");
+        const pt = routeClickPoint(raw, e.shiftKey);
+        current.route.push(pt);
+      } else if (mode === "exit") {
         const key = exitEl.value;
         if (!overlay.floors[floorEl.value]) overlay.floors[floorEl.value] = { exits: {} };
         overlay.floors[floorEl.value].exits = overlay.floors[floorEl.value].exits || {};
-        overlay.floors[floorEl.value].exits[key] = { x, y, label: "EXIT" };
+        overlay.floors[floorEl.value].exits[key] = { x: raw.x, y: raw.y, label: "EXIT" };
       }
       renderOverlay();
       updateJson();
@@ -425,6 +521,9 @@
         document.querySelectorAll(".mode button").forEach((b) => b.classList.remove("active"));
         btn.classList.add("active");
         mode = btn.dataset.mode;
+        stage.classList.toggle("snap-route", mode === "route");
+        hover = null;
+        renderOverlay();
       });
     });
 
@@ -444,6 +543,9 @@
       renderOverlay();
       updateJson();
     };
+
+    document.getElementById("lRouteH").onclick = () => applyLRoute(true);
+    document.getElementById("lRouteV").onclick = () => applyLRoute(false);
 
     document.getElementById("saveRoom").onclick = () => {
       if (!current.pin) return alert("Set a pin first.");
@@ -478,7 +580,7 @@
       a.click();
     };
 
-    for (const id of ["showExits", "showRoute", "showCompare"]) {
+    for (const id of ["showExits", "showRoute", "showCompare", "snapHV", "showPreview"]) {
       document.getElementById(id).addEventListener("change", renderOverlay);
     }
 

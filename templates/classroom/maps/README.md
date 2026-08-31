@@ -26,10 +26,11 @@ Open http://localhost:3456 — for each room:
 
 1. Select floor + room — **exits are labeled on the map** (blue dots); dashed gray lines show straight-line distance to every exit from your pin
 2. **Pin** mode → click center of room (red **YOU ARE HERE**)
-3. **Route** mode → click hallway waypoints toward exit (green line + arrow updates live)
-4. Use **Pick nearest exit** to auto-select by straight-line distance, or choose manually and compare against the spreadsheet note in the sidebar
-5. **Straight route** clears waypoints if the path is a direct shot
-6. **Save room** → **Download overlay JSON** when done (merge into `data/room-map-overlay.json`)
+3. **Route** mode → click hallway corners — points **snap horizontal/vertical** for straight hallway lines (hold **Shift** for diagonal/free). A green dashed preview shows the next segment.
+4. Or use **L-route** buttons for a one-corner path (horizontal-first or vertical-first), then tweak with more route clicks
+5. Use **Pick nearest exit** to auto-select by straight-line distance, or choose manually and compare against the spreadsheet note in the sidebar
+6. **Direct line** clears waypoints if the path is a straight shot to the exit
+7. **Save room** → **Download overlay JSON** when done (merge into `data/room-map-overlay.json`)
 
 ### 2. Generate PNGs
 
