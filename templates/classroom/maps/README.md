@@ -33,6 +33,12 @@ Open http://localhost:3456 — edits **autosave** to `data/room-map-overlay.json
 6. **Direct line** clears waypoints if the path is a straight shot to the exit
 7. **Save room** → optional **Download overlay JSON** backup; file autosaves while `pnpm run map:place` is running
 
+### Exits (once per floor)
+
+1. **Exit** mode → select exit (or **Add exit** for a new door) → click on map
+2. Optional **Exit label** (e.g. “West foyer”) — shows on map and posters
+3. **Remove exit** deletes the selected exit from this floor
+
 ### AED & first aid (once per floor)
 
 1. **AED** or **First aid** mode → select unit → click on map

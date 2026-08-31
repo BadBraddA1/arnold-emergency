@@ -72,6 +72,15 @@
     <label for="exit">Nearest exit (saved on room)</label>
     <select id="exit"></select>
 
+    <p class="section-title">Exits (per floor)</p>
+    <p class="hint" style="margin-top:0"><strong>Exit</strong> mode → pick exit below → click door on map. Add more if the building has extra doors.</p>
+    <label for="exitLabel">Exit label (optional)</label>
+    <input id="exitLabel" type="text" placeholder="e.g. West foyer, Kitchen door" />
+    <div class="row2">
+      <button type="button" class="secondary" id="addExit">Add exit</button>
+      <button type="button" class="secondary" id="removeExit">Remove exit</button>
+    </div>
+
     <div class="toggles">
       <label><input type="checkbox" id="showExits" checked /> Show exit labels</label>
       <label><input type="checkbox" id="showAed" checked /> Show AED</label>
@@ -181,6 +190,72 @@
     const autosaveStatusEl = document.getElementById("autosaveStatus");
     const medicalUnitEl = document.getElementById("medicalUnit");
     const medicalNoteEl = document.getElementById("medicalNote");
+    const exitLabelEl = document.getElementById("exitLabel");
+
+    function ensureFloorExits(floor) {
+      if (!overlay.floors[floor]) overlay.floors[floor] = {};
+      if (!overlay.floors[floor].exits) overlay.floors[floor].exits = {};
+    }
+
+    function floorExitPoints(floor) {
+      ensureFloorExits(floor);
+      return overlay.floors[floor].exits;
+    }
+
+    function exitIds(floor) {
+      const prefix = `L${floor}-`;
+      return [
+        ...new Set([
+          ...Object.keys(EXITS[floor] ?? {}),
+          ...Object.keys(floorExitPoints(floor)),
+          ...Object.keys(roomRoutes.exits ?? {}).filter((id) => id.startsWith(prefix)),
+        ]),
+      ].sort();
+    }
+
+    function exitDisplayName(floor, id, pt) {
+      if (pt?.name) return pt.name;
+      if (EXITS[floor]?.[id]) return EXITS[floor][id];
+      const desc = roomRoutes.exits?.[id];
+      if (desc) return String(desc).split("—")[0].trim();
+      return id.replace(/^L\d-/, "").replace(/-/g, " ");
+    }
+
+    function fillExitSelect(keepSelected) {
+      const f = floorEl.value;
+      const ids = exitIds(f);
+      const selected = keepSelected ?? exitEl.value ?? ids[0];
+      exitEl.innerHTML = ids
+        .map((id) => {
+          const pt = floorExitPoints(f)[id];
+          const name = exitDisplayName(f, id, pt);
+          const placed = pt?.x != null ? " ✓" : "";
+          return `<option value="${id}">${name}${placed} (${id})</option>`;
+        })
+        .join("");
+      if (selected && ids.includes(selected)) exitEl.value = selected;
+      const placed = floorExitPoints(f)[exitEl.value];
+      exitLabelEl.value = placed?.name ?? "";
+    }
+
+    function nextExitId(floor) {
+      const prefix = `L${floor}-EXIT-`;
+      let n = 1;
+      const ids = exitIds(floor);
+      while (ids.includes(`${prefix}${n}`)) n++;
+      return `${prefix}${n}`;
+    }
+
+    function syncExitLabelToOverlay() {
+      const f = floorEl.value;
+      const id = exitEl.value;
+      if (!id) return;
+      const pt = floorExitPoints(f)[id];
+      if (!pt?.x) return;
+      const name = exitLabelEl.value.trim();
+      if (name) pt.name = name;
+      else delete pt.name;
+    }
 
     function medicalKind() {
       if (mode === "aed") return "aed";
@@ -250,7 +325,6 @@
     function populateRoomSelect(keepSelected) {
       const f = floorEl.value;
       const selected = keepSelected ?? roomEl.value ?? activeRoomId;
-      const exitSelected = exitEl.value;
       roomEl.innerHTML = ROOMS[f]
         .map((id) => {
           const saved = overlay.rooms?.[id];
@@ -258,17 +332,18 @@
           return `<option value="${id}">${id}${mark}</option>`;
         })
         .join("");
-      exitEl.innerHTML = Object.entries(EXITS[f])
-        .map(([k, v]) => `<option value="${k}">${v} (${k})</option>`)
-        .join("");
       if (selected && ROOMS[f].includes(selected)) roomEl.value = selected;
-      if (exitSelected && EXITS[f][exitSelected]) exitEl.value = exitSelected;
+    }
+
+    function refreshSelectors(keepRoom, keepExit) {
+      populateRoomSelect(keepRoom);
+      fillExitSelect(keepExit);
     }
 
     function refreshFloorUi() {
       const f = floorEl.value;
       activeFloor = f;
-      populateRoomSelect();
+      refreshSelectors();
       mapEl.src = MAPS[f];
       mapEl.alt = f === "1" ? "Level 1 floor plan" : "Level 2 floor plan";
       fillMedicalUnitSelect();
@@ -339,8 +414,9 @@
 
     function autosave({ immediate = false } = {}) {
       commitCurrentRoom();
+      syncExitLabelToOverlay();
       persistOverlay({ immediate });
-      populateRoomSelect(activeRoomId);
+      refreshSelectors(activeRoomId, exitEl.value);
       updateJson();
     }
 
@@ -349,8 +425,7 @@
     }
 
     function floorExits(floor) {
-      const f = overlay.floors?.[String(floor)]?.exits ?? {};
-      return f;
+      return floorExitPoints(floor);
     }
 
     function pathLength(points) {
@@ -369,7 +444,7 @@
           id,
           pt,
           dist: Math.hypot(pt.x - pin.x, pt.y - pin.y),
-          label: EXITS[floor]?.[id] ?? id,
+          label: EXITS[floor]?.[id] ?? exitDisplayName(floor, id, pt),
           desc: roomRoutes.exits?.[id] ?? ""
         }))
         .sort((a, b) => a.dist - b.dist);
@@ -576,6 +651,7 @@
           if (!pt?.x) continue;
           const selected = id === selectedExit;
           const short = id.replace(/^L\d-/, "");
+          const caption = pt?.name ?? EXITS[floor]?.[id] ?? short;
           svgEl.appendChild(el("circle", {
             cx: pt.x, cy: pt.y,
             r: selected ? 12 : 10,
@@ -608,7 +684,7 @@
             "font-size": 9,
             fill: "#cbd5e1"
           });
-          t2.textContent = EXITS[floor]?.[id] ?? id;
+          t2.textContent = caption;
           svgEl.appendChild(t2);
         }
       }
@@ -715,8 +791,9 @@
     function switchRoom() {
       const nextId = roomEl.value;
       commitCurrentRoom();
+      syncExitLabelToOverlay();
       persistOverlay();
-      populateRoomSelect(nextId);
+      refreshSelectors(nextId, exitEl.value);
       loadRoom();
     }
 
@@ -761,9 +838,14 @@
         current.route.push(pt);
       } else if (mode === "exit") {
         const key = exitEl.value;
-        if (!overlay.floors[floorEl.value]) overlay.floors[floorEl.value] = { exits: {} };
-        overlay.floors[floorEl.value].exits = overlay.floors[floorEl.value].exits || {};
-        overlay.floors[floorEl.value].exits[key] = { x: raw.x, y: raw.y, label: "EXIT" };
+        const floor = floorEl.value;
+        const name = exitLabelEl.value.trim();
+        floorExitPoints(floor)[key] = {
+          x: raw.x,
+          y: raw.y,
+          label: "EXIT",
+          ...(name ? { name } : {}),
+        };
       } else if (mode === "aed" || mode === "firstaid") {
         const kind = medicalKind();
         const floor = floorEl.value;
@@ -847,6 +929,30 @@
       a.click();
     };
 
+    document.getElementById("addExit").onclick = () => {
+      const floor = floorEl.value;
+      const id = nextExitId(floor);
+      floorExitPoints(floor)[id] = { label: "EXIT" };
+      fillExitSelect(id);
+      exitLabelEl.value = "";
+      mode = "exit";
+      document.querySelectorAll(".mode button").forEach((b) => b.classList.remove("active"));
+      document.querySelector('.mode button[data-mode="exit"]')?.classList.add("active");
+      autosave();
+    };
+
+    document.getElementById("removeExit").onclick = () => {
+      const floor = floorEl.value;
+      const id = exitEl.value;
+      if (!id) return;
+      if (!confirm(`Remove exit ${id} from this floor?`)) return;
+      delete floorExitPoints(floor)[id];
+      fillExitSelect();
+      exitLabelEl.value = "";
+      renderOverlay();
+      autosave({ immediate: true });
+    };
+
     document.getElementById("addMedicalUnit").onclick = () => {
       const kind = medicalKind() ?? "aed";
       const floor = floorEl.value;
@@ -893,6 +999,15 @@
 
     exitEl.addEventListener("change", () => {
       current.exit = exitEl.value;
+      const placed = floorExitPoints(floorEl.value)[exitEl.value];
+      exitLabelEl.value = placed?.name ?? "";
+      renderOverlay();
+      autosave();
+    });
+
+    exitLabelEl.addEventListener("change", () => {
+      syncExitLabelToOverlay();
+      fillExitSelect(exitEl.value);
       renderOverlay();
       autosave();
     });
@@ -901,7 +1016,7 @@
     floorEl.addEventListener("change", fillRooms);
 
     activeFloor = floorEl.value;
-    populateRoomSelect();
+    refreshSelectors();
     activeRoomId = roomEl.value;
     loadRoom();
 

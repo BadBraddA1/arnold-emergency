@@ -50,7 +50,7 @@ function buildOverlaySvg({ width, height, pin, route, exit, exitKey, roomLabel, 
 	const px = -uy;
 	const py = ux;
 	const arrow = `${exit.x},${exit.y} ${ax + px * 8},${ay + py * 8} ${ax - px * 8},${ay - py * 8}`;
-	const exitShort = exitKey ? String(exitKey).replace(/^L\d-/, '') : 'EXIT';
+	const exitShort = exit.name ?? (exitKey ? String(exitKey).replace(/^L\d-/, '') : 'EXIT');
 	const labelPlacement = pickPinLabelPlacement({
 		pin,
 		routePoints: points,
