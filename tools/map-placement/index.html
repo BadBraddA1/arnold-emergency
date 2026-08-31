@@ -40,6 +40,7 @@
     .section-title { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: #334155; margin: 1.25rem 0 0.35rem; }
     .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.35rem; }
     .row2 button { margin-top: 0; font-size: 0.875rem; }
+    .row2 button.secondary.active { background: #1e3a5f; color: #fff; border-color: #1e3a5f; }
     .stage.snap-route { cursor: cell; }
   </style>
 </head>
@@ -71,6 +72,12 @@
       <button type="button" data-mode="aed">AED</button>
       <button type="button" data-mode="firstaid">First aid</button>
     </div>
+
+    <div id="multiPinRow" class="row2" hidden>
+      <button type="button" class="secondary active" id="pinSlot1">Dot 1 — west (route)</button>
+      <button type="button" class="secondary" id="pinSlot2">Dot 2 — east</button>
+    </div>
+    <p id="multiPinHint" class="hint" hidden style="margin-top:0.35rem">Fellowship hall is large — place <strong>two</strong> YOU ARE HERE dots. Green route follows dot 1 only.</p>
 
     <label for="exit">Nearest exit (saved on room)</label>
     <select id="exit"></select>
@@ -142,15 +149,15 @@
 
   <script type="module">
     import {
-      pickPinLabelPlacement,
-      pinLabelBadgeSvg,
-      pinLabelLeaderSvg,
+      primaryPinMarkerSvg,
+      extraPinMarkerSvg,
     } from "/scripts/map-label-placement.mjs";
     import {
       medicalMarkerSvg,
       nearestMedical,
     } from "/scripts/map-medical-markers.mjs";
     import { isAdaExit, adaExitBadgeSvg } from "/scripts/map-ada-exits.mjs";
+    import { MULTI_PIN_ROOMS, extraPinLabel } from "/scripts/map-multi-pin-rooms.mjs";
 
     const ROOMS = {
       1: ["101","102","103","104","105","106","107","108","109","110","111","112","nursery","cry-room","foyer","work-room"],
@@ -174,7 +181,8 @@
     let overlay = { imageSize: { width: 794, height: 1286 }, floors: {}, rooms: {} };
     let roomRoutes = { exits: {}, rooms: [] };
     let medicalEquipment = { slots: {} };
-    let current = { pin: null, route: [], exit: null };
+    let current = { pin: null, pin2: null, route: [], exit: null };
+    let activePinSlot = 1;
     let hover = null;
     let shiftDown = false;
     let activeRoomId = null;
@@ -195,6 +203,27 @@
     const medicalUnitEl = document.getElementById("medicalUnit");
     const medicalNoteEl = document.getElementById("medicalNote");
     const exitLabelEl = document.getElementById("exitLabel");
+    const multiPinRow = document.getElementById("multiPinRow");
+    const multiPinHint = document.getElementById("multiPinHint");
+    const pinSlot1 = document.getElementById("pinSlot1");
+    const pinSlot2 = document.getElementById("pinSlot2");
+
+    function roomUsesMultiPin(id = activeRoomId) {
+      return MULTI_PIN_ROOMS.has(id);
+    }
+
+    function updateMultiPinUi() {
+      const show = roomUsesMultiPin();
+      multiPinRow.hidden = !show;
+      multiPinHint.hidden = !show;
+      if (!show) activePinSlot = 1;
+    }
+
+    function setPinSlot(slot) {
+      activePinSlot = slot;
+      pinSlot1.classList.toggle("active", slot === 1);
+      pinSlot2.classList.toggle("active", slot === 2);
+    }
 
     function ensureFloorExits(floor) {
       if (!overlay.floors[floor]) overlay.floors[floor] = {};
@@ -385,12 +414,14 @@
 
     function commitCurrentRoom() {
       if (!activeRoomId || !current.pin) return;
-      overlay.rooms[activeRoomId] = {
+      const entry = {
         floor: Number(activeFloor),
         pin: { ...current.pin },
         route: current.route.map((p) => ({ ...p })),
         exit: exitEl.value,
       };
+      if (current.pin2) entry.pin2 = { ...current.pin2 };
+      overlay.rooms[activeRoomId] = entry;
     }
 
     function persistOverlay({ immediate = false } = {}) {
@@ -618,24 +649,27 @@
         }
 
         const { w: imgW, h: imgH } = svgSize();
-        const labelPlacement = pickPinLabelPlacement({
-          pin: current.pin,
-          routePoints: pts,
-          width: imgW,
-          height: imgH,
-        });
 
-        appendSvgFragment(svgEl, pinLabelLeaderSvg(current.pin, labelPlacement));
+        appendSvgFragment(
+          svgEl,
+          primaryPinMarkerSvg(current.pin, {
+            routePoints: pts,
+            width: imgW,
+            height: imgH,
+            label: extraPinLabel(activeRoomId, 1),
+          })
+        );
 
-        svgEl.appendChild(el("circle", {
-          cx: current.pin.x, cy: current.pin.y, r: 14,
-          fill: "#dc2626", stroke: "#fff", "stroke-width": 3
-        }));
-        svgEl.appendChild(el("circle", {
-          cx: current.pin.x, cy: current.pin.y, r: 4, fill: "#fff"
-        }));
-
-        appendSvgFragment(svgEl, pinLabelBadgeSvg(labelPlacement, { variant: "poster" }));
+        if (current.pin2) {
+          appendSvgFragment(
+            svgEl,
+            extraPinMarkerSvg(current.pin2, {
+              width: imgW,
+              height: imgH,
+              label: extraPinLabel(activeRoomId, 2),
+            })
+          );
+        }
       }
 
       if (mode === "route" && document.getElementById("showPreview")?.checked && hover && routeAnchor()) {
@@ -793,11 +827,18 @@
       const meta = roomMeta(id);
       const saved = overlay.rooms[id];
       current = saved
-        ? { pin: saved.pin, route: [...(saved.route || [])], exit: saved.exit }
-        : { pin: null, route: [], exit: meta?.nearestExit ?? exitEl.value };
+        ? {
+            pin: saved.pin,
+            pin2: saved.pin2 ?? null,
+            route: [...(saved.route || [])],
+            exit: saved.exit,
+          }
+        : { pin: null, pin2: null, route: [], exit: meta?.nearestExit ?? exitEl.value };
       if (current.exit) exitEl.value = current.exit;
       else if (meta?.nearestExit) exitEl.value = meta.nearestExit;
       activeFloor = String(saved?.floor ?? meta?.floor ?? floorEl.value);
+      setPinSlot(1);
+      updateMultiPinUi();
       renderOverlay();
       updateJson();
     }
@@ -816,6 +857,7 @@
       const payload = {
         floor: Number(floorEl.value),
         pin: current.pin,
+        pin2: current.pin2,
         route: current.route,
         exit: exitEl.value
       };
@@ -845,8 +887,10 @@
     stage.addEventListener("click", (e) => {
       const raw = mapCoords(e);
 
-      if (mode === "pin") current.pin = { x: raw.x, y: raw.y };
-      else if (mode === "route") {
+      if (mode === "pin") {
+        if (roomUsesMultiPin() && activePinSlot === 2) current.pin2 = { x: raw.x, y: raw.y };
+        else current.pin = { x: raw.x, y: raw.y };
+      } else if (mode === "route") {
         if (!current.pin) return alert("Set a pin first.");
         const pt = routeClickPoint(raw, e.shiftKey);
         current.route.push(pt);
@@ -929,11 +973,14 @@
     };
 
     document.getElementById("clearRoom").onclick = () => {
-      current = { pin: null, route: [], exit: exitEl.value };
+      current = { pin: null, pin2: null, route: [], exit: exitEl.value };
       delete overlay.rooms[roomEl.value];
       renderOverlay();
       autosave({ immediate: true });
     };
+
+    pinSlot1.onclick = () => setPinSlot(1);
+    pinSlot2.onclick = () => setPinSlot(2);
 
     document.getElementById("download").onclick = () => {
       const blob = new Blob([JSON.stringify(overlay, null, 2)], { type: "application/json" });

@@ -9,12 +9,12 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import sharp from 'sharp';
 import {
-	pickPinLabelPlacement,
-	pinLabelBadgeSvg,
-	pinLabelLeaderSvg,
+	primaryPinMarkerSvg,
+	extraPinMarkerSvg,
 } from './map-label-placement.mjs';
 import { buildMedicalMarkersSvg } from './map-medical-markers.mjs';
 import { isAdaExit, adaExitBadgeSvg } from './map-ada-exits.mjs';
+import { extraPinLabel } from './map-multi-pin-rooms.mjs';
 
 const ROOT = join(import.meta.dirname, '..');
 
@@ -35,7 +35,7 @@ function escapeXml(s) {
 		.replace(/"/g, '&quot;');
 }
 
-function buildOverlaySvg({ width, height, pin, route, exit, exitKey, roomLabel, floorData, showAdaExit }) {
+function buildOverlaySvg({ width, height, pin, pin2, roomId, route, exit, exitKey, roomLabel, floorData, showAdaExit }) {
 	const points = [{ x: pin.x, y: pin.y }, ...route, { x: exit.x, y: exit.y }];
 	const poly = points.map((p) => `${p.x},${p.y}`).join(' ');
 	const medical = buildMedicalMarkersSvg(floorData);
@@ -53,12 +53,13 @@ function buildOverlaySvg({ width, height, pin, route, exit, exitKey, roomLabel, 
 	const arrow = `${exit.x},${exit.y} ${ax + px * 8},${ay + py * 8} ${ax - px * 8},${ay - py * 8}`;
 	const exitShort = exit.name ?? (exitKey ? String(exitKey).replace(/^L\d-/, '') : 'EXIT');
 	const showAda = showAdaExit;
-	const labelPlacement = pickPinLabelPlacement({
-		pin,
-		routePoints: points,
-		width,
-		height,
-	});
+	const extraPin = pin2
+		? extraPinMarkerSvg(pin2, {
+				width,
+				height,
+				label: extraPinLabel(roomId, 2),
+			})
+		: '';
 
 	return `<svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">
   ${medical}
@@ -68,10 +69,8 @@ function buildOverlaySvg({ width, height, pin, route, exit, exitKey, roomLabel, 
   <rect x="${exit.x - 58}" y="${exit.y + 12}" width="116" height="22" rx="5" fill="#1e3a5f" opacity="0.92"/>
   <text x="${exit.x}" y="${exit.y + 27}" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="11" font-weight="700" fill="#ffffff">${escapeXml(exitShort)}</text>
   ${showAda ? adaExitBadgeSvg(exit.x, exit.y + 12) : ''}
-  ${pinLabelLeaderSvg(pin, labelPlacement)}
-  <circle cx="${pin.x}" cy="${pin.y}" r="16" fill="#dc2626" stroke="#fff" stroke-width="3"/>
-  <circle cx="${pin.x}" cy="${pin.y}" r="5" fill="#fff"/>
-  ${pinLabelBadgeSvg(labelPlacement)}
+  ${extraPin}
+  ${primaryPinMarkerSvg(pin, { routePoints: points, width, height, label: extraPinLabel(roomId, 1) })}
   <rect x="40" y="118" width="320" height="34" rx="8" fill="#4c1d95" opacity="0.9"/>
   <text x="52" y="141" font-family="Arial,Helvetica,sans-serif" font-size="16" font-weight="700" fill="#ffffff">${escapeXml(roomLabel)}</text>
 </svg>`;
@@ -122,6 +121,8 @@ for (const roomId of toGenerate) {
 		width,
 		height,
 		pin: placement.pin,
+		pin2: placement.pin2,
+		roomId,
 		route: placement.route ?? [],
 		exit,
 		exitKey,

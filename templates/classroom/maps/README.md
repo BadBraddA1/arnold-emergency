@@ -47,6 +47,10 @@ Open http://localhost:3456 — edits **autosave** to `data/room-map-overlay.json
 2. Optional location note (e.g. “Foyer wall”)
 3. **Add unit** if you have more than one per floor — autosaves with everything else
 
+### Fellowship hall (two dots)
+
+Fellowship hall is one room but very large — use **Dot 1 — west** and **Dot 2 — east** in the map tool. Dot 1 carries the green evacuation route; both dots print on the poster.
+
 ### 2. Generate PNGs
 
 ```bash

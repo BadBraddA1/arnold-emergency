@@ -139,14 +139,47 @@ export function pinLabelLeaderSvg(pin, placement) {
 	return `<line x1="${pin.x}" y1="${pin.y}" x2="${placement.cx}" y2="${placement.cy}" stroke="#64748b" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.75"/>`;
 }
 
-export function pinLabelBadgeSvg(placement, { variant = 'poster' } = {}) {
+export function pinLabelBadgeSvg(placement, { variant = 'poster', label = 'YOU ARE HERE' } = {}) {
 	const { box, cx } = placement;
 	const textY = box.y + 18;
+	const text = escapeXmlLabel(label);
 
 	if (variant === 'preview') {
-		return `<text x="${cx}" y="${textY}" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#111827">YOU ARE HERE</text>`;
+		return `<text x="${cx}" y="${textY}" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#111827">${text}</text>`;
 	}
 
 	return `<rect x="${box.x}" y="${box.y}" width="${box.w}" height="${box.h}" rx="6" fill="#111827" opacity="0.92"/>
-  <text x="${cx}" y="${textY}" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="13" font-weight="700" fill="#ffffff">YOU ARE HERE</text>`;
+  <text x="${cx}" y="${textY}" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="13" font-weight="700" fill="#ffffff">${text}</text>`;
+}
+
+function escapeXmlLabel(s) {
+	return String(s)
+		.replace(/&/g, '&amp;')
+		.replace(/</g, '&lt;')
+		.replace(/>/g, '&gt;');
+}
+
+/** Secondary location dot (large rooms) — no evacuation route from this pin. */
+export function extraPinMarkerSvg(pin, { width, height, label = 'YOU ARE HERE (2)' } = {}) {
+	const labelW = Math.max(144, label.length * 8);
+	const labelPlacement = pickPinLabelPlacement({
+		pin,
+		routePoints: [],
+		width,
+		height,
+		labelW,
+	});
+	return `${pinLabelLeaderSvg(pin, labelPlacement)}
+  <circle cx="${pin.x}" cy="${pin.y}" r="13" fill="#dc2626" stroke="#fff" stroke-width="3"/>
+  <circle cx="${pin.x}" cy="${pin.y}" r="4" fill="#fff"/>
+  ${pinLabelBadgeSvg(labelPlacement, { label })}`;
+}
+
+/** Primary YOU ARE HERE pin with optional auto-placed label. */
+export function primaryPinMarkerSvg(pin, { routePoints, width, height, label = 'YOU ARE HERE' } = {}) {
+	const labelPlacement = pickPinLabelPlacement({ pin, routePoints, width, height });
+	return `${pinLabelLeaderSvg(pin, labelPlacement)}
+  <circle cx="${pin.x}" cy="${pin.y}" r="16" fill="#dc2626" stroke="#fff" stroke-width="3"/>
+  <circle cx="${pin.x}" cy="${pin.y}" r="5" fill="#fff"/>
+  ${pinLabelBadgeSvg(labelPlacement, { label })}`;
 }

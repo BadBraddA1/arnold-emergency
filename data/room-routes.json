@@ -256,6 +256,7 @@
       "name": "Fellowship Hall",
       "nearestExit": "L2-WEST-LOWER",
       "path": "Move to nearest west lower EXIT; if blocked use east lower EXIT",
+      "multiPin": true,
       "verified": false
     }
   ]
