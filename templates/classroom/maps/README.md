@@ -3,34 +3,50 @@
 | File | Floor | Rooms |
 |------|-------|--------|
 | `master-level-1.png` | Level 1 (main) | 101–112, nursery, cry room, foyer, offices |
-| `master-level-2.png` | Level 2 | 204–212, fellowship hall |
+| `master-level-2.png` | Level 2 | 202–215, 204–212, fellowship hall |
 | `master-both-floors.pdf` | Both | Print reference |
 
 **Assembly (all rooms):** South parking lot
 
-**Do not use Canva AI for exit arrows.** Duplicate the master in Canva, highlight one room, draw one path to the nearest red EXIT, export PDF.
+## Automated posters (pin + route)
 
-## Per-room data
+Each room poster adds:
 
-See [`../../data/room-routes.json`](../../data/room-routes.json) — nearest exit, walk path notes, and `verified` flag after a physical walk-through.
+- Red **YOU ARE HERE** pin
+- Green arrow path to nearest exit
+- Room label banner (e.g. `Room 107 — Classroom`)
 
-## Canva workflow (recommended)
-
-1. Import `master-level-1.png` or `master-level-2.png` as the map layer (lock it).
-2. Add locked layers: header, footer (EMERGENCY ACTIONS), yellow 911 bar.
-3. **Duplicate page** per room from `room-routes.json`.
-4. On each page:
-   - Purple outline on **this room**
-   - Green or yellow **arrow** along the corridor path to **nearest exit** (see `nearestExit` in JSON)
-   - Text: `Room 107 — Classroom` (or whatever applies)
-5. Export all pages as PDF → print shop or office printer.
-
-## Generate footer text only
+### 1. Place pins (one time per room)
 
 ```bash
-pnpm run generate:classroom-map -- --number 107 --name Classroom --assembly "South parking lot"
+pnpm run map:place
 ```
 
-## After routes are verified
+Open http://localhost:3456 — for each room:
 
-Set `"verified": true` in `room-routes.json` for each room IC has walked.
+1. Select floor + room
+2. **Pin** mode → click center of room
+3. **Route** mode → click hallway waypoints toward exit
+4. Pick **nearest exit** from dropdown
+5. **Save room** → **Download overlay JSON** when done (merge into `data/room-map-overlay.json`)
+
+### 2. Generate PNGs
+
+```bash
+pnpm run map:generate              # all rooms with overlay data
+pnpm run map:generate -- --room 107
+```
+
+Output: `generated/posters/room-107.png` — print or drop into Canva.
+
+## Data files
+
+| File | Purpose |
+|------|---------|
+| `data/room-routes.json` | Room names, nearest exit IDs, walk notes |
+| `data/room-map-overlay.json` | Pin x/y, route points, exit coordinates |
+| `data/room-routes.csv` | Spreadsheet for IC walk-through |
+
+## Canva (optional)
+
+If you prefer Canva for final polish: generate PNG here, import as full-page image, or keep using duplicate-page workflow with manual arrows using `room-routes.csv` as guide.

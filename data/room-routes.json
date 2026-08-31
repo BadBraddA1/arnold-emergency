@@ -11,7 +11,7 @@
     "notes": [
       "verified=false until IC walks each route",
       "Do not use stairs (TO-L2 / TO-L1) for Code Red unless IC or fire dept directs",
-      "Level 2 has multiple spaces labeled 210 — confirm names with facilities before printing"
+      "Level 2 center block uses rooms 202, 203, 214, 215 (fixed master map)"
     ]
   },
   "exits": {
@@ -200,43 +200,43 @@
       "verified": false
     },
     {
-      "id": "210-hall",
+      "id": "210",
       "floor": 2,
-      "name": "Classroom (north hall — west end)",
+      "name": "Classroom",
       "nearestExit": "L2-WEST-UPPER",
-      "path": "Out door → west → EXIT on left wall",
+      "path": "Out door → west along north hallway → EXIT on left wall",
       "verified": false
     },
     {
-      "id": "210-quad-ne",
+      "id": "214",
       "floor": 2,
-      "name": "Classroom (center quad — NE)",
-      "nearestExit": "L2-EAST-UPPER",
-      "path": "Out door → east to right hallway → EXIT on right wall",
-      "verified": false
-    },
-    {
-      "id": "210-quad-nw",
-      "floor": 2,
-      "name": "Classroom (center quad — NW)",
+      "name": "Classroom",
       "nearestExit": "L2-WEST-UPPER",
       "path": "Out door → west/north → EXIT on left wall",
       "verified": false
     },
     {
-      "id": "210-quad-se",
+      "id": "203",
       "floor": 2,
-      "name": "Classroom (center quad — SE)",
-      "nearestExit": "L2-EAST-LOWER",
-      "path": "Out door → east/south → EXIT on right wall",
+      "name": "Classroom",
+      "nearestExit": "L2-EAST-UPPER",
+      "path": "Out door → east → EXIT on right wall",
       "verified": false
     },
     {
-      "id": "210-quad-sw",
+      "id": "215",
       "floor": 2,
-      "name": "Classroom (center quad — SW)",
+      "name": "Classroom",
       "nearestExit": "L2-WEST-LOWER",
-      "path": "Out door → west/south toward fellowship → EXIT on left wall (lower)",
+      "path": "Out door → west/south → EXIT on left wall (lower)",
+      "verified": false
+    },
+    {
+      "id": "202",
+      "floor": 2,
+      "name": "Classroom",
+      "nearestExit": "L2-EAST-LOWER",
+      "path": "Out door → east/south → EXIT on right wall",
       "verified": false
     },
     {

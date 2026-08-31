@@ -49,7 +49,8 @@ pnpm run generate:classroom -- \
 ```
 
 Templates: `templates/classroom/room-map-poster.md` · `templates/classroom/handout.md`  
-Master maps: `templates/classroom/maps/` · Room routes: `data/room-routes.json` (open in Excel via `room-routes.csv`)
+Master maps: `templates/classroom/maps/` · Room routes: `data/room-routes.json`  
+**Pin + posters:** `pnpm run map:place` then `pnpm run map:generate`
 
 ## Content
 

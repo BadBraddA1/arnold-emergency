@@ -1,0 +1,32 @@
+{
+  "imageSize": { "width": 794, "height": 1286 },
+  "floors": {
+    "1": {
+      "master": "templates/classroom/maps/master-level-1.png",
+      "exits": {
+        "L1-EAST-UPPER": { "x": 718, "y": 318, "label": "EXIT" },
+        "L1-EAST-LOWER": { "x": 718, "y": 662, "label": "EXIT" }
+      }
+    },
+    "2": {
+      "master": "templates/classroom/maps/master-level-2.png",
+      "exits": {
+        "L2-WEST-UPPER": { "x": 76, "y": 318, "label": "EXIT" },
+        "L2-WEST-LOWER": { "x": 76, "y": 900, "label": "EXIT" },
+        "L2-EAST-UPPER": { "x": 718, "y": 400, "label": "EXIT" },
+        "L2-EAST-LOWER": { "x": 718, "y": 748, "label": "EXIT" }
+      }
+    }
+  },
+  "rooms": {
+    "107": {
+      "floor": 1,
+      "pin": { "x": 598, "y": 248 },
+      "route": [
+        { "x": 620, "y": 280 },
+        { "x": 680, "y": 310 }
+      ],
+      "exit": "L1-EAST-UPPER"
+    }
+  }
+}

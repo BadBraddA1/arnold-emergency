@@ -21,10 +21,10 @@ floor,room_id,room_name,nearest_exit,path_notes,assembly,verified
 2,207,Classroom,L2-EAST-UPPER,Out door → east → EXIT,South parking lot,false
 2,208,Classroom,L2-WEST-UPPER,Out door → west along north hallway → EXIT,South parking lot,false
 2,209,Classroom,L2-WEST-UPPER,Out door → west → EXIT (near 212),South parking lot,false
-2,210-hall,Classroom (north hall west),L2-WEST-UPPER,Out door → west → EXIT on left wall,South parking lot,false
-2,210-quad-ne,Classroom (quad NE),L2-EAST-UPPER,Out door → east → EXIT on right wall,South parking lot,false
-2,210-quad-nw,Classroom (quad NW),L2-WEST-UPPER,Out door → west/north → EXIT on left wall,South parking lot,false
-2,210-quad-se,Classroom (quad SE),L2-EAST-LOWER,Out door → east/south → EXIT on right wall,South parking lot,false
-2,210-quad-sw,Classroom (quad SW),L2-WEST-LOWER,Out door → west/south → EXIT on left (lower),South parking lot,false
+2,210,Classroom,L2-WEST-UPPER,Out door → west along north hallway → EXIT,South parking lot,false
+2,214,Classroom,L2-WEST-UPPER,Out door → west/north → EXIT on left wall,South parking lot,false
+2,203,Classroom,L2-EAST-UPPER,Out door → east → EXIT on right wall,South parking lot,false
+2,215,Classroom,L2-WEST-LOWER,Out door → west/south → EXIT on left (lower),South parking lot,false
+2,202,Classroom,L2-EAST-LOWER,Out door → east/south → EXIT on right wall,South parking lot,false
 2,212,Classroom,L2-WEST-UPPER,Out door → short walk west → EXIT,South parking lot,false
 2,fellowship-hall,Fellowship Hall,L2-WEST-LOWER,West lower EXIT; backup east lower,South parking lot,false

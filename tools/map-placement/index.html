@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Arnold COC — map pin placement</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; font-size: 16px; margin: 0; display: grid; grid-template-columns: 320px 1fr; min-height: 100vh; }
+    aside { padding: 1rem; border-right: 1px solid #ccc; background: #f8fafc; overflow: auto; }
+    main { padding: 1rem; overflow: auto; background: #e2e8f0; }
+    h1 { font-size: 1.5rem; margin: 0 0 0.5rem; }
+    label { display: block; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; margin-top: 1rem; color: #334155; }
+    select, input, button, textarea { width: 100%; margin-top: 0.35rem; padding: 0.5rem; font: inherit; font-size: 1rem; }
+    button { cursor: pointer; margin-top: 0.5rem; }
+    button.primary { background: #1e3a5f; color: #fff; border: none; border-radius: 6px; padding: 0.65rem; font-weight: 600; }
+    .hint { font-size: 0.875rem; color: #475569; line-height: 1.5; margin: 0; }
+    .stage { position: relative; display: inline-block; cursor: crosshair; }
+    .stage img { display: block; max-width: 100%; height: auto; user-select: none; }
+    .marker { position: absolute; width: 12px; height: 12px; border-radius: 50%; transform: translate(-50%, -50%); pointer-events: none; }
+    .marker.pin { background: #dc2626; border: 2px solid #fff; box-shadow: 0 0 0 2px #dc2626; }
+    .marker.way { background: #16a34a; border: 2px solid #fff; }
+    .marker.exit { background: #2563eb; border: 2px solid #fff; width: 14px; height: 14px; }
+    pre { font-size: 0.75rem; background: #0f172a; color: #e2e8f0; padding: 0.5rem; border-radius: 6px; overflow: auto; max-height: 200px; }
+    .mode { display: flex; gap: 0.25rem; flex-wrap: wrap; }
+    .mode button { width: auto; flex: 1; font-size: 0.875rem; }
+    .mode button.active { background: #1e3a5f; color: #fff; }
+  </style>
+</head>
+<body>
+  <aside>
+    <h1>Map placement</h1>
+    <p class="hint">Click the map to set <strong>YOU ARE HERE</strong>, route waypoints, then pick nearest exit. Copy JSON into <code>data/room-map-overlay.json</code>.</p>
+
+    <label for="floor">Floor</label>
+    <select id="floor">
+      <option value="1">Level 1 (101–112)</option>
+      <option value="2">Level 2 (202–215)</option>
+    </select>
+
+    <label for="room">Room ID</label>
+    <select id="room"></select>
+
+    <label>Click mode</label>
+    <div class="mode">
+      <button type="button" data-mode="pin" class="active">Pin</button>
+      <button type="button" data-mode="route">Route</button>
+      <button type="button" data-mode="exit">Exit ref</button>
+    </div>
+
+    <label for="exit">Nearest exit (saved on room)</label>
+    <select id="exit"></select>
+
+    <button type="button" class="primary" id="saveRoom">Save room to overlay</button>
+    <button type="button" id="undoRoute">Undo last route point</button>
+    <button type="button" id="clearRoom">Clear this room</button>
+    <button type="button" id="download">Download overlay JSON</button>
+
+    <label for="json">Current room JSON</label>
+    <pre id="json">{}</pre>
+  </aside>
+  <main>
+    <div class="stage" id="stage">
+      <img id="map" src="/maps/master-level-1.png" width="794" height="1286" alt="Level 1 floor plan" />
+    </div>
+  </main>
+
+  <script>
+    const ROOMS = {
+      1: ["101","102","103","104","105","106","107","108","109","110","111","112","nursery","cry-room","foyer","work-room"],
+      2: ["204","205","206","207","208","209","210","212","202","203","214","215","fellowship-hall"]
+    };
+    const EXITS = {
+      1: { "L1-EAST-UPPER": "East upper", "L1-EAST-LOWER": "East lower" },
+      2: {
+        "L2-WEST-UPPER": "West upper",
+        "L2-WEST-LOWER": "West lower",
+        "L2-EAST-UPPER": "East upper",
+        "L2-EAST-LOWER": "East lower"
+      }
+    };
+    const MAPS = {
+      1: "/maps/master-level-1.png",
+      2: "/maps/master-level-2.png"
+    };
+
+    let mode = "pin";
+    let overlay = { imageSize: { width: 794, height: 1286 }, floors: {}, rooms: {} };
+    let current = { pin: null, route: [], exit: null };
+
+    const floorEl = document.getElementById("floor");
+    const roomEl = document.getElementById("room");
+    const exitEl = document.getElementById("exit");
+    const mapEl = document.getElementById("map");
+    const stage = document.getElementById("stage");
+    const jsonEl = document.getElementById("json");
+
+    function fillRooms() {
+      const f = floorEl.value;
+      roomEl.innerHTML = ROOMS[f].map((id) => `<option value="${id}">${id}</option>`).join("");
+      exitEl.innerHTML = Object.entries(EXITS[f])
+        .map(([k, v]) => `<option value="${k}">${v} (${k})</option>`)
+        .join("");
+      mapEl.src = MAPS[f];
+      mapEl.alt = f === "1" ? "Level 1 floor plan" : "Level 2 floor plan";
+      loadRoom();
+    }
+
+    function loadRoom() {
+      const id = roomEl.value;
+      const saved = overlay.rooms[id];
+      current = saved
+        ? { pin: saved.pin, route: [...(saved.route || [])], exit: saved.exit }
+        : { pin: null, route: [], exit: exitEl.value };
+      if (current.exit) exitEl.value = current.exit;
+      renderMarkers();
+      updateJson();
+    }
+
+    function renderMarkers() {
+      stage.querySelectorAll(".marker").forEach((el) => el.remove());
+      const nw = mapEl.naturalWidth || 794;
+      const nw2 = mapEl.clientWidth;
+      const scale = nw2 / nw;
+
+      function add(cls, pt) {
+        const d = document.createElement("div");
+        d.className = `marker ${cls}`;
+        d.style.left = `${pt.x * scale}px`;
+        d.style.top = `${pt.y * scale}px`;
+        stage.appendChild(d);
+      }
+
+      if (current.pin) add("pin", current.pin);
+      current.route.forEach((p) => add("way", p));
+    }
+
+    function updateJson() {
+      const id = roomEl.value;
+      const payload = {
+        floor: Number(floorEl.value),
+        pin: current.pin,
+        route: current.route,
+        exit: exitEl.value
+      };
+      jsonEl.textContent = JSON.stringify({ [id]: payload }, null, 2);
+    }
+
+    mapEl.addEventListener("load", renderMarkers);
+    window.addEventListener("resize", renderMarkers);
+
+    stage.addEventListener("click", (e) => {
+      const rect = mapEl.getBoundingClientRect();
+      const scale = (mapEl.naturalWidth || 794) / rect.width;
+      const x = Math.round((e.clientX - rect.left) * scale);
+      const y = Math.round((e.clientY - rect.top) * scale);
+
+      if (mode === "pin") current.pin = { x, y };
+      else if (mode === "route") current.route.push({ x, y });
+      else if (mode === "exit") {
+        const key = exitEl.value;
+        if (!overlay.floors[floorEl.value]) overlay.floors[floorEl.value] = { exits: {} };
+        overlay.floors[floorEl.value].exits = overlay.floors[floorEl.value].exits || {};
+        overlay.floors[floorEl.value].exits[key] = { x, y, label: "EXIT" };
+      }
+      renderMarkers();
+      updateJson();
+    });
+
+    document.querySelectorAll(".mode button").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".mode button").forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        mode = btn.dataset.mode;
+      });
+    });
+
+    document.getElementById("saveRoom").onclick = () => {
+      if (!current.pin) return alert("Set a pin first.");
+      overlay.rooms[roomEl.value] = {
+        floor: Number(floorEl.value),
+        pin: current.pin,
+        route: current.route,
+        exit: exitEl.value
+      };
+      localStorage.setItem("arnold-map-overlay", JSON.stringify(overlay));
+      alert(`Saved ${roomEl.value}`);
+    };
+
+    document.getElementById("undoRoute").onclick = () => {
+      current.route.pop();
+      renderMarkers();
+      updateJson();
+    };
+
+    document.getElementById("clearRoom").onclick = () => {
+      current = { pin: null, route: [], exit: exitEl.value };
+      delete overlay.rooms[roomEl.value];
+      renderMarkers();
+      updateJson();
+    };
+
+    document.getElementById("download").onclick = () => {
+      const blob = new Blob([JSON.stringify(overlay, null, 2)], { type: "application/json" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "room-map-overlay.json";
+      a.click();
+    };
+
+    exitEl.addEventListener("change", () => {
+      current.exit = exitEl.value;
+      updateJson();
+    });
+
+    roomEl.addEventListener("change", loadRoom);
+    floorEl.addEventListener("change", fillRooms);
+
+    fetch("/data/room-map-overlay.json")
+      .then((r) => r.json())
+      .then((data) => {
+        overlay = data;
+        const saved = localStorage.getItem("arnold-map-overlay");
+        if (saved) overlay = { ...data, ...JSON.parse(saved), rooms: { ...data.rooms, ...JSON.parse(saved).rooms } };
+      })
+      .catch(() => {})
+      .finally(fillRooms);
+  </script>
+</body>
+</html>
