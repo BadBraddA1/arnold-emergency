@@ -86,6 +86,7 @@ export default defineConfig({
 				{
 					label: 'Classrooms',
 					items: [
+						{ label: 'Room evacuation posters', slug: 'classroom/room-posters' },
 						{ label: 'Room handout template', slug: 'classroom/handout-template' },
 						{ label: 'Edit & publish', slug: 'contributing' },
 					],

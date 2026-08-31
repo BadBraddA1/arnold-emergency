@@ -649,3 +649,108 @@
 	color: var(--sl-color-gray-3);
 	font-weight: 400;
 }
+
+/* Room poster gallery */
+.poster-gallery-meta {
+	font-size: var(--ae-text-body-md);
+	color: var(--sl-color-gray-2);
+	margin: 0 0 1.25rem;
+}
+
+.poster-gallery-floor {
+	margin: 2rem 0 0;
+}
+
+.poster-gallery-floor h2 {
+	margin: 0;
+	font-family: 'Source Serif 4', Georgia, serif;
+}
+
+.poster-gallery-count {
+	margin: 0.25rem 0 1rem;
+	font-size: var(--ae-text-meta);
+	color: var(--sl-color-gray-3);
+}
+
+.poster-gallery-grid {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: grid;
+	gap: 1rem;
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
+}
+
+.poster-card {
+	display: flex;
+	flex-direction: column;
+	gap: 0.65rem;
+	padding: 0.85rem;
+	border: 1px solid var(--sl-color-hairline-shade);
+	border-radius: 0.65rem;
+	background: var(--sl-color-bg-sidebar);
+}
+
+.poster-card-title {
+	margin: 0;
+	font-size: var(--ae-text-body-lg);
+	line-height: 1.35;
+}
+
+.poster-card-exit {
+	margin: 0.2rem 0 0;
+	font-size: var(--ae-text-meta);
+	color: var(--sl-color-gray-3);
+	line-height: 1.4;
+}
+
+.poster-card-thumb {
+	display: block;
+	border-radius: var(--ae-radius-media);
+	overflow: hidden;
+	border: 1px solid var(--sl-color-hairline-shade);
+	line-height: 0;
+	background: #fff;
+}
+
+.poster-card-thumb img {
+	width: 100%;
+	height: auto;
+	display: block;
+}
+
+.poster-card-actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+}
+
+.poster-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0.4rem 0.75rem;
+	border-radius: 6px;
+	border: 1px solid var(--sl-color-hairline-shade);
+	background: var(--sl-color-bg);
+	color: inherit;
+	font-size: var(--ae-text-body-sm);
+	font-weight: 600;
+	text-decoration: none;
+}
+
+.poster-btn:hover {
+	border-color: var(--sl-color-accent);
+	color: var(--sl-color-accent-high);
+}
+
+.poster-btn--primary {
+	background: var(--sl-color-accent-low);
+	border-color: var(--sl-color-accent-low);
+	color: #fff;
+}
+
+.poster-btn--primary:hover {
+	background: color-mix(in oklab, var(--sl-color-accent-low) 85%, #000);
+	color: #fff;
+}

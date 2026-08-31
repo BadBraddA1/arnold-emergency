@@ -1,0 +1,104 @@
+---
+import roomRoutes from '../../data/room-routes.json';
+import overlay from '../../data/room-map-overlay.json';
+import { formatMapUpdatedAtLong } from '../../scripts/map-overlay-meta.mjs';
+
+type RoomRow = {
+	id: string;
+	floor: number;
+	name: string;
+	nearestExit: string;
+	label: string;
+	posterSrc: string;
+	printHref: string;
+};
+
+function roomLabel(id: string, name: string) {
+	return /^\d+$/.test(id) ? `Room ${id} — ${name}` : name;
+}
+
+function sortRooms(a: RoomRow, b: RoomRow) {
+	if (a.floor !== b.floor) return a.floor - b.floor;
+	const aNum = /^\d+$/.test(a.id);
+	const bNum = /^\d+$/.test(b.id);
+	if (aNum && bNum) return Number(a.id) - Number(b.id);
+	if (aNum) return -1;
+	if (bNum) return 1;
+	return a.id.localeCompare(b.id);
+}
+
+const metaById = new Map(roomRoutes.rooms.map((r) => [r.id, r]));
+const exitLabels = roomRoutes.exits as Record<string, string>;
+
+const rows: RoomRow[] = Object.keys(overlay.rooms ?? {})
+	.map((id) => {
+		const meta = metaById.get(id);
+		if (!meta) return null;
+		return {
+			id,
+			floor: meta.floor,
+			name: meta.name,
+			nearestExit: meta.nearestExit,
+			label: roomLabel(id, meta.name),
+			posterSrc: `/posters/room-${id}.png`,
+			printHref: `/print/poster/${id}/`,
+		};
+	})
+	.filter((r): r is RoomRow => r !== null)
+	.sort(sortRooms);
+
+const byFloor = [1, 2].map((floor) => ({
+	floor,
+	rooms: rows.filter((r) => r.floor === floor),
+}));
+
+const updatedLabel = formatMapUpdatedAtLong(overlay.updatedAt);
+---
+
+{updatedLabel ? (
+	<p class="poster-gallery-meta">
+		Map data last updated <strong>{updatedLabel}</strong>. Regenerate after edits with{' '}
+		<code>pnpm run map:generate</code>, then commit <code>public/posters/</code>.
+	</p>
+) : null}
+
+{
+	byFloor.map(({ floor, rooms }) =>
+		rooms.length ? (
+			<section class="poster-gallery-floor" aria-labelledby={`floor-${floor}-title`}>
+				<h2 id={`floor-${floor}-title`}>Level {floor}</h2>
+				<p class="poster-gallery-count">{rooms.length} posters</p>
+				<ul class="poster-gallery-grid">
+					{rooms.map((room) => (
+						<li class="poster-card" id={`room-${room.id}`}>
+							<div class="poster-card-head">
+								<h3 class="poster-card-title">{room.label}</h3>
+								<p class="poster-card-exit">
+									Nearest exit: {exitLabels[room.nearestExit] ?? room.nearestExit}
+								</p>
+							</div>
+							<a class="poster-card-thumb" href={room.posterSrc} target="_blank" rel="noopener">
+								<img
+									src={room.posterSrc}
+									alt={`Evacuation map for ${room.label}`}
+									width="794"
+									height="1286"
+									loading="lazy"
+									decoding="async"
+								/>
+							</a>
+							<div class="poster-card-actions">
+								<a class="poster-btn" href={room.posterSrc} target="_blank" rel="noopener">
+									Open full size
+								</a>
+								<a class="poster-btn poster-btn--primary" href={room.printHref}>
+									Print
+								</a>
+							</div>
+						</li>
+					))}
+				</ul>
+			</section>
+		) : null,
+	)
+}

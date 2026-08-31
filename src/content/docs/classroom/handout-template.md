@@ -7,7 +7,7 @@ Two print formats for classrooms and offices:
 
 | Format | Use | Template |
 |--------|-----|----------|
-| **Room map poster** | Floor plan + emergency footer on the wall | [`room-map-poster.md`](https://github.com/BadBraddA1/arnold-emergency/blob/main/templates/classroom/room-map-poster.md) |
+| **Room map poster** | Floor plan + route on the wall | **[Browse & print all rooms →](/classroom/room-posters/)** |
 | **Door card** | Text-only checklist near the door | `handout.md` (below) |
 
 **Room map posters** show only **Code Red**, **Code Blue**, and **911** — not IC steps (app, fob, who ends the code). Teachers wait for the official all clear; that lives in the full playbook.

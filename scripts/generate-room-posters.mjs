@@ -20,7 +20,7 @@ import { formatMapUpdatedAt } from './map-overlay-meta.mjs';
 const ROOT = join(import.meta.dirname, '..');
 
 function parseArgs(argv) {
-	const out = { room: null, outDir: join(ROOT, 'generated/posters') };
+	const out = { room: null, outDir: join(ROOT, 'public/posters') };
 	for (let i = 2; i < argv.length; i++) {
 		if (argv[i] === '--room') out.room = argv[++i];
 		else if (argv[i] === '--out') out.outDir = argv[++i];

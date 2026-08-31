@@ -59,7 +59,7 @@ pnpm run map:generate              # all rooms with overlay data
 pnpm run map:generate -- --room 107
 ```
 
-Output: `generated/posters/room-107.png` — print or drop into Canva.
+Output: `public/posters/room-107.png` — committed to git; staff browse and print at [/classroom/room-posters/](/classroom/room-posters/).
 
 ## Data files
 

@@ -1,0 +1,14 @@
+---
+title: Room evacuation posters
+description: Browse and print per-room map posters — routes, exits, AED, and first aid.
+---
+
+import RoomPosterGallery from '../../../components/RoomPosterGallery.astro';
+
+Wall posters for every room with a placed pin and route. Each shows **YOU ARE HERE**, the green path to the nearest exit, floor AED/first aid, and an **Updated** date.
+
+**To reprint one room:** find it below → **Print** (opens a clean print page) or **Open full size** to save the PNG.
+
+**To update routes:** `pnpm run map:place` → edit → `pnpm run map:generate` → commit `public/posters/` and push.
+
+<RoomPosterGallery />
