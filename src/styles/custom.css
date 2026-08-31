@@ -754,3 +754,36 @@
 	background: color-mix(in oklab, var(--sl-color-accent-low) 85%, #000);
 	color: #fff;
 }
+
+/* Door cards — always print-dark on white (Starlight prose must not bleed in) */
+.sl-markdown-content .door-card {
+	color: #0f172a;
+	background: #fff;
+}
+
+.sl-markdown-content .door-card :where(h1, h2, p, strong, em, li) {
+	color: inherit;
+}
+
+.sl-markdown-content .door-card .door-card-code--red {
+	color: #b91c1c;
+}
+
+.sl-markdown-content .door-card .door-card-code--blue {
+	color: #1d4ed8;
+}
+
+.sl-markdown-content .door-card .door-card-code--amber {
+	color: #b45309;
+}
+
+.sl-markdown-content .door-card .door-card-org,
+.sl-markdown-content .door-card .door-card-tag,
+.sl-markdown-content .door-card .door-card-foot,
+.sl-markdown-content .door-card .door-card-script-label {
+	color: #475569;
+}
+
+.sl-markdown-content .door-card .door-card-script-text em {
+	color: #475569;
+}

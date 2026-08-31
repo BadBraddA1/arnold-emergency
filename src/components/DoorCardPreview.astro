@@ -14,7 +14,7 @@ const address = roomRoutes.meta.address ?? '1363 Jeffco Blvd, Arnold, MO 63010';
 const floorNote = floor ? ` on level ${floor}` : '';
 ---
 
-<article class:list={['door-card', compact && 'door-card--compact']}>
+<article class:list={['door-card', 'not-content', compact && 'door-card--compact']}>
 	<header class="door-card-head">
 		<p class="door-card-org">{church}</p>
 		<h1 class="door-card-title">{title}</h1>
@@ -56,14 +56,14 @@ const floorNote = floor ? ` on level ${floor}` : '';
 	.door-card {
 		max-width: 28rem;
 		margin: 0 auto;
-		padding: 1.1rem 1.15rem 1rem;
+		padding: 1.15rem 1.2rem 1.05rem;
 		border: 2px solid #1e293b;
 		border-radius: 0.5rem;
 		background: #fff;
 		color: #0f172a;
 		font-family: 'DM Sans', system-ui, sans-serif;
-		font-size: 0.9rem;
-		line-height: 1.45;
+		font-size: 1rem;
+		line-height: 1.55;
 	}
 
 	.door-card--compact {
@@ -89,24 +89,32 @@ const floorNote = floor ? ` on level ${floor}` : '';
 	.door-card-title {
 		margin: 0.2rem 0 0;
 		font-family: 'Source Serif 4', Georgia, serif;
-		font-size: 1.35rem;
-		line-height: 1.2;
+		font-size: 1.4rem;
+		line-height: 1.25;
+		color: #0f172a;
 	}
 
 	.door-card-tag {
 		margin: 0.35rem 0 0;
-		font-size: 0.78rem;
-		color: #64748b;
+		font-size: 0.82rem;
+		color: #475569;
 	}
 
 	.door-card-block {
-		margin: 0 0 0.85rem;
+		margin: 0 0 0.9rem;
+	}
+
+	.door-card-block p,
+	.door-card-block strong,
+	.door-card-block em {
+		color: #1e293b;
 	}
 
 	.door-card-code {
-		margin: 0 0 0.35rem;
-		font-size: 0.95rem;
-		line-height: 1.25;
+		margin: 0 0 0.4rem;
+		font-size: 1.05rem;
+		line-height: 1.3;
+		font-weight: 700;
 	}
 
 	.door-card-code--red {
@@ -148,16 +156,22 @@ const floorNote = floor ? ` on level ${floor}` : '';
 
 	.door-card-script-text {
 		margin: 0;
-		font-size: 0.86rem;
-		line-height: 1.5;
+		font-size: 0.95rem;
+		line-height: 1.55;
+		color: #0f172a;
+	}
+
+	.door-card-script-text em {
+		color: #475569;
+		font-style: italic;
 	}
 
 	.door-card-foot {
 		margin-top: 0.5rem;
 		padding-top: 0.55rem;
 		border-top: 1px solid #e2e8f0;
-		font-size: 0.75rem;
-		color: #64748b;
+		font-size: 0.8rem;
+		color: #475569;
 	}
 
 	.door-card-foot p {
