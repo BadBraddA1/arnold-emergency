@@ -5,7 +5,7 @@
 | **Live site** | https://emergency.arnoldcoc.org |
 | **Local** | `~/Code/arnold-emergency` |
 | **Alarm app** | https://alarm.arnoldcoc.org (Arnold Alert — trigger codes) |
-| **Status** | Draft — leadership sign-off required; [site map on home page](/) shows WIP per page |
+| **Status** | Draft — leadership sign-off required; staff-only (**noindex** + `robots.txt` Disallow) |
 
 ## Impeccable (design system)
 

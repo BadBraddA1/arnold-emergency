@@ -22,7 +22,7 @@ After approval:
 1. Fill in names and dates above.
 2. Change **Status** at the top to **Approved — [date]**.
 3. Update the README status row.
-4. Remove `noindex` from `astro.config.mjs` when ready for public indexing.
+4. Keep **noindex / robots.txt Disallow** — these sites stay staff-only; do not open them to search engines.
 
 ## Open decisions checklist
 

@@ -30,7 +30,7 @@ Success: staff can find the right procedure in seconds; leadership can sign off 
 
 ## Operating Context
 
-- Published at emergency.arnoldcoc.org (noindex while in draft review).
+- Published at emergency.arnoldcoc.org (always noindex — staff-only; robots.txt Disallow).
 - Edited as markdown in git; merge to `main` deploys via Cloudflare Pages.
 - Pairs with Arnold Alert (Pi gateway, UniFi horns, mobile PWA, Alert Desk).
 - Leadership sign-off tracked on `/approval/` — **not yet signed** (inferred from site copy; confirm names/dates when ready).

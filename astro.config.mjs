@@ -4,6 +4,14 @@ import starlight from '@astrojs/starlight';
 import { remarkGlossary } from './src/plugins/remark-glossary.mjs';
 import terminology from './src/data/terminology.json';
 
+/** No-op so Starlight does not inject a real @astrojs/sitemap (staff-only site). */
+function disableSitemap() {
+	return {
+		name: '@astrojs/sitemap',
+		hooks: {},
+	};
+}
+
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://emergency.arnoldcoc.org',
@@ -11,6 +19,7 @@ export default defineConfig({
 		remarkPlugins: [[remarkGlossary, { terms: terminology }]],
 	},
 	integrations: [
+		disableSitemap(),
 		starlight({
 			title: 'Arnold Emergency',
 			description:
@@ -36,7 +45,17 @@ export default defineConfig({
 			head: [
 				{
 					tag: 'meta',
-					attrs: { name: 'robots', content: 'noindex, nofollow' },
+					attrs: {
+						name: 'robots',
+						content: 'noindex, nofollow, noarchive, nosnippet, noimageindex',
+					},
+				},
+				{
+					tag: 'meta',
+					attrs: {
+						name: 'googlebot',
+						content: 'noindex, nofollow, noarchive, nosnippet, noimageindex',
+					},
 				},
 			],
 			sidebar: [
