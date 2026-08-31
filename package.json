@@ -11,7 +11,7 @@
     "generate:classroom": "node scripts/generate-classroom.mjs",
     "generate:terminology": "node scripts/generate-terminology.mjs",
     "build": "pnpm run generate:terminology && astro build",
-    "deploy": "pnpm build && wrangler pages deploy dist --project-name=arnold-emergency"
+    "deploy": "pnpm build && npx wrangler pages deploy dist --project-name=arnold-emergency"
   },
   "dependencies": {
     "@astrojs/starlight": "^0.41.10",
