@@ -77,7 +77,6 @@ Starlight documentation site in **Read** mode: staff scan procedures under stres
 - **Tool pair:** 1 column mobile, 2 columns ≥42rem.
 - **Site map:** stacked list rows with icons, not wide tables on phone.
 - **Icons:** Google Material Symbols, outlined weight 400 (same library as [Creators Repo → Material](https://creatorsrepo.com/icons?system=material)). Swap names in `symbols.ts` — use snake_case filenames from the package (e.g. `local_fire_department` for Code Red).
-- WIP banner: minimal on mobile (single “WIP” link), full strip ≥50rem.
 
 ## Elevation & Depth
 
@@ -99,7 +98,7 @@ Card 0.65rem; list 0.55rem; status pills 0.25rem; audio controls 0.35rem (`--ae-
 | `PageTitle` | Inner pages | Auto icon from `iconForPath()` |
 | `Hero` | Home splash | Custom hero actions with `EmergencyIcon` |
 | `SidebarSublist` | Sidebar | Starlight override — icons on nav links |
-| `PageFrame` | Global | WIP strip above content |
+| `PageFrame` | Global | Starlight page shell (no site-wide banner) |
 | `AudioClip` | Campus audio | Card + `<audio>`; MP3 fallback for iOS |
 
 ## Do's and Don'ts

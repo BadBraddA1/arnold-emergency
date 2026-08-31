@@ -2,17 +2,6 @@
 import PageFrame from '@astrojs/starlight/components/PageFrame.astro';
 ---
 
-<div class="wip-banner" role="status">
-	<p class="wip-banner-short">
-		<a href="/">WIP</a>
-	</p>
-	<p class="wip-banner-long">
-		<strong>WIP</strong> — live for staff review; leadership sign-off pending.
-		<a href="/">Site map</a>
-		·
-		<a href="/approval/">Approval</a>
-	</p>
-</div>
 <PageFrame {...Astro.props}>
 	<slot name="header" slot="header" />
 	<slot name="sidebar" slot="sidebar" />

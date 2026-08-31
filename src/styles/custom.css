@@ -9,8 +9,6 @@
 	--sl-color-accent-high: #6bc492;
 	--sl-color-text-accent: var(--sl-color-accent-high);
 	--sl-font: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
-	--wip-banner-height: 2.25rem;
-	--wip-banner-height-mobile: 1.35rem;
 	--ae-status-wip-amber: #c9a227;
 	--ae-status-wip-fg: #d4b85c;
 	--ae-status-wip-bg: color-mix(in oklab, var(--ae-status-wip-amber) 20%, var(--sl-color-gray-6));
@@ -39,61 +37,7 @@
 	color: var(--sl-color-white);
 }
 
-/* Site-wide WIP strip (see src/components/PageFrame.astro) */
-.wip-banner {
-	position: fixed;
-	top: var(--sl-nav-height);
-	inset-inline: 0;
-	z-index: calc(var(--sl-z-index-navbar) - 1);
-	height: var(--wip-banner-height-mobile);
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	padding: 0 0.75rem;
-	background: transparent;
-	border-bottom: 1px solid color-mix(in oklab, var(--sl-color-hairline-shade) 55%, transparent);
-	font-size: var(--ae-text-sm);
-	letter-spacing: 0.02em;
-}
-
-.wip-banner p {
-	margin: 0;
-	color: var(--sl-color-gray-3);
-}
-
-.wip-banner a {
-	color: var(--sl-color-gray-2);
-	font-weight: 600;
-	text-decoration: none;
-}
-
-.wip-banner a:hover {
-	color: var(--sl-color-accent-high);
-}
-
-.wip-banner-short {
-	display: block;
-}
-
-.wip-banner-long {
-	display: none;
-}
-
-/* Light theme — WIP strip and status pills stay readable */
-:root[data-theme='light'] .wip-banner {
-	background: color-mix(in oklab, var(--ae-status-wip-amber) 8%, var(--sl-color-bg));
-	border-bottom-color: var(--sl-color-hairline-shade);
-}
-
-:root[data-theme='light'] .wip-banner p,
-:root[data-theme='light'] .wip-banner a {
-	color: var(--sl-color-gray-1);
-}
-
-:root[data-theme='light'] .wip-banner a:hover {
-	color: var(--sl-color-accent);
-}
-
+/* Light theme — status pills stay readable */
 :root[data-theme='light'] .site-map-status--wip,
 :root[data-theme='light'] .site-map-status--draft {
 	color: color-mix(in oklab, var(--ae-status-wip-amber) 75%, var(--sl-color-gray-1));
@@ -127,52 +71,6 @@
 
 :root[data-theme='light'] .audio-clip-player {
 	background: color-mix(in oklab, var(--sl-color-accent-low) 6%, var(--sl-color-gray-6));
-}
-
-@media (min-width: 50rem) {
-	.wip-banner {
-		height: var(--wip-banner-height);
-		font-size: var(--ae-text-meta);
-		background: color-mix(in oklab, var(--sl-color-accent-low) 88%, var(--sl-color-bg));
-		border-bottom: 1px solid var(--sl-color-hairline-shade);
-	}
-
-	.wip-banner p {
-		color: var(--sl-color-gray-2);
-	}
-
-	.wip-banner a {
-		color: var(--sl-color-accent-high);
-		font-weight: 600;
-	}
-
-	.wip-banner-short {
-		display: none;
-	}
-
-	.wip-banner-long {
-		display: block;
-	}
-}
-
-:global(.main-frame) {
-	padding-top: calc(
-		var(--sl-nav-height) + var(--sl-mobile-toc-height) + var(--wip-banner-height-mobile)
-	) !important;
-}
-
-@media (min-width: 50rem) {
-	:global(.main-frame) {
-		padding-top: calc(
-			var(--sl-nav-height) + var(--sl-mobile-toc-height) + var(--wip-banner-height)
-		) !important;
-	}
-}
-
-@media (min-width: 72rem) {
-	:global(.main-frame) {
-		padding-top: calc(var(--sl-nav-height) + var(--wip-banner-height)) !important;
-	}
 }
 
 /* Splash home — readable measure */
