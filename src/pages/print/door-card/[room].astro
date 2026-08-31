@@ -86,7 +86,12 @@ const assembly = roomRoutes.meta.assemblyDefault ?? 'South parking lot';
 			<a href={`/classroom/room-posters/#room-${meta.id}`}>Map poster</a>
 		</div>
 		<div class="frame">
-			<DoorCardPreview title={title} exit={meta.path} assembly={assembly} />
+			<DoorCardPreview
+				title={title}
+				exit={meta.path}
+				assembly={assembly}
+				floor={meta.floor}
+			/>
 		</div>
 	</body>
 </html>

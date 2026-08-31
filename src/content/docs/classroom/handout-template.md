@@ -56,7 +56,7 @@ Take roster. Count everyone at assembly.
 **CODE BLUE — LOCKDOWN**  
 Lock door, lights off, phones silent. Stay quiet. Do not leave.
 
-**911** when life is at risk. Horns do not call police for you.
+**911** when life is at risk. Each door card includes a **read-aloud script** with church name, address, room, and level.
 
 - Arnold Alert: [alarm.arnoldcoc.org](https://alarm.arnoldcoc.org)
 - Full playbook: [emergency.arnoldcoc.org](https://emergency.arnoldcoc.org)

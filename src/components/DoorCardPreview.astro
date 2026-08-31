@@ -1,15 +1,22 @@
 ---
-const { title, exit, assembly, compact = false } = Astro.props as {
+import roomRoutes from '../../data/room-routes.json';
+
+const { title, exit, assembly, floor, compact = false } = Astro.props as {
 	title: string;
 	exit: string;
 	assembly: string;
+	floor?: number;
 	compact?: boolean;
 };
+
+const church = roomRoutes.meta.church ?? 'Arnold Church of Christ';
+const address = roomRoutes.meta.address ?? '1363 Jeffco Blvd, Arnold, MO 63010';
+const floorNote = floor ? ` on level ${floor}` : '';
 ---
 
 <article class:list={['door-card', compact && 'door-card--compact']}>
 	<header class="door-card-head">
-		<p class="door-card-org">Arnold Church of Christ</p>
+		<p class="door-card-org">{church}</p>
 		<h1 class="door-card-title">{title}</h1>
 		<p class="door-card-tag">In-room emergency card · post near the door</p>
 	</header>
@@ -31,7 +38,13 @@ const { title, exit, assembly, compact = false } = Astro.props as {
 
 	<section class="door-card-block" aria-label="911">
 		<h2 class="door-card-code door-card-code--amber">911</h2>
-		<p>Call <strong>911</strong> first when life is at risk. Horns do not call police for you.</p>
+		<p>Call <strong>911</strong> first when life is at risk. Campus horns do not call police for you.</p>
+		<div class="door-card-script">
+			<p class="door-card-script-label">Say this:</p>
+			<p class="door-card-script-text">
+				“I need help at {church}, {address}. I am in {title}{floorNote}. <em>[Describe what happened — injury, fire, threat, etc.]</em>”
+			</p>
+		</div>
 	</section>
 
 	<footer class="door-card-foot">
@@ -114,6 +127,29 @@ const { title, exit, assembly, compact = false } = Astro.props as {
 
 	.door-card-block p:last-child {
 		margin-bottom: 0;
+	}
+
+	.door-card-script {
+		margin-top: 0.55rem;
+		padding: 0.65rem 0.75rem;
+		border: 1px dashed #94a3b8;
+		border-radius: 0.35rem;
+		background: #f8fafc;
+	}
+
+	.door-card-script-label {
+		margin: 0 0 0.3rem;
+		font-size: 0.72rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		color: #64748b;
+	}
+
+	.door-card-script-text {
+		margin: 0;
+		font-size: 0.86rem;
+		line-height: 1.5;
 	}
 
 	.door-card-foot {
