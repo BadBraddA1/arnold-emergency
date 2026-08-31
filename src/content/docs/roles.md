@@ -3,16 +3,25 @@ title: Roles & responsibilities
 description: Who is responsible for what during a campus emergency.
 ---
 
-Fill in names and backups. **Review quarterly.**
+Fill in backups where still blank. **Review quarterly.**
+
+## Leadership roster
+
+| Role | Name |
+|------|------|
+| **Elders** | Jason Powers · Kevin Isenberg · Shannon Davidson |
+| **Incident commander (IC)** | **Allan Miller** — always primary IC on campus |
+| **Deacon over security** | Allan Miller |
+| **System Admin** (Arnold Alert) | Adin Bradd |
 
 ## Incident commander (primary authority on site)
 
 | Field | Assignment |
 |-------|------------|
-| **Primary** | _[e.g. Lead elder on duty]_ |
-| **Backup** | _[e.g. Second elder / security lead]_ |
-| **May declare Code Red/Blue** | ☐ Yes |
-| **May call All clear** | ☐ Yes — only after threat resolved |
+| **Primary** | **Allan Miller** — always IC when on campus |
+| **Backup** | Jason Powers, Kevin Isenberg, or Shannon Davidson (elder on duty) — only if Allan is unavailable |
+| **May declare Code Red/Blue** | ☑ Yes |
+| **May call All clear** | ☑ Yes — only after threat resolved |
 
 **Responsibilities:**
 
@@ -21,11 +30,13 @@ Fill in names and backups. **Review quarterly.**
 - Assign someone to **account for children / nursery / classrooms** immediately.
 - Authorize **all clear** — no one else without IC approval (backup assumes command if IC unavailable).
 
-## Security / facilities lead
+## Deacon over security
+
+*(Former title: Security / facilities lead.)*
 
 | Field | Assignment |
 |-------|------------|
-| **Primary** | _[name]_ |
+| **Primary** | Allan Miller |
 | **Backup** | _[name]_ |
 
 **Responsibilities:**
@@ -34,6 +45,18 @@ Fill in names and backups. **Review quarterly.**
 - Confirm system is **armed** before services (default: armed).
 - Help verify building zones before all clear.
 - Run monthly **Alert Check** (speaker test) when building is empty.
+
+## Arnold Alert — System Admin
+
+| Field | Assignment |
+|-------|------------|
+| **Primary** | Adin Bradd |
+
+**Responsibilities:**
+
+- Alert Desk, Alert Control, arm/standby, staff PIN management, speaker settings.
+- Quarterly **PIN / fob access audit** with deacon over security.
+- See [System Admin](/terminology/terms/system-admin/) scope.
 
 ## Nursery / children's ministry lead
 

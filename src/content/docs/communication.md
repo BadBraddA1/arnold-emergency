@@ -22,7 +22,7 @@ Only these people speak for the church to **press, social media, or the wider co
 |------|------|-------|--------|
 | **Primary spokesperson** | _[name]_ | _[phone]_ | _[name]_ |
 | **Backup spokesperson** | _[name]_ | _[phone]_ | IC or elder on duty |
-| **IC (incident commander)** | _[see roles](/roles/)_ | — | Coordinates facts; does not have to be the public face |
+| **IC (incident commander)** | **Allan Miller** (always primary) | — | Jason Powers, Kevin Isenberg, or Shannon Davidson |
 
 **Relationship to IC:** The IC runs the scene. The spokesperson runs **words leaving the building**. They stay in contact — IC approves what is said publicly; spokesperson does not invent facts or speculate.
 

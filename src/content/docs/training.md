@@ -6,11 +6,11 @@ description: How often staff practice emergency procedures.
 | Activity | Frequency | Owner |
 |----------|-----------|-------|
 | Staff read this SOP | On hire + annually | _[HR / ministry lead]_ |
-| Tabletop (Red vs. Blue scenarios) | Quarterly | _[Security lead]_ |
-| Silent drill (no horns) | _[optional]_ | _[IC]_ |
-| Live Code Blue + all clear (empty building) | Annually | _[Security lead]_ |
+| Tabletop (Red vs. Blue scenarios) | Quarterly | Allan Miller (deacon over security) |
+| Silent drill (no horns) | _[optional]_ | Allan Miller (IC) |
+| Live Code Blue + all clear (empty building) | Annually | Allan Miller (deacon over security) |
 | Speaker walk + bell test | When building empty after changes | _[Facilities]_ |
-| PIN / fob access audit | Quarterly | _[System Admin]_ |
+| PIN / fob access audit | Quarterly | Adin Bradd (System Admin) |
 
 ## New volunteer onboarding
 

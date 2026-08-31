@@ -13,8 +13,8 @@ This playbook is **live for staff review** but **not final policy** until the ta
 
 | Role | Name | Signature | Date |
 |------|------|-----------|------|
-| Elders / leadership | | | |
-| Security / facilities | | | |
+| Elders / leadership | Jason Powers, Kevin Isenberg, Shannon Davidson | | |
+| Deacon over security | Allan Miller | | |
 | Children's ministry | | | |
 
 After approval:

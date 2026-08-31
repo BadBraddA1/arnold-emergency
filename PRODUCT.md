@@ -41,7 +41,7 @@ Success: staff can find the right procedure in seconds; leadership can sign off 
 
 **Out of scope:** Triggering alarms (Arnold Alert); 911 dispatch; door locks; parent SMS; TV/slide takeover (backlog on alarm repo).
 
-**Open decisions (intentional blanks):** IC/role names; assembly areas; medical/AED policy; drill owners; spokesperson; many `_[fill in]_` fields.
+**Open decisions (intentional blanks):** Assembly areas; nursery/pulpit/office/spokesperson names; medical/AED policy; many `_[fill in]_` fields. **Filled:** Allan Miller (always IC + deacon over security); elders Jason Powers, Kevin Isenberg, Shannon Davidson; System Admin Adin Bradd.
 
 ## Brand Commitments
 

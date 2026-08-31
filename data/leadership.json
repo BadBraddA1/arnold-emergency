@@ -1,0 +1,22 @@
+{
+  "meta": {
+    "church": "Arnold Church of Christ",
+    "notes": [
+      "Canonical names for emergency site — keep in sync with src/content/docs/roles.md"
+    ]
+  },
+  "elders": ["Jason Powers", "Kevin Isenberg", "Shannon Davidson"],
+  "incidentCommander": {
+    "primary": "Allan Miller",
+    "alwaysPrimary": true,
+    "backup": "Jason Powers, Kevin Isenberg, or Shannon Davidson (elder on duty)"
+  },
+  "deaconOverSecurity": {
+    "title": "Deacon over security",
+    "primary": "Allan Miller"
+  },
+  "systemAdmin": {
+    "title": "System Admin",
+    "primary": "Adin Bradd"
+  }
+}

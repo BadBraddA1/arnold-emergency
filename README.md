@@ -62,7 +62,7 @@ All pages: `src/content/docs/`
 | **Terminology** | A–Z glossary — auto-linked across every page |
 | Codes | Red, Blue, all clear |
 | Other | Medical emergency (draft) |
-| Roles | IC, nursery, pulpit, office |
+| Roles | IC, nursery, pulpit, office — roster on `/roles/`; canonical names in `data/leadership.json` |
 | System | Arnold Alert naming & limits |
 | Classroom | Map poster + door card templates |
 

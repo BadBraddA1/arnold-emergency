@@ -51,8 +51,8 @@ _Fill in before printing:_
 
 | Role | Name | Phone |
 |------|------|-------|
-| Incident commander | | |
-| Backup IC | | |
+| Incident commander | **Allan Miller** | |
+| Backup IC | Jason Powers, Kevin Isenberg, or Shannon Davidson | |
 | Nursery lead | | |
 | Office / 911 | **911** | |
 
