@@ -35,16 +35,7 @@ export default defineConfig({
 				SidebarSublist: './src/components/SidebarSublist.astro',
 				LastUpdated: './src/components/LastUpdated.astro',
 			},
-			editLink: {
-				baseUrl: 'https://github.com/BadBraddA1/arnold-emergency/edit/main/',
-			},
-			social: [
-				{
-					icon: 'github',
-					label: 'GitHub',
-					href: 'https://github.com/BadBraddA1/arnold-emergency',
-				},
-			],
+			social: [],
 			head: [
 				{
 					tag: 'meta',
@@ -110,7 +101,6 @@ export default defineConfig({
 						{ label: 'Room evacuation posters', slug: 'classroom/room-posters' },
 						{ label: 'Door cards', slug: 'classroom/door-cards' },
 						{ label: 'Room handout template', slug: 'classroom/handout-template' },
-						{ label: 'Edit & publish', slug: 'contributing' },
 					],
 				},
 			],

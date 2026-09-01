@@ -21,10 +21,6 @@ Within **72 hours** of any Code Red or Code Blue (including drills that surface 
 - Do classroom handouts need updates?
 - Did media or social media follow the [communication playbook](/communication/#media-and-social-media-playbook)? Any corrections needed?
 
-## Update the source of truth
+## Update this site after debrief
 
-This site is markdown in git. After debrief:
-
-1. Edit pages on GitHub or clone [arnold-emergency](https://github.com/BadBraddA1/arnold-emergency).
-2. Merge to `main` — site redeploys automatically.
-3. Regenerate classroom PDFs if templates changed — see [Contributing](/contributing/).
+If roles, assembly points, or room handouts need changes, contact **Adin Bradd** (System Admin) or an elder so the playbook stays current.

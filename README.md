@@ -17,6 +17,8 @@
 
 Emergency response **playbook** for Arnold Church of Christ — markdown in git, published as a docs site. Clone it, edit procedures, merge to `main`, site updates.
 
+**Editors:** repo workflow is in [docs/EDITORS.md](./docs/EDITORS.md) (not on the live site).
+
 **emergency.arnoldcoc.org = know** · **alarm.arnoldcoc.org = do**
 
 ## Quick start

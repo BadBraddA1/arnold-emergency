@@ -12,7 +12,7 @@ Two print formats for classrooms and offices:
 
 **Map posters** show the floor plan with YOU ARE HERE, route, exits, AED, and first aid. Room numbers and names are already on the building drawing — no extra title banner.
 
-**Door cards** pull exit steps and assembly from `data/room-routes.json`. Post one at each door; laminate if you can.
+**Door cards** show exit steps and assembly for each room. Post one at each door; laminate if you can.
 
 Neither format includes IC steps (app, fob, who ends the code). Teachers wait for the official all clear.
 
@@ -24,33 +24,22 @@ Neither format includes IC steps (app, fob, who ends the code). Teachers wait fo
 2. Find the room → **Print**
 3. Tape or laminate at the door
 
-To change exit wording for all rooms, edit `data/room-routes.json` (or the CSV) and redeploy.
-
-### CLI (optional markdown export)
-
-```bash
-pnpm run generate:classroom -- \
-  --room "Room 107 — Classroom" \
-  --exit "Out door → east → EXIT on right wall" \
-  --assembly "South parking lot"
-```
-
-Output: `generated/room-107-classroom.md` (local only — the site pages above are the staff-facing copy).
+Need updated wording for a room? Tell the incident commander or office — they coordinate site updates after routes change.
 
 ---
 
 ## Map posters
 
-1. Place pins: `pnpm run map:place`
-2. Regenerate: `pnpm run map:generate`
-3. Browse & print: **[Room evacuation posters](/classroom/room-posters/)**
+1. Open **[Room evacuation posters](/classroom/room-posters/)**
+2. Find the room → **Print** or **Open full size**
+3. Post on the wall where everyone can see the route
 
 ---
 
 ## Door card copy reference
 
 **CODE RED — EVACUATE**  
-Leave the building now. **Exit:** _[route]_ → **Assembly:** South parking lot  
+Leave the building now. **Exit:** your marked route → **Assembly:** South parking lot  
 Take roster. Count everyone at assembly.
 
 **CODE BLUE — LOCKDOWN**  
@@ -63,4 +52,4 @@ Lock door, lights off, phones silent. Stay quiet. Do not leave.
 
 ---
 
-*Update when exits or assembly areas change.*
+*Reprint when exits or assembly areas change.*

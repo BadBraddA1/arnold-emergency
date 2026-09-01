@@ -76,16 +76,6 @@ No one should have to guess what **Arnold Alert**, **Code Blue**, or **Fob Arm**
 ## A–Z
 
 <TerminologyList />
-
-## For editors
-
-Terms live in \`src/data/terminology.json\`. After edits, run:
-
-\`\`\`bash
-pnpm run generate:terminology
-\`\`\`
-
-Then commit the updated pages under \`terminology/terms/\`.
 `;
 
 await mkdir(join(root, 'src/content/docs/terminology'), { recursive: true });

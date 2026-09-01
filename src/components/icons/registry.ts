@@ -47,7 +47,6 @@ export const pathIconMap: Record<string, EmergencyIconId> = {
 	'/system/limits/': 'limits',
 	'/system/naming/': 'naming',
 	'/classroom/handout-template/': 'classroom',
-	'/contributing/': 'contributing',
 };
 
 /** Glossary term slug → icon (terminology A–Z pages). */
