@@ -26,11 +26,14 @@ export default defineConfig({
 				'Emergency response procedures for Arnold Church of Christ — the live source of truth.',
 			logo: { alt: 'Arnold Emergency', src: './src/assets/logo.svg' },
 			customCss: ['./src/styles/custom.css'],
+			lastUpdated: true,
+			credits: false,
 			components: {
 				PageFrame: './src/components/PageFrame.astro',
 				PageTitle: './src/components/PageTitle.astro',
 				Hero: './src/components/Hero.astro',
 				SidebarSublist: './src/components/SidebarSublist.astro',
+				LastUpdated: './src/components/LastUpdated.astro',
 			},
 			editLink: {
 				baseUrl: 'https://github.com/BadBraddA1/arnold-emergency/edit/main/',
@@ -82,11 +85,10 @@ export default defineConfig({
 					items: [
 						{ label: 'Roles & responsibilities', slug: 'roles' },
 						{ label: 'Who may trigger a code', slug: 'triggers' },
-						{ label: 'Medical emergency (draft)', slug: 'medical-emergency' },
+						{ label: 'Medical emergency', slug: 'medical-emergency' },
 						{ label: 'Communication checklist', slug: 'communication' },
 						{ label: 'Training & drills', slug: 'training' },
 						{ label: 'Post-incident', slug: 'post-incident' },
-						{ label: 'Leadership approval', slug: 'approval' },
 					],
 				},
 				{

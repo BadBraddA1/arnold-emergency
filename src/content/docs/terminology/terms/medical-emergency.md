@@ -10,7 +10,7 @@ Events like chest pain, seizure, major fall, or unresponsive person — handled 
 
 ## How to use this term
 
-Say **medical emergency** to distinguish from lockdown or evacuate. Playbook is [draft](/medical-emergency/) — leadership decisions still pending.
+Say **medical emergency** to distinguish from lockdown or evacuate. See the [medical emergency playbook](/medical-emergency/).
 
 ## Related terms
 

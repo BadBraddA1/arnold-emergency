@@ -6,7 +6,6 @@ import { iconForPath } from './icons/registry';
 export type SiteMapItem = {
 	href: string;
 	label: string;
-	status: 'usable' | 'wip' | 'draft' | 'reference' | 'template';
 	note: string;
 	icon?: EmergencyIconId;
 };
@@ -17,14 +16,6 @@ export type SiteMapGroup = {
 };
 
 const { groups } = Astro.props as { groups: SiteMapGroup[] };
-
-const statusLabel: Record<SiteMapItem['status'], string> = {
-	usable: 'Usable',
-	wip: 'WIP',
-	draft: 'Draft',
-	reference: 'Reference',
-	template: 'Template',
-};
 
 const groupIcon: Record<string, EmergencyIconId> = {
 	'Start here': 'playbook',
@@ -55,9 +46,6 @@ const groupIcon: Record<string, EmergencyIconId> = {
 										</span>
 									) : null}
 									<span class="site-map-label">{item.label}</span>
-								</span>
-								<span class={`site-map-status site-map-status--${item.status}`}>
-									{statusLabel[item.status]}
 								</span>
 							</a>
 							<p class="site-map-note">{item.note}</p>

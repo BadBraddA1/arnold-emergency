@@ -5,7 +5,7 @@ description: Printable emergency card for Arnold Church of Christ staff.
 
 ```
 CODE RED — EVACUATE
-Leave building now. Assembly: _______________
+Leave building now. Assembly: South parking lot
 Take roster. Count heads. Report missing to IC.
 
 CODE BLUE — LOCKDOWN
@@ -41,11 +41,9 @@ Medical emergency? Call 911 — see emergency.arnoldcoc.org/medical-emergency/
 
 ## Assembly area
 
-_Fill in before printing:_
+**Primary assembly:** South parking lot
 
-**Primary assembly:** _______________________________
-
-**Secondary (weather):** _______________________________
+**Secondary (severe weather):** Fellowship hall — only if IC directs; otherwise remain in south lot away from building
 
 ## Who to call
 
@@ -53,7 +51,7 @@ _Fill in before printing:_
 |------|------|-------|
 | Incident commander | **Allan Miller** | |
 | Backup IC | Jason Powers, Kevin Isenberg, or Shannon Davidson | |
-| Nursery lead | | |
+| Nursery lead | Children's ministry lead on duty | |
 | Office / 911 | **911** | |
 
 ---

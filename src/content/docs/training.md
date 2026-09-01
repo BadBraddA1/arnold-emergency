@@ -5,11 +5,11 @@ description: How often staff practice emergency procedures.
 
 | Activity | Frequency | Owner |
 |----------|-----------|-------|
-| Staff read this SOP | On hire + annually | _[HR / ministry lead]_ |
+| Staff read this SOP | On hire + annually | Ministry leads |
 | Tabletop (Red vs. Blue scenarios) | Quarterly | Allan Miller (deacon over security) |
-| Silent drill (no horns) | _[optional]_ | Allan Miller (IC) |
+| Silent drill (no horns) | As scheduled by IC | Allan Miller (IC) |
 | Live Code Blue + all clear (empty building) | Annually | Allan Miller (deacon over security) |
-| Speaker walk + bell test | When building empty after changes | _[Facilities]_ |
+| Speaker walk + bell test | When building empty after changes | Allan Miller (deacon over security) |
 | PIN / fob access audit | Quarterly | Adin Bradd (System Admin) |
 
 ## New volunteer onboarding
@@ -17,8 +17,8 @@ description: How often staff practice emergency procedures.
 1. Read [Quick reference](/quick-reference/).
 2. **[Listen to campus tones](/system/campus-audio/)** — know Red, Blue, and all clear by ear.
 3. Know your room's exit and assembly point — [Classroom handout](/classroom/handout-template/).
-3. Add **Arnold Alert** to phone if you have a staff PIN.
-4. Attend next quarterly tabletop.
+4. Add **Arnold Alert** to phone if you have a staff PIN.
+5. Attend next quarterly tabletop.
 
 ## Empty-building verification
 

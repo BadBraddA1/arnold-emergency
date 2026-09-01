@@ -1,0 +1,26 @@
+---
+const { lastUpdated } = Astro.locals.starlightRoute;
+
+const formatOptions: Intl.DateTimeFormatOptions = {
+	dateStyle: 'long',
+	timeStyle: 'short',
+	timeZone: 'America/Chicago',
+};
+---
+
+{
+	lastUpdated && (
+		<p class="page-last-updated">
+			Last updated{' '}
+			<time datetime={lastUpdated.toISOString()}>
+				{lastUpdated.toLocaleString('en-US', formatOptions)}
+			</time>
+		</p>
+	)
+}
+
+<style>
+	.page-last-updated {
+		margin: 0;
+	}
+</style>

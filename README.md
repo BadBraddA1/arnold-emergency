@@ -5,7 +5,7 @@
 | **Live site** | https://emergency.arnoldcoc.org |
 | **Local** | `~/Code/arnold-emergency` |
 | **Alarm app** | https://alarm.arnoldcoc.org (Arnold Alert — trigger codes) |
-| **Status** | Draft — leadership sign-off required; staff-only (**noindex** + `robots.txt` Disallow) |
+| **Status** | Staff-only (**noindex** + `robots.txt` Disallow) |
 
 ## Impeccable (design system)
 
@@ -61,7 +61,7 @@ All pages: `src/content/docs/`
 | Quick reference | Printable card |
 | **Terminology** | A–Z glossary — auto-linked across every page |
 | Codes | Red, Blue, all clear |
-| Other | Medical emergency (draft) |
+| Other | Medical emergency |
 | Roles | IC, nursery, pulpit, office — roster on `/roles/`; canonical names in `data/leadership.json` |
 | System | Arnold Alert naming & limits |
 | Classroom | Map posters + door cards — browse & print on site |

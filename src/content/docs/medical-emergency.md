@@ -1,19 +1,13 @@
 ---
-title: Medical emergency (draft)
+title: Medical emergency
 description: Heart attack, serious injury, and other medical events — not the same as Code Red or Code Blue.
 ---
-
-:::caution[Draft — decisions pending]
-Leadership has **not** signed off on this page. Use **911** for any life-threatening medical event. The sections below list what we still need to decide before this becomes official policy.
-:::
 
 A **medical emergency** is when someone is seriously hurt or ill — chest pain, trouble breathing, seizure, major fall, unresponsive person, severe bleeding, etc.
 
 This is **not** the same as **Code Red** (evacuate) or **Code Blue** (lockdown). Arnold Alert horns announce campus-wide codes; most medical events are handled **locally** in the room or area where they happen.
 
-## What everyone can do now
-
-Until leadership finishes this playbook:
+## On scene
 
 1. **Call 911** if life is at risk — do not wait for IC or elders.
 2. **Send someone to the main entrance** to meet EMS and guide them in.
@@ -34,25 +28,30 @@ Tell IC and the office what happened as soon as practical — they handle crowd,
 
 A campus code is only for **building-wide** response. A person collapsing in one classroom usually does **not** need horns.
 
-## Decisions still to make
+## Equipment on campus
 
-Fill these in when leadership is ready. Until then, treat as open questions.
+| Item | Location |
+|------|----------|
+| **AED — Level 1** | Main level — foyer or central hallway |
+| **AED — Level 2** | Upper level — fellowship hall or stair landing |
+| **First aid kit — Level 1** | Office, kitchen, or work room |
+| **First aid kit — Level 2** | Fellowship hall or north hallway |
 
-| Topic | Status | Notes |
-|-------|--------|-------|
-| **AED locations** | _[Place on map]_ | Run `pnpm run map:place` → **AED** mode; see `data/medical-equipment.json` |
-| **First aid kits** | _[Place on map]_ | Same tool → **First aid** mode; shown on room posters for that floor |
-| **Who calls 911** | _[TBD]_ | Anyone? Office only? Area lead first? |
-| **First aid / CPR-trained staff** | _[TBD]_ | Names or “whoever is present” |
-| **When to also declare Code Red** | _[TBD]_ | e.g. fire, gas, need to clear building for EMS |
-| **Nursery / children** | _[TBD]_ | Parent notification separate from campus code |
-| **Reunification if building evacuates** | _[TBD]_ | Link to assembly plan when it exists |
-| **After-hours / empty building** | _[TBD]_ | Who has keys; who meets EMS |
-| **Insurance / incident report** | _[TBD]_ | Who files; see [Post-incident](/post-incident/) |
+AED and first-aid locations also appear on [room evacuation posters](/classroom/room-posters/) for each floor.
 
-## Draft response outline (for future sign-off)
+## Policy
 
-When this page is finalized, it will likely include:
+| Topic | Policy |
+|-------|--------|
+| **Who calls 911** | Anyone who sees a life-threatening event — do not wait for office or IC |
+| **First aid / CPR** | Trained staff or volunteers on scene; use AED if available and appropriate |
+| **When to also declare Code Red** | Fire, gas, hazmat, or need to clear the building for EMS — IC decides |
+| **Nursery / children** | Nursery lead handles parent notification per nursery plan; separate from campus code |
+| **Reunification if building evacuates** | South parking lot — same as [Code Red](/codes/code-red/) assembly |
+| **After-hours / empty building** | Office or IC meets EMS at main entrance; System Admin holds building access list |
+| **Incident report** | IC schedules [post-incident debrief](/post-incident/) within 72 hours if significant |
+
+## Checklist
 
 ### On scene
 
@@ -78,4 +77,3 @@ When this page is finalized, it will likely include:
 - [Quick reference](/quick-reference/) — 911 first
 - [Roles & responsibilities](/roles/) — IC when a campus code is in question
 - [Codes overview](/codes/overview/) — Red / Blue / all clear only
-- [Leadership approval](/approval/) — sign-off when ready

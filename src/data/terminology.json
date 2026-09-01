@@ -98,7 +98,7 @@
     "term": "Medical emergency",
     "short": "Serious illness or injury (not a campus code)",
     "what": "Events like chest pain, seizure, major fall, or unresponsive person — handled with **911** and on-scene first aid. Usually **does not** use Code Red or Code Blue unless IC orders a building-wide response.",
-    "usage": "Say **medical emergency** to distinguish from lockdown or evacuate. Playbook is [draft](/medical-emergency/) — leadership decisions still pending.",
+    "usage": "Say **medical emergency** to distinguish from lockdown or evacuate. See the [medical emergency playbook](/medical-emergency/).",
     "related": ["incident-commander", "code-red", "all-clear", "arnold-emergency"]
   },
   {

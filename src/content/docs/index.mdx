@@ -3,7 +3,7 @@ title: Arnold Emergency
 description: Emergency response procedures for Arnold Church of Christ.
 template: splash
 hero:
-  tagline: The human playbook for Code Red, Code Blue, and everything around them. Campus horns run on Arnold Alert — this site is who does what. Published for real use; leadership sign-off and several fields still in progress.
+  tagline: The human playbook for Code Red, Code Blue, and everything around them. Campus horns run on Arnold Alert — this site is who does what.
   actions:
     - text: Hear campus clips
       link: /system/campus-audio/
@@ -20,10 +20,6 @@ hero:
 import CrisisCard from '../../components/CrisisCard.astro';
 import ToolPair from '../../components/ToolPair.astro';
 import SiteMapList from '../../components/SiteMapList.astro';
-
-:::caution[Work in progress]
-This site is **live for staff review** — not final policy until [Leadership approval](/approval/) is signed. Pages marked **Draft** or **WIP** have intentional blanks (names, assembly areas, medical decisions). Use what is written; do not invent missing details.
-:::
 
 ## Two tools
 
@@ -45,7 +41,7 @@ This site is **live for staff review** — not final policy until [Leadership ap
 		IC only — [procedure](/codes/all-clear/)
 	</CrisisCard>
 	<CrisisCard title="911" icon="medical" tone="amber">
-		Life threat — call **911** first. [Medical (draft)](/medical-emergency/)
+		Life threat — call **911** first. [Medical emergency](/medical-emergency/)
 	</CrisisCard>
 </div>
 
@@ -53,58 +49,55 @@ This site is **live for staff review** — not final policy until [Leadership ap
 
 <span id="site-map"></span>
 
-Everything on this site — status shows how complete each page is.
-
-**Usable** · **WIP** · **Draft** · **Reference** · **Template**
+Everything on this site — procedures, roles, classroom handouts, and Arnold Alert reference.
 
 <div class="site-map">
 <SiteMapList groups={[
   {
     title: 'Start here',
     items: [
-      { href: '/system/campus-audio/', label: 'Campus audio — hear the clips', status: 'reference', note: 'Code Red, Blue, Green, bells — tap play' },
-      { href: '/quick-reference/', label: 'Quick reference', status: 'wip', note: 'Printable card — assembly area still blank' },
-      { href: '/terminology/', label: 'Terminology', status: 'reference', note: 'A–Z glossary; dotted green links site-wide' },
+      { href: '/system/campus-audio/', label: 'Campus audio — hear the clips', note: 'Code Red, Blue, Green, bells — tap play' },
+      { href: '/quick-reference/', label: 'Quick reference', note: 'Printable card for staff and classrooms' },
+      { href: '/terminology/', label: 'Terminology', note: 'A–Z glossary; dotted green links site-wide' },
     ],
   },
   {
     title: 'Emergency codes',
     items: [
-      { href: '/codes/overview/', label: 'Codes overview', status: 'usable', note: 'Red vs. Blue vs. all clear' },
-      { href: '/codes/code-red/', label: 'Code Red — Evacuate', status: 'wip', note: 'Procedure written; assembly area TBD' },
-      { href: '/codes/code-blue/', label: 'Code Blue — Lockdown', status: 'usable', note: 'Shelter in place steps' },
-      { href: '/codes/all-clear/', label: 'All clear', status: 'usable', note: 'Who may end an active code' },
+      { href: '/codes/overview/', label: 'Codes overview', note: 'Red vs. Blue vs. all clear' },
+      { href: '/codes/code-red/', label: 'Code Red — Evacuate', note: 'Leave the building; assembly at south parking lot' },
+      { href: '/codes/code-blue/', label: 'Code Blue — Lockdown', note: 'Shelter in place steps' },
+      { href: '/codes/all-clear/', label: 'All clear', note: 'Who may end an active code' },
     ],
   },
   {
     title: 'People & process',
     items: [
-      { href: '/roles/', label: 'Roles & responsibilities', status: 'wip', note: 'IC, nursery, pulpit — names not filled in' },
-      { href: '/triggers/', label: 'Who may trigger a code', status: 'usable', note: 'App, fob, 9090, PIN scopes' },
-      { href: '/medical-emergency/', label: 'Medical emergency', status: 'draft', note: '911 now; AED / policy TBD' },
-      { href: '/communication/', label: 'Communication checklist', status: 'wip', note: 'IC checklist + media/social playbook; names TBD' },
-      { href: '/training/', label: 'Training & drills', status: 'wip', note: 'Schedule; owners TBD' },
-      { href: '/post-incident/', label: 'Post-incident', status: 'usable', note: 'Debrief within 72 hours' },
-      { href: '/approval/', label: 'Leadership approval', status: 'wip', note: 'Sign-off record — not signed' },
+      { href: '/roles/', label: 'Roles & responsibilities', note: 'IC, nursery, pulpit, office, spokesperson' },
+      { href: '/triggers/', label: 'Who may trigger a code', note: 'App, fob, 9090, PIN scopes' },
+      { href: '/medical-emergency/', label: 'Medical emergency', note: '911 first; AED and local response' },
+      { href: '/communication/', label: 'Communication checklist', note: 'IC checklist + media/social playbook' },
+      { href: '/training/', label: 'Training & drills', note: 'Onboarding, tabletop, and live drills' },
+      { href: '/post-incident/', label: 'Post-incident', note: 'Debrief within 72 hours' },
     ],
   },
   {
     title: 'Arnold Alert (system)',
     items: [
-      { href: '/system/arnold-alert/', label: 'How Arnold Alert works', status: 'usable', note: 'Mobile, desk, fobs, horns, 9090' },
-      { href: '/system/campus-audio/', label: 'Campus audio reference', status: 'reference', note: 'Play Red, Blue, Green, bells' },
-      { href: '/system/arm-standby/', label: 'Arm & standby', status: 'usable', note: 'Armed vs. standby' },
-      { href: '/system/limits/', label: 'System limits', status: 'usable', note: 'What horns do not do' },
-      { href: '/system/naming/', label: 'Naming guide', status: 'reference', note: 'Arnold Alert vocabulary' },
+      { href: '/system/arnold-alert/', label: 'How Arnold Alert works', note: 'Mobile, desk, fobs, horns, 9090' },
+      { href: '/system/campus-audio/', label: 'Campus audio reference', note: 'Play Red, Blue, Green, bells' },
+      { href: '/system/arm-standby/', label: 'Arm & standby', note: 'Armed vs. standby' },
+      { href: '/system/limits/', label: 'System limits', note: 'What horns do not do' },
+      { href: '/system/naming/', label: 'Naming guide', note: 'Arnold Alert vocabulary' },
     ],
   },
   {
     title: 'Classrooms & publishing',
     items: [
-      { href: '/classroom/room-posters/', label: 'Room evacuation posters', status: 'usable', note: 'Browse, open, and print per-room maps' },
-      { href: '/classroom/door-cards/', label: 'Door cards', status: 'usable', note: 'Text checklist per room — print at the door' },
-      { href: '/classroom/handout-template/', label: 'Handout workflow', status: 'reference', note: 'Posters vs door cards' },
-      { href: '/contributing/', label: 'Edit & publish', status: 'reference', note: 'How to update this site' },
+      { href: '/classroom/room-posters/', label: 'Room evacuation posters', note: 'Browse, open, and print per-room maps' },
+      { href: '/classroom/door-cards/', label: 'Door cards', note: 'Text checklist per room — print at the door' },
+      { href: '/classroom/handout-template/', label: 'Handout workflow', note: 'Posters vs door cards' },
+      { href: '/contributing/', label: 'Edit & publish', note: 'How to update this site' },
     ],
   },
 ]} />
@@ -115,9 +108,7 @@ Everything on this site — status shows how complete each page is.
 40 terms — each has its own page under [Terminology](/terminology/). Examples: [Incident commander](/terminology/terms/incident-commander/), [Campus Horns](/terminology/terms/campus-horns/), [Alert Fobs](/terminology/terms/alert-fobs/), [Medical emergency](/terminology/terms/medical-emergency/).
 
 :::note[How to read this site]
-- **Dotted green links** → term definitions  
-- **Blank fields** `_[like this]_` → leadership still deciding  
-- **Source of truth** — markdown in [GitHub](https://github.com/BadBraddA1/arnold-emergency); merge to `main` updates the live site  
+- **Dotted green links** → term definitions
+- **Source of truth** — markdown in [GitHub](https://github.com/BadBraddA1/arnold-emergency); merge to `main` updates the live site
+- **Last updated** — each page shows when it was last changed at the bottom
 :::
-
-**Next step for leadership:** [Approval](/approval/) → then fill [Roles](/roles/), [Quick reference](/quick-reference/) assembly area, and [Medical emergency](/medical-emergency/) decisions.

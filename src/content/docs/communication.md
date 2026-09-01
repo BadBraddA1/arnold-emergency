@@ -20,17 +20,17 @@ Only these people speak for the church to **press, social media, or the wider co
 
 | Role | Name | Phone | Backup |
 |------|------|-------|--------|
-| **Primary spokesperson** | _[name]_ | _[phone]_ | _[name]_ |
-| **Backup spokesperson** | _[name]_ | _[phone]_ | IC or elder on duty |
+| **Primary spokesperson** | Confirm with office | — | IC or elder on duty |
+| **Backup spokesperson** | Elder on duty | — | IC |
 | **IC (incident commander)** | **Allan Miller** (always primary) | — | Jason Powers, Kevin Isenberg, or Shannon Davidson |
 
 **Relationship to IC:** The IC runs the scene. The spokesperson runs **words leaving the building**. They stay in contact — IC approves what is said publicly; spokesperson does not invent facts or speculate.
 
-| Leadership still decides | Assignment |
-|--------------------------|------------|
-| Official church social accounts (who has login) | _[TBD — e.g. office / comms lead]_ |
-| Congregation text/email blast tool | _[TBD — e.g. Planning Center, group text chain]_ |
-| Whether elders co-sign public statements | _[TBD]_ |
+| Channel | Who manages |
+|---------|-------------|
+| Official church social accounts | Office staff with account access |
+| Congregation text/email | Office or designated spokesperson |
+| Public statements | Spokesperson with IC approval |
 
 ---
 
@@ -59,7 +59,7 @@ Staff and members should **not** tag the church, elders, or “@” official acc
 
 ### Press on campus
 
-1. **Designate a media staging area** away from children, patients, and command — _[e.g. north parking lot near flagpole — TBD]_.
+1. **Designate a media staging area** away from children, patients, and command — IC assigns on scene (typically north parking lot, away from the building).
 2. Spokesperson (or IC if spokesperson not yet on site) meets press **at the staging area**, not at doors or nursery.
 3. **Do not** let media into the building during an active code without law-enforcement approval.
 4. If asked something you do not know: *“I don’t have that confirmed yet; we’ll update when we do.”*
@@ -71,14 +71,14 @@ Staff and members should **not** tag the church, elders, or “@” official acc
 
 - Pause scheduled posts immediately.
 - No new posts until IC and spokesperson agree on message.
-- Turn off or monitor comments on official pages if needed — _[who has admin access: TBD]_.
+- Office staff with admin access monitor or restrict comments on official pages if needed.
 - Do **not** delete sincere questions without a brief pinned reply pointing to the spokesperson or “statement forthcoming.”
 
 **What you may post (when IC confirms):**
 
 - That an incident occurred and emergency services are on site
 - That people on campus are following the emergency plan
-- Where to get official updates (this site, church website, or _[congregation email/text channel — TBD]_)
+- Where to get official updates (this site, [arnoldcoc.org](https://arnoldcoc.org), or congregation email from office)
 - All-clear or “services canceled / building closed” when IC authorizes
 
 **What you must not post:**
@@ -94,7 +94,7 @@ Separate from media — often more urgent than Twitter.
 
 | Channel | Who sends | When |
 |---------|-----------|------|
-| Text / email to whole congregation | _[TBD — office or spokesperson]_ | After IC confirms; not during active threat in building |
+| Text / email to whole congregation | Office or spokesperson | After IC confirms; not during active threat in building |
 | Nursery / children's parents | Nursery lead per [roles](/roles/) | Per nursery plan; IC coordinates timing |
 | Staff group chat | IC or area leads | Operational only — not a substitute for official message |
 
@@ -102,26 +102,26 @@ Message should be **short, factual, and calm**. Link to where the next update wi
 
 ### Sample holding statements
 
-Edit with leadership; keep printed or in phone notes.
+Keep these in phone notes; edit names and details on scene.
 
 **Active incident (minimal):**
 
-> Arnold Church of Christ is responding to an emergency on campus. Emergency services are involved. We are following our safety procedures. We will share confirmed information through our official channels. Please do not come to the campus unless you are an authorized responder. For media inquiries contact _[spokesperson name / phone]_.
+> Arnold Church of Christ is responding to an emergency on campus. Emergency services are involved. We are following our safety procedures. We will share confirmed information through our official channels. Please do not come to the campus unless you are an authorized responder. For media inquiries contact the designated spokesperson.
 
 **All clear (building safe, no injuries to report):**
 
-> The emergency on our campus has ended. Everyone on site has been accounted for under our plan. _[Services at X time are canceled / will continue as scheduled — TBD.]_ Thank you to first responders and our staff.
+> The emergency on our campus has ended. Everyone on site has been accounted for under our plan. We will share service schedule updates through our official channels. Thank you to first responders and our staff.
 
 **When details are still with law enforcement:**
 
-> We are cooperating with law enforcement. Out of respect for those involved and the investigation, we will not share further details at this time. Updates will be posted at _[URL or channel]_.
+> We are cooperating with law enforcement. Out of respect for those involved and the investigation, we will not share further details at this time. Updates will be posted at emergency.arnoldcoc.org and arnoldcoc.org.
 
 ### After all clear
 
 Within **24–72 hours** (see [Post-incident](/post-incident/)):
 
 - [ ] Final congregation message if different from holding statement
-- [ ] Thank first responders (public post optional — leadership decides)
+- [ ] Thank first responders (public post optional — IC decides)
 - [ ] Review any viral social posts; correct misinformation **once**, calmly, on official channels only
 - [ ] Debrief: did spokesperson get facts fast enough? Who almost posted? Update this page.
 
@@ -141,4 +141,4 @@ Horns do **not** call parents, lock doors, tell rooms which exit to use, or spea
 
 - [Roles & responsibilities](/roles/) — IC and area leads
 - [Post-incident](/post-incident/) — debrief within 72 hours
-- [Medical emergency (draft)](/medical-emergency/) — privacy at scene
+- [Medical emergency](/medical-emergency/) — privacy at scene

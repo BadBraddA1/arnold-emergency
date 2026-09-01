@@ -3,7 +3,7 @@ title: Roles & responsibilities
 description: Who is responsible for what during a campus emergency.
 ---
 
-Fill in backups where still blank. **Review quarterly.**
+**Review quarterly** — confirm names and backups with elders and area leads.
 
 ## Leadership roster
 
@@ -32,12 +32,10 @@ Fill in backups where still blank. **Review quarterly.**
 
 ## Deacon over security
 
-*(Former title: Security / facilities lead.)*
-
 | Field | Assignment |
 |-------|------------|
 | **Primary** | Allan Miller |
-| **Backup** | _[name]_ |
+| **Backup** | Elder on duty |
 
 **Responsibilities:**
 
@@ -62,8 +60,8 @@ Fill in backups where still blank. **Review quarterly.**
 
 | Field | Assignment |
 |-------|------------|
-| **Primary** | _[name]_ |
-| **Backup** | _[name]_ |
+| **Primary** | Children's ministry lead on duty |
+| **Backup** | Second adult in nursery suite |
 
 **Responsibilities:**
 
@@ -74,7 +72,7 @@ Fill in backups where still blank. **Review quarterly.**
 
 | Field | Assignment |
 |-------|------------|
-| **Primary** | _[name]_ |
+| **Primary** | Worship or teaching lead on duty |
 
 **Responsibilities:**
 
@@ -86,7 +84,7 @@ Fill in backups where still blank. **Review quarterly.**
 
 | Field | Assignment |
 |-------|------------|
-| **Primary** | _[name]_ |
+| **Primary** | Office staff on duty |
 
 **Responsibilities:**
 
@@ -99,8 +97,8 @@ Fill in backups where still blank. **Review quarterly.**
 
 | Field | Assignment |
 |-------|------------|
-| **Primary** | _[name]_ |
-| **Backup** | _[name]_ |
+| **Primary** | Designated spokesperson — confirm with office |
+| **Backup** | IC or elder on duty |
 
 **Responsibilities:**
 
