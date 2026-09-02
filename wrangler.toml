@@ -1,3 +1,11 @@
 name = "arnold-emergency"
 pages_build_output_dir = "dist"
 compatibility_date = "2026-08-30"
+
+[[kv_namespaces]]
+binding = "ROOM_READS"
+id = "5c99dc28502748b3a0e49cdb99b6f84f"
+preview_id = "3b5db1a60969470d84675d42e569659b"
+
+[vars]
+ROOM_STATS_PIN = "arnold-rooms"

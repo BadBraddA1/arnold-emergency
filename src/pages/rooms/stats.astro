@@ -1,0 +1,140 @@
+---
+import roomRoutes from '../../../data/room-routes.json';
+import { formatRoomLabel, sortRoomsByFloor } from '../../lib/rooms.mjs';
+
+const rooms = [...roomRoutes.rooms].sort(sortRoomsByFloor).map((r) => ({
+	id: r.id,
+	label: formatRoomLabel(r.id, r.name),
+	floor: r.floor,
+}));
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="robots" content="noindex, nofollow" />
+		<title>Room check-in stats — Arnold Emergency</title>
+		<link rel="stylesheet" href="/room-page.css" />
+	</head>
+	<body class="room-page">
+		<header class="room-top">
+			<p class="room-kicker">Arnold Emergency · Staff</p>
+			<h1>Room check-ins</h1>
+			<p class="room-sub">Who has reviewed their room page after scanning the door QR.</p>
+		</header>
+
+		<section class="room-card" id="pin-gate">
+			<label class="room-label" for="stats-pin">Staff PIN</label>
+			<input id="stats-pin" class="room-input" type="password" autocomplete="current-password" />
+			<button type="button" class="room-btn room-btn--primary" id="load-stats">Show stats</button>
+			<p class="room-status" id="stats-error" hidden></p>
+		</section>
+
+		<section class="room-card" id="stats-panel" hidden>
+			<h2>All rooms</h2>
+			<p class="room-muted" id="stats-meta"></p>
+			<div id="stats-list"></div>
+		</section>
+
+		<footer class="room-foot">
+			<p><a href="/rooms/">← All rooms</a> · <a href="/">Playbook</a></p>
+		</footer>
+
+		<script is:inline define:vars={{ rooms }}>
+			(function () {
+				const PIN_KEY = 'ae-room-stats-pin';
+				const pinInput = document.getElementById('stats-pin');
+				const err = document.getElementById('stats-error');
+				const panel = document.getElementById('stats-panel');
+				const list = document.getElementById('stats-list');
+				const meta = document.getElementById('stats-meta');
+				const saved = sessionStorage.getItem(PIN_KEY);
+				if (saved && pinInput) pinInput.value = saved;
+
+				async function load() {
+					const pin = (pinInput && pinInput.value) || '';
+					err.hidden = true;
+					const res = await fetch('/api/room-track?pin=' + encodeURIComponent(pin));
+					if (!res.ok) {
+						err.hidden = false;
+						err.textContent = res.status === 401 ? 'Wrong PIN.' : 'Could not load stats.';
+						panel.hidden = true;
+						return;
+					}
+					sessionStorage.setItem(PIN_KEY, pin);
+					const data = await res.json();
+					panel.hidden = false;
+					meta.textContent = 'Updated ' + new Date(data.updatedAt).toLocaleString();
+					const byId = data.rooms || {};
+					list.innerHTML = rooms
+						.map(function (r) {
+							const s = byId[r.id] || { views: 0, acks: 0, recentAcks: [] };
+							const recent = (s.recentAcks || [])
+								.slice(0, 5)
+								.map(function (a) {
+									return (
+										'<li>' +
+										escapeHtml(a.name) +
+										' · ' +
+										new Date(a.at).toLocaleString() +
+										'</li>'
+									);
+								})
+								.join('');
+							return (
+								'<article class="stats-row">' +
+								'<a href="/rooms/' +
+								r.id +
+								'/"><strong>' +
+								escapeHtml(r.label) +
+								'</strong></a>' +
+								'<p class="room-muted">Level ' +
+								r.floor +
+								' · ' +
+								s.acks +
+								' checked in · ' +
+								s.views +
+								' views</p>' +
+								(recent ? '<ul class="stats-recent">' + recent + '</ul>' : '') +
+								'</article>'
+							);
+						})
+						.join('');
+				}
+
+				function escapeHtml(s) {
+					return String(s)
+						.replace(/&/g, '&amp;')
+						.replace(/</g, '&lt;')
+						.replace(/>/g, '&gt;')
+						.replace(/"/g, '&quot;');
+				}
+
+				document.getElementById('load-stats').addEventListener('click', load);
+				if (saved) load();
+			})();
+		</script>
+		<style is:global>
+			.stats-row {
+				padding: 0.75rem 0;
+				border-top: 1px solid var(--ae-border);
+			}
+			.stats-row:first-child {
+				border-top: none;
+				padding-top: 0;
+			}
+			.stats-row a {
+				color: var(--ae-accent-high);
+				text-decoration: none;
+			}
+			.stats-recent {
+				margin: 0.35rem 0 0;
+				padding-left: 1.1rem;
+				font-size: 0.82rem;
+				color: var(--ae-muted);
+			}
+		</style>
+	</body>
+</html>

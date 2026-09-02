@@ -1,0 +1,57 @@
+---
+import roomRoutes from '../../../data/room-routes.json';
+import { formatRoomLabel, sortRoomsByFloor } from '../../lib/rooms.mjs';
+
+const byFloor = [1, 2].map((floor) => ({
+	floor,
+	rooms: roomRoutes.rooms.filter((r) => r.floor === floor).sort(sortRoomsByFloor),
+}));
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="robots" content="noindex, nofollow" />
+		<title>Rooms — Arnold Emergency</title>
+		<link rel="stylesheet" href="/room-page.css" />
+	</head>
+	<body class="room-page">
+		<header class="room-top">
+			<p class="room-kicker">Arnold Emergency</p>
+			<h1>Rooms</h1>
+			<p class="room-sub">
+				Scan the door QR or open your room — review the exit, then check in. Full playbook is on the
+				<a href="/">home page</a>.
+			</p>
+		</header>
+
+		{
+			byFloor.map(({ floor, rooms }) =>
+				rooms.length ? (
+					<section class="room-card" aria-labelledby={`floor-${floor}`}>
+						<h2 id={`floor-${floor}`}>Level {floor}</h2>
+						<ul class="room-links">
+							{rooms.map((room) => (
+								<li>
+									<a href={`/rooms/${room.id}/`}>{formatRoomLabel(room.id, room.name)}</a>
+								</li>
+							))}
+						</ul>
+					</section>
+				) : null,
+			)
+		}
+
+		<section class="room-card">
+			<h2>Staff tracking</h2>
+			<p class="room-muted">Leadership: see how many staff have reviewed each room.</p>
+			<a class="room-btn room-btn--primary" href="/rooms/stats/">Room check-in stats</a>
+		</section>
+
+		<footer class="room-foot">
+			<p><a href="/">← Full playbook</a></p>
+		</footer>
+	</body>
+</html>

@@ -45,7 +45,9 @@ Take roster. Count everyone at assembly.
 **CODE BLUE — LOCKDOWN**  
 Lock door, lights off, phones silent. Stay quiet. Do not leave.
 
-**911** when life is at risk. Each door card includes a **read-aloud script** with church name, address, room, and level — plus a QR code to the playbook at [emergency.arnoldcoc.org](https://emergency.arnoldcoc.org).
+**911** when life is at risk. Each door card includes a **read-aloud script** plus a **QR to that room’s page** (`/rooms/107/` etc.) — staff check in after reviewing, then can open the full playbook.
+
+**Staff tracking:** [/rooms/stats/](/rooms/stats/) (PIN required).
 
 ---
 

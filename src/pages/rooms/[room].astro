@@ -1,0 +1,220 @@
+---
+import roomRoutes from '../../../data/room-routes.json';
+import overlay from '../../../data/room-map-overlay.json';
+import { formatRoomLabel, sortRoomsByFloor } from '../../lib/rooms.mjs';
+
+export function getStaticPaths() {
+	return roomRoutes.rooms.map((room) => ({ params: { room: room.id } }));
+}
+
+const { room: roomId } = Astro.params;
+const meta = roomRoutes.rooms.find((r) => r.id === roomId);
+if (!meta) throw new Error(`Unknown room: ${roomId}`);
+
+const title = formatRoomLabel(meta.id, meta.name);
+const assembly = roomRoutes.meta.assemblyDefault ?? 'South parking lot';
+const assemblySecondary = roomRoutes.meta.assemblySecondary ?? '';
+const exitLabels = roomRoutes.exits;
+const exitLabel = exitLabels[meta.nearestExit] ?? meta.nearestExit;
+const hasPoster = Boolean(overlay.rooms?.[meta.id]);
+const church = roomRoutes.meta.church ?? 'Arnold Church of Christ';
+const address = roomRoutes.meta.address ?? '1363 Jeffco Blvd, Arnold, MO 63010';
+const floorNote = ` on level ${meta.floor}`;
+
+const siblings = roomRoutes.rooms
+	.filter((r) => r.floor === meta.floor)
+	.sort(sortRoomsByFloor)
+	.map((r) => ({ id: r.id, label: formatRoomLabel(r.id, r.name) }));
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
+		<title>{title} — Arnold Emergency</title>
+		<link rel="stylesheet" href="/room-page.css" />
+	</head>
+	<body class="room-page" data-room-id={meta.id}>
+		<header class="room-top">
+			<p class="room-kicker">Arnold Emergency · Level {meta.floor}</p>
+			<h1>{title}</h1>
+			<p class="room-sub">Your room card — know this exit, then open the full playbook.</p>
+		</header>
+
+		<section class="room-card room-card--actions" aria-label="Acknowledge">
+			<h2>Staff check-in</h2>
+			<p class="room-muted">
+				Tap when you’ve reviewed this room’s exit and codes. Leadership can see how many staff have
+				checked in.
+			</p>
+			<label class="room-label" for="staff-name">Your name (optional)</label>
+			<input id="staff-name" class="room-input" type="text" autocomplete="name" placeholder="e.g. Jamie" maxlength="80" />
+			<button type="button" class="room-btn room-btn--primary" id="ack-btn">I’ve reviewed this room</button>
+			<p class="room-status" id="ack-status" hidden></p>
+		</section>
+
+		<section class="room-card" aria-label="This room">
+			<h2>This room</h2>
+			<dl class="room-facts">
+				<div>
+					<dt>Exit path</dt>
+					<dd>{meta.path}</dd>
+				</div>
+				<div>
+					<dt>Nearest exit</dt>
+					<dd>{exitLabel}</dd>
+				</div>
+				<div>
+					<dt>Assembly</dt>
+					<dd>
+						<strong>{assembly}</strong>
+						{assemblySecondary ? <span class="room-muted"> · Weather: lower auditorium if IC directs</span> : null}
+					</dd>
+				</div>
+			</dl>
+			{
+				hasPoster ? (
+					<a class="room-poster" href={`/posters/room-${meta.id}.png`} target="_blank" rel="noopener">
+						<img
+							src={`/posters/room-${meta.id}.png`}
+							alt={`Evacuation map for ${title}`}
+							width="794"
+							height="1286"
+							loading="eager"
+							decoding="async"
+						/>
+						<span>Open full map</span>
+					</a>
+				) : null
+			}
+		</section>
+
+		<section class="room-card" aria-label="Codes">
+			<h2 class="code-red">Code Red — Evacuate</h2>
+			<p>Leave the building now. Calm voice: <em>“We’re leaving — follow me.”</em></p>
+			<p>
+				<strong>Exit:</strong> {meta.path} → <strong>Assembly:</strong> {assembly}
+			</p>
+			<p>Take your roster. Count everyone at assembly.</p>
+
+			<h2 class="code-blue">Code Blue — Lockdown</h2>
+			<p>Lock the door, lights off, phones silent. Stay quiet. Do not leave.</p>
+			<p>Do not open the door except law enforcement or verified IC.</p>
+
+			<h2 class="code-amber">911</h2>
+			<p>Call <strong>911</strong> first when life is at risk. Campus horns do not call police for you.</p>
+			<div class="room-script">
+				<p class="room-script-label">Say this:</p>
+				<p>
+					“I need help at {church}, {address}. I am in {title}
+					{floorNote}. <em>[Describe what happened]</em>”
+				</p>
+			</div>
+		</section>
+
+		<section class="room-card" aria-label="Broader playbook">
+			<h2>More on the playbook</h2>
+			<ul class="room-links">
+				<li><a href="/">Home — all procedures</a></li>
+				<li><a href="/quick-reference/">Quick reference</a></li>
+				<li><a href="/system/campus-audio/">Hear campus tones</a></li>
+				<li><a href="/codes/overview/">Codes overview</a></li>
+				<li><a href={`/print/door-card/${meta.id}/`}>Print door card</a></li>
+				{hasPoster ? <li><a href={`/classroom/room-posters/#room-${meta.id}`}>Browse map posters</a></li> : null}
+				<li><a href="/rooms/">All rooms</a></li>
+			</ul>
+		</section>
+
+		{
+			siblings.length > 1 ? (
+				<section class="room-card" aria-label="Same floor">
+					<h2>Same floor</h2>
+					<ul class="room-links room-links--compact">
+						{siblings
+							.filter((s) => s.id !== meta.id)
+							.map((s) => (
+								<li>
+									<a href={`/rooms/${s.id}/`}>{s.label}</a>
+								</li>
+							))}
+					</ul>
+				</section>
+			) : null
+		}
+
+		<footer class="room-foot">
+			<p>
+				<a href="/">emergency.arnoldcoc.org</a> · Staff only
+			</p>
+		</footer>
+
+		<script is:inline>
+			(function () {
+				const roomId = document.body.getAttribute('data-room-id');
+				if (!roomId) return;
+
+				const KEY = 'ae-room-device';
+				let deviceId = localStorage.getItem(KEY);
+				if (!deviceId) {
+					deviceId =
+						(crypto.randomUUID && crypto.randomUUID()) ||
+						'dev-' + Math.random().toString(36).slice(2) + Date.now().toString(36);
+					localStorage.setItem(KEY, deviceId);
+				}
+
+				const ackKey = 'ae-room-ack:' + roomId;
+				const status = document.getElementById('ack-status');
+				const btn = document.getElementById('ack-btn');
+				const nameInput = document.getElementById('staff-name');
+
+				function setStatus(msg, ok) {
+					if (!status) return;
+					status.hidden = false;
+					status.textContent = msg;
+					status.className = 'room-status' + (ok ? ' room-status--ok' : '');
+				}
+
+				async function track(action, name) {
+					try {
+						const res = await fetch('/api/room-track', {
+							method: 'POST',
+							headers: { 'Content-Type': 'application/json' },
+							body: JSON.stringify({ action: action, roomId: roomId, deviceId: deviceId, name: name || '' }),
+						});
+						return await res.json();
+					} catch (e) {
+						return { ok: false, error: 'network' };
+					}
+				}
+
+				track('view');
+
+				if (localStorage.getItem(ackKey) === '1') {
+					setStatus('You’re checked in for this room on this phone.', true);
+					if (btn) {
+						btn.disabled = true;
+						btn.textContent = 'Already reviewed';
+					}
+				}
+
+				btn &&
+					btn.addEventListener('click', async function () {
+						btn.disabled = true;
+						btn.textContent = 'Saving…';
+						const data = await track('ack', (nameInput && nameInput.value) || '');
+						if (data && data.ok) {
+							localStorage.setItem(ackKey, '1');
+							setStatus('Thanks — checked in. Open the playbook below for more.', true);
+							btn.textContent = 'Reviewed';
+						} else {
+							btn.disabled = false;
+							btn.textContent = 'I’ve reviewed this room';
+							setStatus('Could not save — try again when you have signal.', false);
+						}
+					});
+			})();
+		</script>
+	</body>
+</html>

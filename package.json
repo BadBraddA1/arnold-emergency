@@ -12,7 +12,8 @@
     "map:place": "node tools/map-placement/serve.mjs",
     "map:generate": "node scripts/generate-room-posters.mjs",
     "generate:terminology": "node scripts/generate-terminology.mjs",
-    "build": "pnpm run generate:terminology && astro build",
+    "generate:room-qr": "node scripts/generate-room-qr.mjs",
+    "build": "pnpm run generate:terminology && pnpm run generate:room-qr && astro build",
     "deploy": "pnpm build && pnpm exec wrangler pages deploy dist --project-name=arnold-emergency"
   },
   "dependencies": {

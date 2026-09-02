@@ -66,7 +66,7 @@ All pages: `src/content/docs/`
 | Other | Medical emergency |
 | Roles | IC, nursery, pulpit, office — roster on `/roles/`; canonical names in `data/leadership.json` |
 | System | Arnold Alert naming & limits |
-| Classroom | Map posters + door cards — browse & print on site |
+| Classroom | Map posters, door cards, per-room pages (`/rooms/`) + check-in tracking |
 
 ### Campus audio
 

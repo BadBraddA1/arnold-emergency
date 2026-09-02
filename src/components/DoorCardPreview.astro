@@ -1,17 +1,22 @@
 ---
 import roomRoutes from '../../data/room-routes.json';
 
-const { title, exit, assembly, floor, compact = false } = Astro.props as {
+const { title, exit, assembly, floor, roomId, compact = false } = Astro.props as {
 	title: string;
 	exit: string;
 	assembly: string;
 	floor?: number;
+	roomId?: string;
 	compact?: boolean;
 };
 
 const church = roomRoutes.meta.church ?? 'Arnold Church of Christ';
 const address = roomRoutes.meta.address ?? '1363 Jeffco Blvd, Arnold, MO 63010';
 const floorNote = floor ? ` on level ${floor}` : '';
+const qrSrc = roomId ? `/qr/rooms/${roomId}.svg` : '/qr-playbook.svg';
+const playbookHint = roomId
+	? 'Scan for this room’s exit, codes, and check-in — then open the full playbook.'
+	: 'Scan to brush up on our emergency protocols.';
 ---
 
 <article class:list={['door-card', 'not-content', compact && 'door-card--compact']}>
@@ -50,16 +55,23 @@ const floorNote = floor ? ` on level ${floor}` : '';
 	<footer class="door-card-foot">
 		<img
 			class="door-card-qr"
-			src="/qr-playbook.svg"
+			src={qrSrc}
 			width="72"
 			height="72"
-			alt="QR code — scan for emergency playbook"
+			alt="QR code — scan for this room’s emergency page"
 		/>
 		<div class="door-card-foot-text">
 			<p class="door-card-foot-lead">
-				<strong>Playbook:</strong> emergency.arnoldcoc.org
+				<strong>Playbook:</strong>{' '}
+				{roomId ? (
+					<>
+						emergency.arnoldcoc.org/rooms/{roomId}
+					</>
+				) : (
+					<>emergency.arnoldcoc.org</>
+				)}
 			</p>
-			<p class="door-card-foot-hint">Scan to brush up on our emergency protocols.</p>
+			<p class="door-card-foot-hint">{playbookHint}</p>
 		</div>
 	</footer>
 </article>

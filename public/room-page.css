@@ -1,0 +1,266 @@
+/* Standalone room pages — matches Arnold Emergency tokens */
+:root {
+	color-scheme: dark;
+	--ae-bg: #0b1210;
+	--ae-surface: #141c19;
+	--ae-border: #2a3832;
+	--ae-text: #f1f5f3;
+	--ae-muted: #9aaba3;
+	--ae-accent: #3d9a6a;
+	--ae-accent-high: #6bc492;
+	--ae-red: #f87171;
+	--ae-blue: #60a5fa;
+	--ae-amber: #fbbf24;
+	--ae-font: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
+	--ae-serif: 'Source Serif 4', Georgia, serif;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+body.room-page {
+	margin: 0;
+	min-height: 100dvh;
+	font-family: var(--ae-font);
+	background: var(--ae-bg);
+	color: var(--ae-text);
+	line-height: 1.5;
+	padding: 1rem 1rem 2.5rem;
+	max-width: 36rem;
+	margin-inline: auto;
+}
+
+.room-top {
+	margin-bottom: 1.25rem;
+}
+
+.room-kicker {
+	margin: 0;
+	font-size: 0.72rem;
+	font-weight: 700;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--ae-accent-high);
+}
+
+.room-top h1 {
+	margin: 0.35rem 0 0;
+	font-family: var(--ae-serif);
+	font-size: clamp(1.45rem, 5vw, 1.85rem);
+	line-height: 1.2;
+	font-weight: 600;
+}
+
+.room-sub {
+	margin: 0.45rem 0 0;
+	color: var(--ae-muted);
+	font-size: 0.92rem;
+}
+
+.room-card {
+	margin: 0 0 1rem;
+	padding: 1rem 1.05rem;
+	border: 1px solid var(--ae-border);
+	border-radius: 0.65rem;
+	background: var(--ae-surface);
+}
+
+.room-card h2 {
+	margin: 0 0 0.55rem;
+	font-family: var(--ae-serif);
+	font-size: 1.15rem;
+	font-weight: 600;
+}
+
+.room-card h2.code-red {
+	color: var(--ae-red);
+	margin-top: 1rem;
+}
+
+.room-card h2.code-blue {
+	color: var(--ae-blue);
+	margin-top: 1rem;
+}
+
+.room-card h2.code-amber {
+	color: var(--ae-amber);
+	margin-top: 1rem;
+}
+
+.room-card h2.code-red:first-child,
+.room-card > h2:first-child {
+	margin-top: 0;
+}
+
+.room-card p {
+	margin: 0 0 0.45rem;
+	font-size: 0.92rem;
+}
+
+.room-muted {
+	color: var(--ae-muted);
+	font-size: 0.88rem;
+}
+
+.room-facts {
+	margin: 0;
+	display: grid;
+	gap: 0.75rem;
+}
+
+.room-facts dt {
+	margin: 0;
+	font-size: 0.68rem;
+	font-weight: 700;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
+	color: var(--ae-muted);
+}
+
+.room-facts dd {
+	margin: 0.2rem 0 0;
+	font-size: 0.95rem;
+}
+
+.room-poster {
+	display: block;
+	margin-top: 0.85rem;
+	text-decoration: none;
+	color: var(--ae-accent-high);
+	font-size: 0.86rem;
+	font-weight: 600;
+}
+
+.room-poster img {
+	width: 100%;
+	height: auto;
+	display: block;
+	border-radius: 0.35rem;
+	border: 1px solid var(--ae-border);
+	background: #fff;
+	margin-bottom: 0.4rem;
+}
+
+.room-script {
+	margin-top: 0.55rem;
+	padding: 0.65rem 0.75rem;
+	border: 1px dashed var(--ae-border);
+	border-radius: 0.35rem;
+	background: color-mix(in oklab, var(--ae-accent) 8%, var(--ae-bg));
+}
+
+.room-script-label {
+	margin: 0 0 0.3rem;
+	font-size: 0.68rem;
+	font-weight: 700;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
+	color: var(--ae-muted);
+}
+
+.room-label {
+	display: block;
+	margin: 0.65rem 0 0.3rem;
+	font-size: 0.78rem;
+	font-weight: 600;
+	color: var(--ae-muted);
+}
+
+.room-input {
+	width: 100%;
+	padding: 0.65rem 0.75rem;
+	border-radius: 0.4rem;
+	border: 1px solid var(--ae-border);
+	background: var(--ae-bg);
+	color: var(--ae-text);
+	font: inherit;
+	font-size: 1rem;
+	margin-bottom: 0.65rem;
+}
+
+.room-input:focus-visible {
+	outline: 2px solid var(--ae-accent-high);
+	outline-offset: 2px;
+}
+
+.room-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	min-height: 2.75rem;
+	padding: 0.55rem 1rem;
+	border-radius: 0.4rem;
+	border: 1px solid var(--ae-border);
+	background: var(--ae-bg);
+	color: var(--ae-text);
+	font: inherit;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.room-btn--primary {
+	background: #1a2e24;
+	border-color: var(--ae-accent);
+	color: #fff;
+}
+
+.room-btn--primary:hover:not(:disabled) {
+	background: color-mix(in oklab, #1a2e24 85%, #000);
+}
+
+.room-btn:disabled {
+	opacity: 0.7;
+	cursor: default;
+}
+
+.room-status {
+	margin: 0.65rem 0 0;
+	font-size: 0.88rem;
+	color: var(--ae-muted);
+}
+
+.room-status--ok {
+	color: var(--ae-accent-high);
+}
+
+.room-links {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	display: grid;
+	gap: 0.45rem;
+}
+
+.room-links a {
+	display: block;
+	padding: 0.55rem 0.65rem;
+	border-radius: 0.4rem;
+	border: 1px solid var(--ae-border);
+	background: var(--ae-bg);
+	color: var(--ae-accent-high);
+	text-decoration: none;
+	font-weight: 600;
+	font-size: 0.92rem;
+}
+
+.room-links a:hover {
+	border-color: var(--ae-accent);
+}
+
+.room-links--compact a {
+	font-size: 0.86rem;
+	padding: 0.4rem 0.55rem;
+}
+
+.room-foot {
+	margin-top: 1.5rem;
+	text-align: center;
+	font-size: 0.82rem;
+	color: var(--ae-muted);
+}
+
+.room-foot a {
+	color: var(--ae-accent-high);
+}

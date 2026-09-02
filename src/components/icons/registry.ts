@@ -51,6 +51,7 @@ export const pathIconMap: Record<string, EmergencyIconId> = {
 	'/classroom/room-posters/': 'room-poster',
 	'/classroom/door-cards/': 'door-card',
 	'/classroom/handout-template/': 'classroom',
+	'/rooms/': 'room-poster',
 };
 
 /** Glossary term slug → icon (terminology A–Z pages). */

@@ -44,6 +44,34 @@ pnpm run generate:terminology
 
 Commit the updated pages under `terminology/terms/` and `terminology/index.mdx`.
 
+## Room pages & check-in tracking
+
+Each room has a page at `/rooms/{id}/` (QR on the door card). Staff can tap **I’ve reviewed this room**. Counts live in Cloudflare KV (`ROOM_READS`).
+
+- Index: https://emergency.arnoldcoc.org/rooms/
+- Stats (PIN): https://emergency.arnoldcoc.org/rooms/stats/
+- Default stats PIN: `arnold-rooms` (change via `ROOM_STATS_PIN` in `wrangler.toml` or Pages → Settings → Variables)
+
+Regenerate room QRs after adding rooms:
+
+```bash
+pnpm run generate:room-qr
+```
+
+## Room pages & check-in tracking
+
+Each room has a page at `/rooms/{id}/` (QR on the door card). Staff can tap **I’ve reviewed this room**. Counts live in Cloudflare KV (`ROOM_READS`).
+
+- Index: https://emergency.arnoldcoc.org/rooms/
+- Stats (PIN): https://emergency.arnoldcoc.org/rooms/stats/
+- Default stats PIN: `arnold-rooms` (change via `ROOM_STATS_PIN` in `wrangler.toml` or Pages → Settings → Variables)
+
+Regenerate room QRs after adding rooms:
+
+```bash
+pnpm run generate:room-qr
+```
+
 ## Campus audio clips
 
 Production horn clips live in `public/audio/`. Refresh from the Pi:
