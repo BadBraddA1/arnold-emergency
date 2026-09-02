@@ -17,7 +17,7 @@ description: How often staff practice emergency procedures.
 1. Start at **[Orientation guides](/orientation/)** — Everyone + your role (security, office, teaching, nursery, or leadership).
 2. Read [Quick reference](/quick-reference/).
 3. **[Listen to campus tones](/system/campus-audio/)** — know Red, Blue, and all clear by ear.
-4. Open your [room page](/rooms/) — review exit, check in with your Arnold Alert PIN.
+4. Open your [room page](/rooms/) — review exit, check in with your name.
 5. Add **Arnold Alert** to phone if you have a staff PIN — [alarm.arnoldcoc.org](https://alarm.arnoldcoc.org).
 6. Attend next quarterly tabletop.
 

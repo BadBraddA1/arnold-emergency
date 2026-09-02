@@ -61,4 +61,4 @@ See [Training & drills](/training/).
 
 - [Orientation — Security](/orientation/security/)
 - [Who may trigger a code](/triggers/)
-- [Room check-in stats](/rooms/stats/) — System Admin PIN (see who reviewed room pages)
+- [Room check-in stats](/rooms/stats/) — System Admin Alert PIN (see who reviewed by name)

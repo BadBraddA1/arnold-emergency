@@ -14,7 +14,7 @@ Keep every child accounted for — evacuate or lock the suite with the roster, a
 ## Day-one checklist
 
 - [ ] Finish [Everyone](/orientation/everyone/)
-- [ ] Open nursery / children’s room pages under [Rooms](/rooms/) (e.g. nursery, cry room) and check in with your Alert PIN
+- [ ] Open nursery / children’s room pages under [Rooms](/rooms/) (e.g. nursery, cry room) and check in with your name
 - [ ] Walk the **nursery evacuation route** once with a lead
 - [ ] Know where the **roster / check-in list** is every shift
 - [ ] Know who may pick up each child (tag / list policy for your ministry)

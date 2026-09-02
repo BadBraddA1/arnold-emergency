@@ -1,12 +1,12 @@
 /**
- * Room read tracking — Alert PIN required for check-in & stats.
+ * Room read tracking — name check-in; Alert PIN (System Admin) for stats only.
  * Verifies 6-digit PINs against alarm.arnoldcoc.org (/api/auth/verify).
  *
  * KV: ROOM_READS
  * Env: EMERGENCY_VERIFY_SECRET, ALARM_VERIFY_URL (optional)
  */
 
-/** @typedef {{ views: number, acks: number, devices: Record<string, { ack?: boolean, name?: string, pinId?: string, lastView?: string, lastAck?: string }>, recentAcks: { name: string, at: string, pinId?: string }[] }} RoomStats */
+/** @typedef {{ views: number, acks: number, devices: Record<string, { ack?: boolean, name?: string, lastView?: string, lastAck?: string }>, recentAcks: { name: string, at: string }[] }} RoomStats */
 
 /**
  * @param {EventContext<{ ROOM_READS: KVNamespace, EMERGENCY_VERIFY_SECRET?: string, ALARM_VERIFY_URL?: string }, any, Record<string, unknown>>} context
@@ -52,7 +52,7 @@ async function handleGet(request, env) {
 			views: raw.views || 0,
 			acks: raw.acks || 0,
 			recentAcks: (raw.recentAcks || []).slice(0, 12).map((a) => ({
-				name: a.name || 'Member',
+				name: a.name || 'Someone',
 				at: a.at,
 			})),
 		};
@@ -77,9 +77,6 @@ async function handlePost(request, env) {
 	const roomId = String(body.roomId || '')
 		.trim()
 		.slice(0, 40);
-	const pin = String(body.pin || '')
-		.replace(/\D/g, '')
-		.slice(0, 6);
 
 	if (!roomId || !/^[a-zA-Z0-9_-]+$/.test(roomId)) {
 		return json({ error: 'Invalid roomId' }, 400);
@@ -99,7 +96,7 @@ async function handlePost(request, env) {
 	const now = new Date().toISOString();
 
 	if (action === 'view') {
-		// Anonymous page open — one count per IP bucket every 6 hours (no PIN required).
+		// Anonymous page open — one count per IP bucket every 6 hours.
 		const viewKey = `ip:${hashIp(clientIp(request))}`;
 		const device = stats.devices[viewKey] || {};
 		const already = device.lastView && Date.now() - Date.parse(device.lastView) < 1000 * 60 * 60 * 6;
@@ -112,39 +109,30 @@ async function handlePost(request, env) {
 		return json({ ok: true, roomId, views: stats.views, acks: stats.acks });
 	}
 
-	// Check-in requires a valid Arnold Alert PIN (any active member PIN).
-	const verified = await verifyAlertPin(env, pin, clientIp(request));
-	if (!verified.ok) {
-		return json({ error: verified.error || 'Incorrect PIN.' }, verified.status || 401);
-	}
-	if (verified.mustChangePin) {
-		return json(
-			{
-				error: 'Change your temporary PIN in Arnold Alert first, then check in here.',
-			},
-			403,
-		);
+	// Check-in: typed name only (no staff PIN).
+	const name = String(body.name || '')
+		.replace(/\s+/g, ' ')
+		.trim()
+		.slice(0, 60);
+	if (name.length < 2) {
+		return json({ error: 'Enter your name (at least 2 characters).' }, 400);
 	}
 
-	const pinKey = `pin:${verified.pinId}`;
-	const device = stats.devices[pinKey] || {};
+	const nameKey = `name:${name.toLowerCase()}`;
+	const device = stats.devices[nameKey] || {};
 	const alreadyAcked = Boolean(device.ack);
 	if (!alreadyAcked) {
 		stats.acks += 1;
 		device.ack = true;
 		device.lastAck = now;
-		device.name = verified.label;
-		device.pinId = verified.pinId;
-		stats.devices[pinKey] = device;
-		stats.recentAcks.unshift({
-			name: verified.label || 'Member',
-			at: now,
-			pinId: verified.pinId,
-		});
+		device.name = name;
+		stats.devices[nameKey] = device;
+		stats.recentAcks.unshift({ name, at: now });
 		stats.recentAcks = stats.recentAcks.slice(0, 40);
 	} else {
-		device.name = verified.label;
-		stats.devices[pinKey] = device;
+		device.name = name;
+		device.lastAck = now;
+		stats.devices[nameKey] = device;
 	}
 
 	await env.ROOM_READS.put(key, JSON.stringify(stats));
@@ -155,8 +143,7 @@ async function handlePost(request, env) {
 		views: stats.views,
 		acks: stats.acks,
 		acked: true,
-		label: verified.label,
-		scopes: verified.scopes,
+		label: name,
 	});
 }
 

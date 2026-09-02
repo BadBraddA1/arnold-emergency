@@ -13,7 +13,7 @@ Protect the people in **your room** — evacuate or lock down correctly, take th
 
 - [ ] Finish [Everyone](/orientation/everyone/)
 - [ ] Find **your room** on [Rooms](/rooms/) — exit path, assembly, map
-- [ ] Check in with your Alert PIN on that room page
+- [ ] Check in with your name on that room page
 - [ ] Confirm a printed [door card](/classroom/door-cards/) is by the door (or print one)
 - [ ] Know where the roster / attendance sheet lives every week
 - [ ] Listen to [Campus audio](/system/campus-audio/) so you recognize Red vs Blue by ear

@@ -46,25 +46,12 @@ Commit the updated pages under `terminology/terms/` and `terminology/index.mdx`.
 
 ## Room pages & check-in tracking
 
-Each room has a page at `/rooms/{id}/` (QR on the door card). Staff can tap **I’ve reviewed this room**. Counts live in Cloudflare KV (`ROOM_READS`).
-
-- Index: https://emergency.arnoldcoc.org/rooms/
-- Stats (PIN): https://emergency.arnoldcoc.org/rooms/stats/
-- Default stats PIN: `arnold-rooms` (change via `ROOM_STATS_PIN` in `wrangler.toml` or Pages → Settings → Variables)
-
-Regenerate room QRs after adding rooms:
-
-```bash
-pnpm run generate:room-qr
-```
-
-## Room pages & check-in tracking
-
-Each room has a page at `/rooms/{id}/` (QR on the door card). Members check in with their **Arnold Alert 6-digit PIN** (same roster as alarm.arnoldcoc.org). System Admins view stats at `/rooms/stats/`.
+Each room has a page at `/rooms/{id}/` (QR on the door card). Anyone can check in with their **name**. System Admins view stats at `/rooms/stats/` with an **Arnold Alert System Admin PIN**.
 
 - Index: https://emergency.arnoldcoc.org/rooms/
 - Stats: https://emergency.arnoldcoc.org/rooms/stats/
-- Verify API on alarm: `POST /api/auth/verify` (secret `EMERGENCY_VERIFY_SECRET` on both projects)
+- Verify API on alarm (stats only): `POST /api/auth/verify` (secret `EMERGENCY_VERIFY_SECRET` on both projects)
+- KV binding: `ROOM_READS`
 
 Regenerate room QRs after adding rooms:
 

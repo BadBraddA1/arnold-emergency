@@ -22,7 +22,7 @@ Weather shelter (only if IC directs): **lower auditorium** — not fellowship ha
 - [ ] Read [Quick reference](/quick-reference/)
 - [ ] Listen to [Campus audio](/system/campus-audio/) — Red, Blue, all clear, bells
 - [ ] Open your room page under [Rooms](/rooms/) — know exit + assembly
-- [ ] Check in on that room page with your **Arnold Alert PIN**
+- [ ] Check in on that room page with your **name** (no PIN needed for check-in)
 - [ ] Add [alarm.arnoldcoc.org](https://alarm.arnoldcoc.org) to your phone Home Screen (if you have a PIN)
 - [ ] Know who is IC today and where the office is
 
@@ -47,7 +47,7 @@ Weather shelter (only if IC directs): **lower auditorium** — not fellowship ha
 |------|---------|
 | [emergency.arnoldcoc.org](https://emergency.arnoldcoc.org) | Procedures (this site) |
 | [alarm.arnoldcoc.org](https://alarm.arnoldcoc.org) | Trigger codes / bells (if your PIN allows) |
-| Door QR → `/rooms/…` | Your room’s exit + check-in |
+| Door QR → `/rooms/…` | Your room’s exit + name check-in |
 
 ## Next
 

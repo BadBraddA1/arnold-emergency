@@ -17,7 +17,7 @@ Be the calm phone and visitor hub — **call 911** when needed, **never** declar
 - [ ] Read [Communication](/communication/) — media staging and “one voice”
 - [ ] Know main entrance path for EMS / police
 - [ ] Bookmark [Quick reference](/quick-reference/) and your desk [room page](/rooms/) if you have one (e.g. Secretaries Office)
-- [ ] Check in on your room page with your Alert PIN
+- [ ] Check in on your room page with your name
 
 ## When life is at risk
 

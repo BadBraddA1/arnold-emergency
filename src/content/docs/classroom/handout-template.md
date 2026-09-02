@@ -45,9 +45,9 @@ Take roster. Count everyone at assembly.
 **CODE BLUE — LOCKDOWN**  
 Lock door, lights off, phones silent. Stay quiet. Do not leave.
 
-**911** when life is at risk. Each door card includes a **read-aloud script** plus a **QR to that room’s page** (`/rooms/107/` etc.) — staff check in after reviewing, then can open the full playbook.
+**911** when life is at risk. Each door card includes a **read-aloud script** plus a **QR to that room’s page** (`/rooms/107/` etc.) — check in with your name after reviewing, then open the full playbook.
 
-**Staff tracking:** [/rooms/stats/](/rooms/stats/) (PIN required).
+**Staff tracking:** [/rooms/stats/](/rooms/stats/) (System Admin Alert PIN).
 
 ---
 
