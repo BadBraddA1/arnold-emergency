@@ -43,7 +43,7 @@ Medical emergency? Call 911 — see emergency.arnoldcoc.org/medical-emergency/
 
 **Primary assembly:** South parking lot
 
-**Secondary (severe weather):** Fellowship hall — only if IC directs; otherwise remain in south lot away from building
+**Secondary (severe weather):** Lower auditorium (Level 1) — only if IC directs; otherwise remain in south lot away from building. Do **not** use fellowship hall (Level 2) as weather shelter.
 
 ## Who to call
 

@@ -9,7 +9,7 @@ description: When and how to evacuate Arnold Church of Christ campus.
 
 1. **Trigger** Code Red — [Alert Mobile](https://alarm.arnoldcoc.org), armed **Alert Fob** (button 1), or IC delegate.
 2. **Call 911** if not already in progress.
-3. **Incident commander** directs assembly area: **south parking lot** (secondary: fellowship hall if IC directs for severe weather).
+3. **Incident commander** directs assembly area: **south parking lot** (secondary: **lower auditorium** if IC directs for severe weather — not fellowship hall on Level 2).
 4. **Area leads** sweep assigned zones if safe; report missing persons to IC.
 5. **Nursery / classes** follow evacuation routes; bring rosters.
 6. **No re-entry** until IC authorizes, after fire/official clearance as applicable.

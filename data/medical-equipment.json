@@ -9,18 +9,18 @@
   "slots": {
     "1": {
       "aed": [
-        { "id": "L1-AED-1", "name": "AED 1", "hint": "Main level — foyer or central hallway" }
+        { "id": "L1-AED-1", "name": "AED 1", "hint": "Level 1 — see floor map pin" }
       ],
       "firstAid": [
-        { "id": "L1-FA-1", "name": "First aid kit 1", "hint": "Office, kitchen, or work room" }
+        { "id": "L1-FA-1", "name": "First aid kit 1", "hint": "Level 1 — see floor map pin" }
       ]
     },
     "2": {
       "aed": [
-        { "id": "L2-AED-1", "name": "AED 1", "hint": "Upper level — fellowship hall or stair landing" }
+        { "id": "L2-AED-1", "name": "AED 1", "hint": "Level 2 — see floor map pin" }
       ],
       "firstAid": [
-        { "id": "L2-FA-1", "name": "First aid kit 1", "hint": "Fellowship hall or north hallway" }
+        { "id": "L2-FA-1", "name": "First aid kit 1", "hint": "Level 2 — see floor map pin" }
       ]
     }
   }

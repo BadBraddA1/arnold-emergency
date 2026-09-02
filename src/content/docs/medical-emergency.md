@@ -30,14 +30,9 @@ A campus code is only for **building-wide** response. A person collapsing in one
 
 ## Equipment on campus
 
-| Item | Location |
-|------|----------|
-| **AED — Level 1** | Main level — foyer or central hallway |
-| **AED — Level 2** | Upper level — fellowship hall or stair landing |
-| **First aid kit — Level 1** | Office, kitchen, or work room |
-| **First aid kit — Level 2** | Fellowship hall or north hallway |
+**AEDs and first-aid kits are marked on the floor maps** — Level 1 and Level 2. Use the nearest unit shown on your room’s [evacuation poster](/classroom/room-posters/), or check the floor plan posted in the hallway.
 
-AED and first-aid locations also appear on [room evacuation posters](/classroom/room-posters/) for each floor.
+Do not rely on a written address alone — the map pin is the source of truth.
 
 ## Policy
 
@@ -47,7 +42,7 @@ AED and first-aid locations also appear on [room evacuation posters](/classroom/
 | **First aid / CPR** | Trained staff or volunteers on scene; use AED if available and appropriate |
 | **When to also declare Code Red** | Fire, gas, hazmat, or need to clear the building for EMS — IC decides |
 | **Nursery / children** | Nursery lead handles parent notification per nursery plan; separate from campus code |
-| **Reunification if building evacuates** | South parking lot — same as [Code Red](/codes/code-red/) assembly |
+| **Reunification if building evacuates** | South parking lot (or lower auditorium if IC directs for severe weather) — same as [Code Red](/codes/code-red/) |
 | **After-hours / empty building** | Office or IC meets EMS at main entrance; System Admin holds building access list |
 | **Incident report** | IC schedules [post-incident debrief](/post-incident/) within 72 hours if significant |
 

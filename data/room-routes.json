@@ -3,6 +3,7 @@
     "church": "Arnold Church of Christ",
     "address": "1363 Jeffco Blvd, Arnold, MO 63010",
     "assemblyDefault": "South parking lot",
+    "assemblySecondary": "Lower auditorium (Level 1) — severe weather only when IC directs; not fellowship hall",
     "masterMaps": {
       "level1": "templates/classroom/maps/master-level-1.png",
       "level2": "templates/classroom/maps/master-level-2.png",

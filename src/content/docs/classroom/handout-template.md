@@ -39,7 +39,7 @@ Need updated wording for a room? Tell the incident commander or office — they 
 ## Door card copy reference
 
 **CODE RED — EVACUATE**  
-Leave the building now. **Exit:** your marked route → **Assembly:** South parking lot  
+Leave the building now. **Exit:** your marked route → **Assembly:** South parking lot (severe weather: lower auditorium if IC directs)  
 Take roster. Count everyone at assembly.
 
 **CODE BLUE — LOCKDOWN**  
