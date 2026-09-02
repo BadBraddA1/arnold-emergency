@@ -8,4 +8,4 @@ id = "5c99dc28502748b3a0e49cdb99b6f84f"
 preview_id = "3b5db1a60969470d84675d42e569659b"
 
 [vars]
-ROOM_STATS_PIN = "arnold-rooms"
+ALARM_VERIFY_URL = "https://alarm.arnoldcoc.org/api/auth/verify"

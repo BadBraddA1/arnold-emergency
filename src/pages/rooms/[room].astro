@@ -43,14 +43,23 @@ const siblings = roomRoutes.rooms
 			<p class="room-sub">Your room card — know this exit, then open the full playbook.</p>
 		</header>
 
-		<section class="room-card room-card--actions" aria-label="Acknowledge">
-			<h2>Staff check-in</h2>
+		<section class="room-card room-card--actions" aria-label="Check in">
+			<h2>Check in with your Alert PIN</h2>
 			<p class="room-muted">
-				Tap when you’ve reviewed this room’s exit and codes. Leadership can see how many staff have
-				checked in.
+				Use the same 6-digit PIN from Arnold Alert (alarm.arnoldcoc.org). Anyone with a PIN can
+				confirm they’ve reviewed this room.
 			</p>
-			<label class="room-label" for="staff-name">Your name (optional)</label>
-			<input id="staff-name" class="room-input" type="text" autocomplete="name" placeholder="e.g. Jamie" maxlength="80" />
+			<label class="room-label" for="alert-pin">Arnold Alert PIN</label>
+			<input
+				id="alert-pin"
+				class="room-input"
+				type="password"
+				inputmode="numeric"
+				pattern="[0-9]*"
+				maxlength="6"
+				autocomplete="one-time-code"
+				placeholder="6-digit PIN"
+			/>
 			<button type="button" class="room-btn room-btn--primary" id="ack-btn">I’ve reviewed this room</button>
 			<p class="room-status" id="ack-status" hidden></p>
 		</section>
@@ -146,7 +155,7 @@ const siblings = roomRoutes.rooms
 
 		<footer class="room-foot">
 			<p>
-				<a href="/">emergency.arnoldcoc.org</a> · Staff only
+				<a href="/">emergency.arnoldcoc.org</a> · Check in with your Arnold Alert PIN
 			</p>
 		</footer>
 
@@ -155,19 +164,12 @@ const siblings = roomRoutes.rooms
 				const roomId = document.body.getAttribute('data-room-id');
 				if (!roomId) return;
 
-				const KEY = 'ae-room-device';
-				let deviceId = localStorage.getItem(KEY);
-				if (!deviceId) {
-					deviceId =
-						(crypto.randomUUID && crypto.randomUUID()) ||
-						'dev-' + Math.random().toString(36).slice(2) + Date.now().toString(36);
-					localStorage.setItem(KEY, deviceId);
-				}
-
-				const ackKey = 'ae-room-ack:' + roomId;
+				const PIN_KEY = 'ae-alert-pin';
 				const status = document.getElementById('ack-status');
 				const btn = document.getElementById('ack-btn');
-				const nameInput = document.getElementById('staff-name');
+				const pinInput = document.getElementById('alert-pin');
+				const savedPin = sessionStorage.getItem(PIN_KEY);
+				if (savedPin && pinInput) pinInput.value = savedPin;
 
 				function setStatus(msg, ok) {
 					if (!status) return;
@@ -176,42 +178,49 @@ const siblings = roomRoutes.rooms
 					status.className = 'room-status' + (ok ? ' room-status--ok' : '');
 				}
 
-				async function track(action, name) {
+				async function track(action, pin) {
 					try {
 						const res = await fetch('/api/room-track', {
 							method: 'POST',
 							headers: { 'Content-Type': 'application/json' },
-							body: JSON.stringify({ action: action, roomId: roomId, deviceId: deviceId, name: name || '' }),
+							body: JSON.stringify({ action: action, roomId: roomId, pin: pin || '' }),
 						});
-						return await res.json();
+						const data = await res.json().catch(function () {
+							return {};
+						});
+						return { ok: res.ok && data.ok, status: res.status, data: data };
 					} catch (e) {
-						return { ok: false, error: 'network' };
+						return { ok: false, data: { error: 'network' } };
 					}
 				}
 
 				track('view');
 
-				if (localStorage.getItem(ackKey) === '1') {
-					setStatus('You’re checked in for this room on this phone.', true);
-					if (btn) {
-						btn.disabled = true;
-						btn.textContent = 'Already reviewed';
-					}
-				}
-
 				btn &&
 					btn.addEventListener('click', async function () {
+						const pin = ((pinInput && pinInput.value) || '').replace(/\D/g, '');
+						if (pin.length !== 6) {
+							setStatus('Enter your 6-digit Arnold Alert PIN.', false);
+							return;
+						}
 						btn.disabled = true;
-						btn.textContent = 'Saving…';
-						const data = await track('ack', (nameInput && nameInput.value) || '');
-						if (data && data.ok) {
-							localStorage.setItem(ackKey, '1');
-							setStatus('Thanks — checked in. Open the playbook below for more.', true);
+						btn.textContent = 'Checking…';
+						const result = await track('ack', pin);
+						if (result.ok) {
+							sessionStorage.setItem(PIN_KEY, pin);
+							const label = (result.data && result.data.label) || 'You';
+							setStatus(
+								'Thanks, ' + label + ' — checked in. Open the playbook below for more.',
+								true,
+							);
 							btn.textContent = 'Reviewed';
 						} else {
 							btn.disabled = false;
 							btn.textContent = 'I’ve reviewed this room';
-							setStatus('Could not save — try again when you have signal.', false);
+							setStatus(
+								(result.data && result.data.error) || 'Could not check in — try again.',
+								false,
+							);
 						}
 					});
 			})();

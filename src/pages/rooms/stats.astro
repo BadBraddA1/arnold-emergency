@@ -20,14 +20,26 @@ const rooms = [...roomRoutes.rooms].sort(sortRoomsByFloor).map((r) => ({
 	</head>
 	<body class="room-page">
 		<header class="room-top">
-			<p class="room-kicker">Arnold Emergency · Staff</p>
+			<p class="room-kicker">Arnold Emergency</p>
 			<h1>Room check-ins</h1>
-			<p class="room-sub">Who has reviewed their room page after scanning the door QR.</p>
+			<p class="room-sub">
+				Sign in with a <strong>System Admin</strong> Arnold Alert PIN (same as Alert Desk) to see who
+				has reviewed each room.
+			</p>
 		</header>
 
 		<section class="room-card" id="pin-gate">
-			<label class="room-label" for="stats-pin">Staff PIN</label>
-			<input id="stats-pin" class="room-input" type="password" autocomplete="current-password" />
+			<label class="room-label" for="stats-pin">Arnold Alert PIN (System Admin)</label>
+			<input
+				id="stats-pin"
+				class="room-input"
+				type="password"
+				inputmode="numeric"
+				pattern="[0-9]*"
+				maxlength="6"
+				autocomplete="one-time-code"
+				placeholder="6-digit PIN"
+			/>
 			<button type="button" class="room-btn room-btn--primary" id="load-stats">Show stats</button>
 			<p class="room-status" id="stats-error" hidden></p>
 		</section>
@@ -44,7 +56,7 @@ const rooms = [...roomRoutes.rooms].sort(sortRoomsByFloor).map((r) => ({
 
 		<script is:inline define:vars={{ rooms }}>
 			(function () {
-				const PIN_KEY = 'ae-room-stats-pin';
+				const PIN_KEY = 'ae-alert-pin';
 				const pinInput = document.getElementById('stats-pin');
 				const err = document.getElementById('stats-error');
 				const panel = document.getElementById('stats-panel');
@@ -54,19 +66,38 @@ const rooms = [...roomRoutes.rooms].sort(sortRoomsByFloor).map((r) => ({
 				if (saved && pinInput) pinInput.value = saved;
 
 				async function load() {
-					const pin = (pinInput && pinInput.value) || '';
+					const pin = ((pinInput && pinInput.value) || '').replace(/\D/g, '');
 					err.hidden = true;
-					const res = await fetch('/api/room-track?pin=' + encodeURIComponent(pin));
+					if (pin.length !== 6) {
+						err.hidden = false;
+						err.textContent = 'Enter a 6-digit Arnold Alert PIN.';
+						panel.hidden = true;
+						return;
+					}
+					const res = await fetch('/api/room-track', {
+						method: 'GET',
+						headers: { 'x-alert-pin': pin },
+					});
+					const data = await res.json().catch(function () {
+						return {};
+					});
 					if (!res.ok) {
 						err.hidden = false;
-						err.textContent = res.status === 401 ? 'Wrong PIN.' : 'Could not load stats.';
+						err.textContent =
+							data.error ||
+							(res.status === 403
+								? 'System Admin PIN required.'
+								: res.status === 401
+									? 'Incorrect PIN.'
+									: 'Could not load stats.');
 						panel.hidden = true;
 						return;
 					}
 					sessionStorage.setItem(PIN_KEY, pin);
-					const data = await res.json();
 					panel.hidden = false;
-					meta.textContent = 'Updated ' + new Date(data.updatedAt).toLocaleString();
+					const viewer = data.viewer && data.viewer.label ? data.viewer.label : 'Admin';
+					meta.textContent =
+						'Signed in as ' + viewer + ' · Updated ' + new Date(data.updatedAt).toLocaleString();
 					const byId = data.rooms || {};
 					list.innerHTML = rooms
 						.map(function (r) {
