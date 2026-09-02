@@ -40,11 +40,11 @@ const byFloor = [1, 2].map((floor) => ({
 							<div class="door-gallery-item-head">
 								<h3>{room.label}</h3>
 								<div class="door-gallery-actions">
-									<a class="door-btn door-btn--primary" href={room.printHref}>
+									<a class="ae-btn ae-btn--primary" href={room.printHref}>
 										Print
 									</a>
 									{room.hasPoster ? (
-										<a class="door-btn" href={`/classroom/room-posters/#room-${room.id}`}>
+										<a class="ae-btn" href={`/classroom/room-posters/#room-${room.id}`}>
 											Map poster
 										</a>
 									) : null}
@@ -67,90 +67,3 @@ const byFloor = [1, 2].map((floor) => ({
 		) : null,
 	)
 }
-
-<style>
-	.door-gallery-intro {
-		font-size: var(--ae-text-body-md);
-		color: var(--sl-color-gray-2);
-		margin: 0 0 1.25rem;
-		line-height: 1.5;
-	}
-
-	.door-gallery-floor {
-		margin: 2rem 0 0;
-	}
-
-	.door-gallery-floor h2 {
-		margin: 0 0 0.75rem;
-		font-family: 'Source Serif 4', Georgia, serif;
-	}
-
-	.door-gallery-list {
-		list-style: none;
-		margin: 0;
-		padding: 0;
-		display: grid;
-		gap: 0.85rem;
-	}
-
-	.door-gallery-item {
-		border: 1px solid var(--sl-color-hairline-shade);
-		border-radius: 0.65rem;
-		background: var(--sl-color-bg-sidebar);
-		padding: 0.85rem 1rem;
-	}
-
-	.door-gallery-item-head {
-		display: flex;
-		flex-wrap: wrap;
-		align-items: flex-start;
-		justify-content: space-between;
-		gap: 0.65rem;
-	}
-
-	.door-gallery-item-head h3 {
-		margin: 0;
-		font-size: var(--ae-text-body-lg);
-	}
-
-	.door-gallery-actions {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.45rem;
-	}
-
-	.door-btn {
-		display: inline-flex;
-		align-items: center;
-		padding: 0.38rem 0.7rem;
-		border-radius: 6px;
-		border: 1px solid var(--sl-color-hairline-shade);
-		background: var(--sl-color-bg);
-		color: inherit;
-		font-size: var(--ae-text-body-sm);
-		font-weight: 600;
-		text-decoration: none;
-	}
-
-	.door-btn--primary {
-		background: var(--sl-color-accent-low);
-		border-color: var(--sl-color-accent-low);
-		color: #fff;
-	}
-
-	.door-gallery-preview {
-		margin-top: 0.75rem;
-	}
-
-	.door-gallery-preview summary {
-		cursor: pointer;
-		font-size: var(--ae-text-meta);
-		font-weight: 600;
-		color: var(--sl-color-accent-high);
-		margin-bottom: 0.65rem;
-	}
-
-	.door-gallery-preview[open] summary {
-		margin-bottom: 0.85rem;
-	}
-</style>

@@ -13,7 +13,9 @@ const { title, icon, tone = 'neutral' } = Astro.props;
 
 <article class:list={['crisis-card', `crisis-card--${tone}`]}>
 	<p class="crisis-card-title">
-		<EmergencyIcon name={icon} class="crisis-card-icon" size="1.35em" />
+		<span class="crisis-card-icon" aria-hidden="true">
+			<EmergencyIcon name={icon} size="1.15em" />
+		</span>
 		<span set:html={title} />
 	</p>
 	<div class="crisis-card-body"><slot /></div>

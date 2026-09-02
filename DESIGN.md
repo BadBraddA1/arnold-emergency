@@ -5,10 +5,6 @@ colors:
   accent: "#3d9a6a"
   accent-high: "#6bc492"
   accent-low: "#1a2e24"
-  status-usable-bg: "color-mix(in oklab, #3d9a6a 18%, var(--sl-color-gray-6))"
-  status-wip-bg: "color-mix(in oklab, #c9a227 20%, var(--sl-color-gray-6))"
-  status-wip-fg: "#d4b85c"
-  status-wip-amber: "#c9a227"
   code-red-fg: "#f87171"
   code-red-bg: "#dc2626"
   code-blue-fg: "#60a5fa"
@@ -34,7 +30,8 @@ typography:
 rounded:
   card: "0.65rem"
   list: "0.55rem"
-  pill: "0.25rem"
+  btn: "0.4rem"
+  focus: "0.25rem"
   media: "0.35rem"
   title-icon: "0.45rem"
 spacing:
@@ -42,28 +39,27 @@ spacing:
   section-gap: "1.35rem"
 components:
   tool-card:
-    backgroundColor: "var(--sl-color-bg-sidebar)"
+    backgroundColor: "var(--ae-surface)"
     rounded: "{rounded.card}"
     padding: "{spacing.card-pad}"
-  site-map-status-usable:
-    backgroundColor: "{colors.status-usable-bg}"
-    textColor: "{colors.accent-high}"
+  ae-btn:
+    rounded: "{rounded.btn}"
 ---
 
 ## Overview
 
-Starlight documentation site in **Read** mode: staff scan procedures under stress. Hierarchy beats decoration. Green accent signals “go / safe reference”; amber-tinted pills mean WIP/draft. Code Red/Blue/amber accents appear only on emergency shortcuts and icons — not body copy.
+Starlight documentation site in **Read** mode: staff scan procedures under stress. Hierarchy beats decoration. Green accent signals “go / safe reference.” Code Red/Blue/amber accents appear only on emergency shortcut icons — not body copy. One shared card/list/button surface language site-wide (`--ae-surface`, `--ae-border`, `.ae-btn`).
 
 ## Colors
 
-- **Accent** `#3d9a6a` / **accent-high** `#6bc492` — links, usable status, focus rings.
-- **Accent-low** `#1a2e24` — WIP banner desktop tint.
-- **Status wip amber** `#c9a227` — WIP/draft pill base (`--ae-status-wip-amber`).
+- **Accent** `#3d9a6a` / **accent-high** `#6bc492` — links, focus rings, primary buttons.
+- **Accent-low** `#1a2e24` — primary button fill, subtle tints.
 - **Code Red** fg `#f87171` / bg `#dc2626` — evacuate icons and crisis cards.
 - **Code Blue** fg `#60a5fa` / bg `#2563eb` — lockdown icons and crisis cards.
 - **Code amber** fg `#fbbf24` / bg `#d97706` — 911 / medical icons.
-- CSS variables: `--ae-code-red-fg`, `--ae-code-red-bg`, `--ae-code-blue-fg`, `--ae-code-blue-bg`, `--ae-code-amber-fg`, `--ae-code-amber-bg`.
-- Inherit Starlight grays and hairline borders for surfaces.
+- CSS variables: `--ae-code-red-fg/bg`, `--ae-code-blue-fg/bg`, `--ae-code-amber-fg/bg` (hex literals).
+- Surfaces: `--ae-surface` (sidebar bg), `--ae-border` (hairline).
+- Inherit Starlight grays for text.
 
 ## Typography
 
@@ -75,8 +71,8 @@ Starlight documentation site in **Read** mode: staff scan procedures under stres
 
 - Home splash content max ~52rem.
 - **Tool pair:** 1 column mobile, 2 columns ≥42rem.
-- **Site map:** stacked list rows with icons, not wide tables on phone.
-- **Icons:** Google Material Symbols, outlined weight 400 (same library as [Creators Repo → Material](https://creatorsrepo.com/icons?system=material)). Swap names in `symbols.ts` — use snake_case filenames from the package (e.g. `local_fire_department` for Code Red).
+- **Site map / terminology:** stacked list rows with icons, not wide tables on phone.
+- **Icons:** Google Material Symbols, outlined weight 400. Swap names in `symbols.ts`.
 
 ## Elevation & Depth
 
@@ -84,25 +80,25 @@ Flat cards with 1px hairline borders; hover shifts border toward accent. No drop
 
 ## Shapes
 
-Card 0.65rem; list 0.55rem; status pills 0.25rem; audio controls 0.35rem (`--ae-radius-media`); page-title icon 0.45rem (`--ae-radius-title-icon`).
+Card `--ae-radius-card` 0.65rem; list `--ae-radius-list` 0.55rem; button `--ae-radius-btn` 0.4rem; media / icon box 0.35rem; page-title icon 0.45rem.
 
 ## Components
 
 | Component | Location | Notes |
 |-----------|----------|-------|
-| `ToolPair` | Home | Know / Do cards with playbook + alert icons |
-| `SiteMapList` | Home | Grouped nav with status pills + per-row icons |
+| `ToolPair` | Home | Know / Do cards — shared surface |
+| `SiteMapList` | Home | Grouped nav rows with icons |
 | `TerminologyList` | Terminology index | A–Z list with icons |
-| `CrisisCard` | Home | Code-colored shortcut cards (`tone`: red/blue/green/amber) |
-| `EmergencyIcon` | Global | Material Symbols (outlined) via `@material-symbols/svg-400` — map in `src/components/icons/symbols.ts` |
+| `CrisisCard` | Home | Same surface as tool cards; tone only on icon |
+| `EmergencyIcon` | Global | Material Symbols via `@material-symbols/svg-400` |
 | `PageTitle` | Inner pages | Auto icon from `iconForPath()` |
 | `Hero` | Home splash | Custom hero actions with `EmergencyIcon` |
 | `SidebarSublist` | Sidebar | Starlight override — icons on nav links |
-| `PageFrame` | Global | Starlight page shell (no site-wide banner) |
-| `AudioClip` | Campus audio | Card + `<audio>`; MP3 fallback for iOS |
+| `AudioClip` | Campus audio | Same card surface + `<audio>` |
+| `.ae-btn` | Galleries | Shared Print / Open buttons |
 
 ## Do's and Don'ts
 
-**Do:** Use status pills consistently; keep touch targets ≥44px on mobile links; use code-color tokens for Red/Blue/911 icons only.
+**Do:** Use `--ae-surface` / `--ae-border` / `.ae-btn` for any new interactive chrome; keep touch targets ≥44px on mobile links; use code-color tokens for Red/Blue/911 icons only.
 
-**Don't:** Use comparison tables with empty header cells on splash; nest cards; hard-code code colors outside CSS variables; use gradient text or decorative glass on docs pages.
+**Don't:** Invent a second card style (no black crisis panels); nest cards; hard-code code colors outside CSS variables; put editor terminal commands on public pages; use gradient text or decorative glass.

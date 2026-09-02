@@ -44,8 +44,7 @@ const updatedLabel = formatMapUpdatedAtLong(overlay.updatedAt);
 
 {updatedLabel ? (
 	<p class="poster-gallery-meta">
-		Map data last updated <strong>{updatedLabel}</strong>. Regenerate after edits with{' '}
-		<code>pnpm run map:generate</code>, then commit <code>public/posters/</code>.
+		Map data last updated <strong>{updatedLabel}</strong>.
 	</p>
 ) : null}
 
@@ -75,10 +74,10 @@ const updatedLabel = formatMapUpdatedAtLong(overlay.updatedAt);
 								/>
 							</a>
 							<div class="poster-card-actions">
-								<a class="poster-btn" href={room.posterSrc} target="_blank" rel="noopener">
+								<a class="ae-btn" href={room.posterSrc} target="_blank" rel="noopener">
 									Open full size
 								</a>
-								<a class="poster-btn poster-btn--primary" href={room.printHref}>
+								<a class="ae-btn ae-btn--primary" href={room.printHref}>
 									Print
 								</a>
 							</div>
