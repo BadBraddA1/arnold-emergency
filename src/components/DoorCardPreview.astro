@@ -48,7 +48,19 @@ const floorNote = floor ? ` on level ${floor}` : '';
 	</section>
 
 	<footer class="door-card-foot">
-		<p>Arnold Alert: alarm.arnoldcoc.org · Playbook: emergency.arnoldcoc.org</p>
+		<img
+			class="door-card-qr"
+			src="/qr-playbook.svg"
+			width="72"
+			height="72"
+			alt="QR code — scan for emergency playbook"
+		/>
+		<div class="door-card-foot-text">
+			<p class="door-card-foot-lead">
+				<strong>Playbook:</strong> emergency.arnoldcoc.org
+			</p>
+			<p class="door-card-foot-hint">Scan to brush up on our emergency protocols.</p>
+		</div>
 	</footer>
 </article>
 
@@ -167,14 +179,47 @@ const floorNote = floor ? ` on level ${floor}` : '';
 	}
 
 	.door-card-foot {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
 		margin-top: 0.5rem;
-		padding-top: 0.55rem;
+		padding-top: 0.65rem;
 		border-top: 1px solid #e2e8f0;
-		font-size: 0.8rem;
 		color: #475569;
 	}
 
-	.door-card-foot p {
+	.door-card-qr {
+		flex: none;
+		width: 4.5rem;
+		height: 4.5rem;
+		display: block;
+		border: 1px solid #e2e8f0;
+		border-radius: 0.25rem;
+		background: #fff;
+	}
+
+	.door-card-foot-text {
+		min-width: 0;
+	}
+
+	.door-card-foot-lead {
 		margin: 0;
+		font-size: 0.82rem;
+		line-height: 1.35;
+		color: #0f172a;
+	}
+
+	.door-card-foot-hint {
+		margin: 0.2rem 0 0;
+		font-size: 0.78rem;
+		line-height: 1.4;
+		color: #475569;
+	}
+
+	@media print {
+		.door-card-qr {
+			print-color-adjust: exact;
+			-webkit-print-color-adjust: exact;
+		}
 	}
 </style>

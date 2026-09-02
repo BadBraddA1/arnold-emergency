@@ -858,8 +858,13 @@
 .sl-markdown-content .door-card .door-card-org,
 .sl-markdown-content .door-card .door-card-tag,
 .sl-markdown-content .door-card .door-card-foot,
+.sl-markdown-content .door-card .door-card-foot-hint,
 .sl-markdown-content .door-card .door-card-script-label {
 	color: #475569;
+}
+
+.sl-markdown-content .door-card .door-card-foot-lead {
+	color: #0f172a;
 }
 
 .sl-markdown-content .door-card .door-card-script-text em {

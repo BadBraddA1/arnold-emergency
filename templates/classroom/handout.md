@@ -36,10 +36,9 @@ Do not open the door for anyone except law enforcement or verified IC.
 
 Call **911** first when life is at risk. Campus horns announce the code — they do **not** call police for you.
 
-## Tools
+## Playbook
 
-- **Arnold Alert** (staff PIN): https://alarm.arnoldcoc.org
-- **Full playbook:** https://emergency.arnoldcoc.org
+Scan the QR on the printed door card, or open **https://emergency.arnoldcoc.org** — brush up on Code Red, Code Blue, and our emergency protocols.
 
 ---
 
