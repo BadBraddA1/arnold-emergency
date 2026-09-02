@@ -17,6 +17,8 @@ export const iconToSymbol: Record<EmergencyIconId, string> = {
 	terminology: 'menu_book',
 	triggers: 'bolt',
 	classroom: 'school',
+	'room-poster': 'map',
+	'door-card': 'door_front',
 	contributing: 'edit',
 	overview: 'dashboard',
 	'arm-standby': 'pause_circle',
@@ -44,6 +46,7 @@ import key from '@material-symbols/svg-400/outlined/key.svg?raw';
 import label from '@material-symbols/svg-400/outlined/label.svg?raw';
 import listAlt from '@material-symbols/svg-400/outlined/list_alt.svg?raw';
 import localFireDepartment from '@material-symbols/svg-400/outlined/local_fire_department.svg?raw';
+import map from '@material-symbols/svg-400/outlined/map.svg?raw';
 import medicalInformation from '@material-symbols/svg-400/outlined/medical_information.svg?raw';
 import medicalServices from '@material-symbols/svg-400/outlined/medical_services.svg?raw';
 import menuBook from '@material-symbols/svg-400/outlined/menu_book.svg?raw';
@@ -55,6 +58,7 @@ import shield from '@material-symbols/svg-400/outlined/shield.svg?raw';
 import taskAlt from '@material-symbols/svg-400/outlined/task_alt.svg?raw';
 import volumeUp from '@material-symbols/svg-400/outlined/volume_up.svg?raw';
 import warning from '@material-symbols/svg-400/outlined/warning.svg?raw';
+import doorFront from '@material-symbols/svg-400/outlined/door_front.svg?raw';
 
 export const symbolSvg: Record<string, string> = {
 	block,
@@ -63,6 +67,7 @@ export const symbolSvg: Record<string, string> = {
 	dashboard,
 	description,
 	desktop_windows: desktopWindows,
+	door_front: doorFront,
 	edit,
 	fact_check: factCheck,
 	forum,
@@ -71,6 +76,7 @@ export const symbolSvg: Record<string, string> = {
 	label,
 	list_alt: listAlt,
 	local_fire_department: localFireDepartment,
+	map,
 	medical_information: medicalInformation,
 	medical_services: medicalServices,
 	menu_book: menuBook,

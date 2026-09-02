@@ -15,6 +15,8 @@ export type EmergencyIconId =
 	| 'terminology'
 	| 'triggers'
 	| 'classroom'
+	| 'room-poster'
+	| 'door-card'
 	| 'contributing'
 	| 'overview'
 	| 'arm-standby'
@@ -46,6 +48,8 @@ export const pathIconMap: Record<string, EmergencyIconId> = {
 	'/system/arm-standby/': 'arm-standby',
 	'/system/limits/': 'limits',
 	'/system/naming/': 'naming',
+	'/classroom/room-posters/': 'room-poster',
+	'/classroom/door-cards/': 'door-card',
 	'/classroom/handout-template/': 'classroom',
 };
 

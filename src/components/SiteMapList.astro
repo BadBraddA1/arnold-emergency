@@ -35,16 +35,14 @@ const groupIcon: Record<string, EmergencyIconId> = {
 			</h3>
 			<ul class="site-map-list">
 				{group.items.map((item) => {
-					const icon = item.icon ?? iconForPath(item.href);
+					const icon = item.icon ?? iconForPath(item.href) ?? groupIcon[group.title] ?? 'overview';
 					return (
 						<li>
 							<a class="site-map-link" href={item.href}>
 								<span class="site-map-link-main">
-									{icon ? (
-										<span class={`site-map-icon site-map-icon--${icon}`} aria-hidden="true">
-											<EmergencyIcon name={icon} size="1.15em" />
-										</span>
-									) : null}
+									<span class={`site-map-icon site-map-icon--${icon}`} aria-hidden="true">
+										<EmergencyIcon name={icon} size="1.15em" />
+									</span>
 									<span class="site-map-label">{item.label}</span>
 								</span>
 							</a>

@@ -439,14 +439,15 @@
 	margin: 0.25rem 0;
 }
 
-/* Crisis shortcut cards (home) */
+/* Crisis shortcut cards (home) — equal-width cells; 3+2 centered on wide screens */
 .crisis-card-grid {
 	display: grid;
 	gap: 1rem;
 	margin: 0.5rem 0 1.5rem;
+	grid-template-columns: 1fr;
 }
 
-@media (min-width: 50rem) {
+@media (min-width: 42rem) {
 	.crisis-card-grid {
 		grid-template-columns: repeat(2, minmax(0, 1fr));
 	}
@@ -454,7 +455,20 @@
 
 @media (min-width: 72rem) {
 	.crisis-card-grid {
-		grid-template-columns: repeat(3, minmax(0, 1fr));
+		grid-template-columns: repeat(6, minmax(0, 1fr));
+	}
+
+	.crisis-card-grid > .crisis-card {
+		grid-column: span 2;
+	}
+
+	/* Center the incomplete second row (cards 4–5) */
+	.crisis-card-grid > .crisis-card:nth-child(4) {
+		grid-column: 2 / span 2;
+	}
+
+	.crisis-card-grid > .crisis-card:nth-child(5) {
+		grid-column: 4 / span 2;
 	}
 }
 
@@ -464,6 +478,8 @@
 	padding: var(--ae-pad-card);
 	border-radius: var(--ae-radius-card);
 	transition: var(--ae-transition);
+	min-height: 6.75rem;
+	min-width: 0;
 }
 
 .crisis-card-title {
