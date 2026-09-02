@@ -23,6 +23,7 @@ export type EmergencyIconId =
 	| 'limits'
 	| 'naming'
 	| 'playbook'
+	| 'orientation'
 	| 'medical-draft'
 	| 'mobile'
 	| 'desk'
@@ -44,6 +45,13 @@ export const pathIconMap: Record<string, EmergencyIconId> = {
 	'/communication/': 'communication',
 	'/training/': 'training',
 	'/post-incident/': 'post-incident',
+	'/orientation/': 'orientation',
+	'/orientation/everyone/': 'orientation',
+	'/orientation/security/': 'roles',
+	'/orientation/office/': 'desk',
+	'/orientation/teaching/': 'classroom',
+	'/orientation/nursery/': 'classroom',
+	'/orientation/leadership/': 'roles',
 	'/system/arnold-alert/': 'alert-system',
 	'/system/arm-standby/': 'arm-standby',
 	'/system/limits/': 'limits',

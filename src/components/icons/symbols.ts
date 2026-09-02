@@ -25,6 +25,7 @@ export const iconToSymbol: Record<EmergencyIconId, string> = {
 	limits: 'block',
 	naming: 'label',
 	playbook: 'description',
+	orientation: 'handshake',
 	'medical-draft': 'medical_information',
 	mobile: 'mobile',
 	desk: 'desktop_windows',
@@ -42,6 +43,7 @@ import edit from '@material-symbols/svg-400/outlined/edit.svg?raw';
 import factCheck from '@material-symbols/svg-400/outlined/fact_check.svg?raw';
 import forum from '@material-symbols/svg-400/outlined/forum.svg?raw';
 import groups from '@material-symbols/svg-400/outlined/groups.svg?raw';
+import handshake from '@material-symbols/svg-400/outlined/handshake.svg?raw';
 import key from '@material-symbols/svg-400/outlined/key.svg?raw';
 import label from '@material-symbols/svg-400/outlined/label.svg?raw';
 import listAlt from '@material-symbols/svg-400/outlined/list_alt.svg?raw';
@@ -72,6 +74,7 @@ export const symbolSvg: Record<string, string> = {
 	fact_check: factCheck,
 	forum,
 	groups,
+	handshake,
 	key,
 	label,
 	list_alt: listAlt,

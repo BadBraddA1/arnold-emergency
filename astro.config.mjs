@@ -78,8 +78,21 @@ export default defineConfig({
 						{ label: 'Who may trigger a code', slug: 'triggers' },
 						{ label: 'Medical emergency', slug: 'medical-emergency' },
 						{ label: 'Communication checklist', slug: 'communication' },
+						{ label: 'Orientation guides', slug: 'orientation' },
 						{ label: 'Training & drills', slug: 'training' },
 						{ label: 'Post-incident', slug: 'post-incident' },
+					],
+				},
+				{
+					label: 'Orientation',
+					items: [
+						{ label: 'Overview', slug: 'orientation' },
+						{ label: 'Everyone', slug: 'orientation/everyone' },
+						{ label: 'Security', slug: 'orientation/security' },
+						{ label: 'Office', slug: 'orientation/office' },
+						{ label: 'Teaching', slug: 'orientation/teaching' },
+						{ label: 'Nursery & children', slug: 'orientation/nursery' },
+						{ label: 'Leadership', slug: 'orientation/leadership' },
 					],
 				},
 				{
