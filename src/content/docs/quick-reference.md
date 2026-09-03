@@ -18,7 +18,8 @@ Only IC ends the code (app or fob 4). Room staff: do not press all clear.
 
 911 first when life is at risk.
 Do NOT use phone PA (9090) for codes.
-Medical emergency? Call 911 — see emergency.arnoldcoc.org/medical-emergency/
+Medical emergency? Call 911 — heart attack, stroke, bleeding, CPR:
+emergency.arnoldcoc.org/medical-emergency/
 ```
 
 ## At a glance

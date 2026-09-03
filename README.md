@@ -63,7 +63,7 @@ All pages: `src/content/docs/`
 | Quick reference | Printable card |
 | **Terminology** | A–Z glossary — auto-linked across every page |
 | Codes | Red, Blue, all clear |
-| Other | Medical emergency |
+| Other | Medical emergency (911, heart attack, stroke, bleeding, CPR/AED) |
 | Roles | IC, nursery, pulpit, office — roster on `/roles/`; canonical names in `data/leadership.json` |
 | Orientation | Role guides — `/orientation/` (everyone, security, office, teaching, nursery, leadership) |
 | System | Arnold Alert naming & limits |

@@ -870,3 +870,58 @@
 .sl-markdown-content .door-card .door-card-script-text em {
 	color: #475569;
 }
+
+/* Medical / procedure jump chips — big touch targets under stress */
+.sl-markdown-content .ae-jump {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.45rem;
+	margin: 0.35rem 0 1.35rem;
+	padding: 0;
+}
+
+.sl-markdown-content .ae-jump a {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 2.5rem;
+	padding: 0.45rem 0.85rem;
+	border-radius: var(--ae-radius-btn);
+	border: 1px solid var(--ae-border);
+	background: var(--ae-surface);
+	color: inherit;
+	font-size: var(--ae-text-body-sm);
+	font-weight: 600;
+	text-decoration: none;
+	transition: var(--ae-transition);
+}
+
+.sl-markdown-content .ae-jump a:hover {
+	border-color: var(--sl-color-accent);
+	color: var(--sl-color-accent-high);
+}
+
+.sl-markdown-content .ae-jump a:focus-visible {
+	outline: 2px solid var(--sl-color-accent-high);
+	outline-offset: 2px;
+}
+
+/* Medical page: stronger section titles for phone scanning */
+.sl-markdown-content h2 {
+	scroll-margin-top: 5.5rem;
+}
+
+.sl-markdown-content h2:is(
+	#heart-attack,
+	#stroke,
+	#severe-bleeding,
+	#choking,
+	#seizure,
+	#unresponsive
+) {
+	padding: 0.55rem 0.75rem;
+	margin-inline: -0.15rem;
+	border-radius: var(--ae-radius-list);
+	border: 1px solid var(--ae-border);
+	background: color-mix(in oklab, var(--ae-code-amber-bg) 12%, var(--ae-surface));
+}

@@ -1,22 +1,113 @@
 ---
 title: Medical emergency
-description: Heart attack, serious injury, and other medical events — not the same as Code Red or Code Blue.
+description: 911 first — heart attack, stroke, bleeding, choking, seizure, CPR/AED. Local response, not a campus code.
 ---
 
-A **medical emergency** is when someone is seriously hurt or ill — chest pain, trouble breathing, seizure, major fall, unresponsive person, severe bleeding, etc.
+A **medical emergency** is when someone is seriously hurt or ill — chest pain, stroke signs, trouble breathing, seizure, major fall, unresponsive person, severe bleeding, choking, etc.
 
-This is **not** the same as **Code Red** (evacuate) or **Code Blue** (lockdown). Arnold Alert horns announce campus-wide codes; most medical events are handled **locally** in the room or area where they happen.
+This is **not** Code Red or Code Blue. Horns do not call 911. Most medical events stay **in the room** until EMS arrives.
 
-## On scene
+**First aid below is until professionals take over.** Prefer trained CPR/AED volunteers when they are nearby. Always follow **911 dispatcher** instructions if they conflict with this page.
 
-1. **Call 911** if life is at risk — do not wait for IC or elders.
-2. **Send someone to the main entrance** to meet EMS and guide them in.
-3. **Clear space** around the person; do not move them unless immediate danger (fire, collapse).
-4. **Assign one calm person** to stay with the patient; others step back.
-5. **Do not** use ext **9090** (Alert Line) as a substitute for 911.
-6. **Do not** trigger Code Red or Blue **unless IC decides** the whole campus must evacuate or lock down (e.g. hazmat, active threat tied to the event).
+## Jump to
 
-Tell IC and the office what happened as soon as practical — they handle crowd, parents, and whether a campus code is needed.
+<div class="ae-jump" role="navigation" aria-label="Medical topics">
+<a href="#do-this-first">Do this first</a>
+<a href="#heart-attack">Heart attack</a>
+<a href="#stroke">Stroke</a>
+<a href="#severe-bleeding">Bleeding</a>
+<a href="#choking">Choking</a>
+<a href="#seizure">Seizure</a>
+<a href="#unresponsive">CPR / AED</a>
+<a href="#equipment-on-campus">AED / kits</a>
+</div>
+
+## Do this first
+
+1. **Call 911** if life is at risk — do not wait for IC or the office.
+2. **Send someone to the main entrance** to meet EMS and bring them in.
+3. **Clear space**; do not move the person unless immediate danger (fire, collapse).
+4. **One calm person** stays with the patient; others step back and keep the crowd quiet.
+5. **Tell IC / office** as soon as practical (crowd, parents, worship interruption).
+6. **Do not** use ext **9090** instead of 911.
+7. **Do not** trigger Code Red or Blue unless IC decides the whole campus must evacuate or lock down.
+
+## Heart attack
+
+**Signs (may include):** pressure or pain in chest, jaw, neck, or arm; shortness of breath; cold sweat; nausea; sudden weakness. Women and older adults may show less “classic” chest pain.
+
+**Until EMS arrives:**
+
+1. Call **911** immediately.
+2. Have the person **sit or lie comfortably** — loosen tight clothing.
+3. Stay calm; keep them still. Do **not** leave them alone.
+4. If they become **unresponsive** or stop breathing normally → go to [CPR / AED](#unresponsive).
+5. **Aspirin:** only if the person is **conscious**, not allergic to aspirin, and the **911 dispatcher** (or a trained medical responder) tells you to give it. Chew, don’t swallow whole, if directed.
+6. Do **not** give food, alcohol, or other “home remedies.”
+
+You cannot “stop” a heart attack on site — you buy time and get EMS there fast.
+
+## Stroke
+
+**Act FAST** (note the time symptoms started — or last time they seemed well):
+
+| Letter | Check |
+|--------|--------|
+| **F**ace | Ask them to smile — does one side droop? |
+| **A**rms | Ask them to raise both arms — does one drift down? |
+| **S**peech | Is speech slurred or strange? |
+| **T**ime | Any of these → call **911 now**. Time lost = brain lost. |
+
+**Until EMS arrives:**
+
+1. Call **911**. Tell them you suspect stroke and give **onset time**.
+2. Keep them **safe and still** — sitting or lying on their side if drowsy.
+3. Loosen tight clothing; keep airway clear.
+4. Do **not** give food, drink, or medicine (including aspirin) unless EMS / dispatcher directs it.
+5. If they become unresponsive → [CPR / AED](#unresponsive).
+
+You cannot reverse a stroke in the building — **speed to hospital** is the treatment.
+
+## Severe bleeding
+
+**Goal: stop or slow the bleed until EMS takes over.**
+
+1. Call **911** for heavy / spurting / uncontrolled bleeding, or if the person is pale, confused, or fainting.
+2. Put on gloves from a first-aid kit if available.
+3. **Direct pressure** — firm, continuous pressure with clean cloth or gauze on the wound. Do not peek every few seconds.
+4. If cloth soaks through, **add more on top** — do not remove the first layer.
+5. If the wound is on an arm or leg and pressure is not enough, keep pressure and **elevate** the limb above the heart if no broken bone is suspected.
+6. For life-threatening limb bleeding that will not stop with pressure, a **tourniquet** (commercial preferred) above the wound — note the time applied — only if you know how or 911 walks you through it.
+7. Do **not** use butter, powders, or household chemicals on wounds.
+
+## Choking
+
+**Conscious adult / child who cannot cough, speak, or breathe:**
+
+1. Call **911** (or have someone call while you act).
+2. Stand behind them. Fist above the navel, other hand over fist — **inward and upward thrusts** (Heimlich) until the object comes out or they become unresponsive.
+3. If they become unresponsive → lower them to the floor and start [CPR](#unresponsive). Check the mouth for an object you can sweep out **only if you see it**.
+
+**Infant (under 1 year):** alternate **5 back blows** (face down on your forearm) and **5 chest thrusts** with two fingers — do not use adult abdominal thrusts. Prefer a trained caregiver when present.
+
+## Seizure
+
+1. Call **911** if it lasts **more than 5 minutes**, repeats, the person is injured, pregnant, diabetic, or this is a first-known seizure — or if you are unsure.
+2. Ease them to the floor; **cushion the head**; clear hard objects.
+3. Turn them on their **side** when possible (recovery position) so saliva drains.
+4. **Do not** hold them down. **Do not** put anything in the mouth.
+5. Time the seizure. Stay until they are fully aware; explain calmly what happened.
+6. Keep crowd back; protect dignity.
+
+## Unresponsive
+
+**Not breathing normally, or only gasping:**
+
+1. Call **911** — put the phone on speaker.
+2. Send someone for the nearest **AED** ([maps](#equipment-on-campus)).
+3. Start **CPR**: hard, fast compressions in the center of the chest (about 100–120/min). Let the chest come back up. Trained rescuers add breaths; untrained may do **hands-only CPR** until the AED or EMS arrives.
+4. Turn the **AED on** and follow the voice prompts. Bare the chest; attach pads as shown. Do not touch the person when it says “shock.”
+5. Continue until the person moves, breathes normally, or EMS takes over.
 
 ## What Arnold Alert does (and does not)
 
@@ -26,13 +117,13 @@ Tell IC and the office what happened as soon as practical — they handle crowd,
 | Logs who triggered a code | Does **not** dispatch an ambulance |
 | Can page the building (9090 → Alert Page) | PA is **not** for “medic in room 3” — use phones / runners |
 
-A campus code is only for **building-wide** response. A person collapsing in one classroom usually does **not** need horns.
+A person collapsing in one classroom usually does **not** need horns.
 
 ## Equipment on campus
 
-**AEDs and first-aid kits are marked on the floor maps** — Level 1 and Level 2. Use the nearest unit shown on your room’s [evacuation poster](/classroom/room-posters/), or check the floor plan posted in the hallway.
+**AEDs and first-aid kits are marked on the floor maps** — Level 1 and Level 2. Use the nearest unit on your room’s [evacuation poster](/classroom/room-posters/), or the hallway floor plan.
 
-Do not rely on a written address alone — the map pin is the source of truth.
+Map pins are the source of truth — not a guessed hallway description.
 
 ## Policy
 
@@ -50,10 +141,11 @@ Do not rely on a written address alone — the map pin is the source of truth.
 
 ### On scene
 
-- [ ] Assess — conscious? breathing? major bleeding?
+- [ ] Assess — conscious? breathing? major bleeding? stroke signs (FAST)?
 - [ ] Call **911** (or direct someone to call)
-- [ ] Start CPR / AED if trained and appropriate
-- [ ] Protect privacy — keep crowd back; one spokesperson for EMS
+- [ ] Start the matching steps above (pressure / CPR / AED / protect during seizure)
+- [ ] Meet EMS at the main entrance
+- [ ] Protect privacy — crowd back; one person talks to EMS
 
 ### Leadership / IC
 
@@ -72,3 +164,4 @@ Do not rely on a written address alone — the map pin is the source of truth.
 - [Quick reference](/quick-reference/) — 911 first
 - [Roles & responsibilities](/roles/) — IC when a campus code is in question
 - [Codes overview](/codes/overview/) — Red / Blue / all clear only
+- [Room posters](/classroom/room-posters/) — AED / first-aid pins on the map
