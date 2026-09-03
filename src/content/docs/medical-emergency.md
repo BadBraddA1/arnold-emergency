@@ -7,7 +7,7 @@ A **medical emergency** is when someone is seriously hurt or ill — chest pain,
 
 This is **not** Code Red or Code Blue. Horns do not call 911. Most medical events stay **in the room** until EMS arrives.
 
-**First aid below is until professionals take over.** Prefer trained CPR/AED volunteers when they are nearby. Always follow **911 dispatcher** instructions if they conflict with this page.
+**First aid below is until professionals take over.** Prefer **CPR/AED-certified** people when they are nearby. If you are **not certified**, do **not** attempt full CPR (breaths + compressions) or guess the technique — call **911**, send for the **AED**, and follow the dispatcher (hands-only chest compressions only if they tell you to). Always follow **911 dispatcher** instructions if they conflict with this page.
 
 ## Jump to
 
@@ -105,9 +105,10 @@ You cannot reverse a stroke in the building — **speed to hospital** is the tre
 
 1. Call **911** — put the phone on speaker.
 2. Send someone for the nearest **AED** ([maps](#equipment-on-campus)).
-3. Start **CPR**: hard, fast compressions in the center of the chest (about 100–120/min). Let the chest come back up. Trained rescuers add breaths; untrained may do **hands-only CPR** until the AED or EMS arrives.
-4. Turn the **AED on** and follow the voice prompts. Bare the chest; attach pads as shown. Do not touch the person when it says “shock.”
-5. Continue until the person moves, breathes normally, or EMS takes over.
+3. **If you are CPR-certified:** start CPR — hard, fast compressions in the center of the chest (about 100–120/min), let the chest come back up, and add breaths per your training.
+4. **If you are not certified:** do **not** improvise breaths or “half” CPR. Stay on the line with **911**, put the phone on speaker, and do **hands-only** compressions **only if the dispatcher directs you**. Hand off immediately when a certified rescuer or AED-trained person arrives.
+5. Turn the **AED on** and follow the voice prompts (anyone can use an AED — open it and listen). Bare the chest; attach pads as shown. Do not touch the person when it says “shock.”
+6. Continue until the person moves, breathes normally, EMS takes over, or a certified rescuer relieves you.
 
 ## What Arnold Alert does (and does not)
 
