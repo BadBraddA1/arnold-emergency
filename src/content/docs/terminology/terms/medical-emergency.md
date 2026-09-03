@@ -6,7 +6,7 @@ description: Serious illness or injury (not a campus code)
 
 ## What it means
 
-Events like chest pain, seizure, major fall, or unresponsive person — handled with **911** and on-scene first aid. Usually **does not** use Code Red or Code Blue unless IC orders a building-wide response.
+Events like chest pain, stroke signs (FAST), severe bleeding, choking, seizure, or unresponsive person — handled with **911** and on-scene first aid. Usually **does not** use Code Red or Code Blue unless IC orders a building-wide response. Full steps: [medical emergency](/medical-emergency/).
 
 ## How to use this term
 
